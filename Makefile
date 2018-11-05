@@ -37,11 +37,9 @@ $(LIBGLFW3):
 	@echo "\033[32mOK\033[0m"
 
 $(LIBGLAD):
-	@echo "\033[37mCreating glad directory\033[0m"
 	@$(MKDIR) $(LIBGLAD)
-	@echo "\033[32mOK\033[0m"
 	@echo "\033[37mdownloading and extracting glad sources [...]\033[0m"
-	@cd $(LIBGLAD) && wget https://glad.dav1d.de/generated/tmp0_frFwglad/glad.zip $(TRASH) && unzip glad.zip $(TRASH)
+	@cd $(LIBPATH) && wget https://glad.dav1d.de/generated/tmp0_frFwglad/glad.zip $(TRASH) && unzip -d $(LIBGLAD) glad.zip $(TRASH)
 	@echo "\033[32mOK\033[0m"
 	@mv $(LIBGLAD)/src/glad.c $(LIBGLAD)/src/glad.cpp
  
