@@ -76,16 +76,20 @@ int	main()
 
 	
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-//	float			t;
-//	glm::vec2	vt;
+	float			t = glfwGetTime();
+	Vec			Col(cos(t), 0.5f, sin(t));
+	Vec	&		col = Col; 
+
 	objShad.use();
 	while(!glfwWindowShouldClose(e.w))
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 //		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//		t = (float)glfwGetTime();	
-//		vt = glm::vec2(cos(t), sin(t));
-		//std::cout << t << std::endl;
+		t = glfwGetTime();	
+		std::cout << t << std::endl;
+		col.coord[0] = cos(t);
+		col.coord[2] =  sin(t);
+		objShad.setUVec3("col", col);
 	
 	
 	//	liCol = glm::vec3(abs(vt.x), vt.x + vt.y, abs(vt.y));

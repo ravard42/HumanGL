@@ -8,6 +8,8 @@
 #include <sstream>
 #include <iostream>
 
+#include "Vec.hpp"
+
 class Shader {
 
 private:
@@ -24,7 +26,7 @@ public:
 	~Shader( void );
 
 	void	use( void ) const;
-//	void	setUVec3( const std::string &name, glm::vec3 v ) const;
+	void	setUVec3( const std::string &name, Vec & v ) const;
 //	void	setUMat3( const std::string &name, glm::mat3 m ) const;
 //	void	setUMat4( const std::string &name, glm::mat4 m ) const;
 	

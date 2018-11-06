@@ -52,6 +52,7 @@ OBJGLAD = $(LIBGLAD)/src/glad.opp
 SRC = main.cpp\
 		init.cpp\
 		event.cpp\
+		Vec.cpp\
 		Shader.cpp\
 		#Camera.cpp
 OBJ = $(patsubst %.cpp, $(OBJPATH)/%.opp, $(SRC)) 

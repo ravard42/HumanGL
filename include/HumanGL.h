@@ -2,6 +2,7 @@
 # define HUMANGL_HPP
 
 # include <iostream>
+# include <math.h>
 
 # include "glad/glad.h"
 # include "glfw3.h"
@@ -17,6 +18,7 @@
 # define WINY 640
 
 
+# include "Vec.hpp"
 # include "Shader.hpp"
 //# include "Camera.hpp"
 

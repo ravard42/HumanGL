@@ -8,6 +8,8 @@
 //in			vec3				FragPos;
 //uniform	vec3				viewPos;
 
+uniform		vec3				col;
+
 out vec4 outColor;
 
 void	main()
@@ -25,5 +27,5 @@ void	main()
 //	vec3		specular = specularStrength * spec * lightCol;
 //	
 //	outColor = texture(Texture, TexCoord) * vec4(ambient + diffuse + specular, 1);
-	outColor = vec4(0.0f, 1.0f, 0.0f, 1.0f);
+	outColor = vec4(col, 1.0f);
 }
