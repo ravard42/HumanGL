@@ -24,6 +24,12 @@ Vec3::~Vec3( void ) {
 	std::cout << "Vec3 destructor called" << std::endl;
 }
 
+float &		Vec3::operator[]( int i)
+{
+	if (i < 0 || i > 2)
+		std::cout << "Index out of bounds" << std::endl;
+	return (this->v[i]);
+}
 
 Vec3 &    	Vec3::operator=( Vec3 const & src) {
 	this->v[0] = src.v[0];

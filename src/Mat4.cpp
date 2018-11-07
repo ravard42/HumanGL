@@ -5,6 +5,17 @@ Mat4::Mat4( void ) {
 	this->_identity();
 }
 
+Mat4::Mat4( Vec4 const & a, Vec4 const & b, Vec4 const & c, Vec4 const & d) {
+	int	i = -1;
+
+	while (++i < 4) {
+		this->m[0][i] = a.v[i];
+		this->m[1][i] = b.v[i];
+		this->m[2][i] = c.v[i];
+		this->m[3][i] = d.v[i];
+	}
+}
+
 Mat4::Mat4( std::string str, float fov, float ar, float znear, float zfar) {
 	std::cout << "Mat4 Perspective Projection constructor called" << std::endl;
 	if (!str.compare("Perspective Projection"))
@@ -23,7 +34,6 @@ Mat4::~Mat4( void ) {
 
 
 Mat4 &    	Mat4::operator=( Mat4 const & src) {
-	
 	int	j = -1;
 	int	i;
 
@@ -33,6 +43,38 @@ Mat4 &    	Mat4::operator=( Mat4 const & src) {
 			this->m[j][i] = src.m[j][i];
 	}
 	return (*this);
+}
+
+
+Mat4 &    	Mat4::operator+( Mat4 const & src) {
+	int	j = -1;
+	int	i;
+
+	while (++j < 4) {
+		i = -1;
+		while (++i < 4)
+			this->m[j][i] += src.m[j][i];
+	}
+	return (*this);
+}
+
+Mat4 &    	Mat4::operator*( float k ) {
+	int	j = -1;
+	int	i;
+
+	while (++j < 4) {
+		i = -1;
+		while (++i < 4)
+			this->m[j][i] *= k;
+	}
+	return (*this);
+}
+
+float *		Mat4::operator[]( int j )
+{
+	if ( j < 0 || j > 3 )
+		std::cout << "Index out of bounds" << std::endl;
+	return (this->m[j]);
 }
 
 void		Mat4::_identity( void ) {
@@ -58,6 +100,12 @@ void		Mat4::_perspProj(float fov, float ar, float znear, float zfar) {
 	this->m[3][2] = -2 * znear * zfar / (znear - zfar);
 	this->m[3][3] = 0;
 }
+
+//void		Mat4::_rotation(float radian, Vec3 const & n) {
+//	Mat4	id;
+//	Mat4	p;
+//	Mat4	q;
+//}
 
 std::ostream &		operator<<( std::ostream & o, Mat4 const & rhs ) {
 	int	i = -1;

@@ -12,6 +12,7 @@ public:
 	Vec3(Vec3 const & src);
 	~Vec3( void );
 	Vec3 &		operator=( Vec3 const & src);
+	float &		operator[]( int i );
 
 	float		v[3];
 };

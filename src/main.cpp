@@ -69,6 +69,16 @@ int	main()
 	Mat4	&		proj = Proj;
 	std::cout << proj << std::endl;
 
+	Mat4	m;	
+	m = Mat4(Vec4(1, 0, 0, 0), Vec4(0, 2, 0, 0), Vec4(0, 0, 3, 0), Vec4(0, 0, 0, 4));
+	std::cout << m << std::endl;
+	m[0][2] = 47;
+	std::cout << m << std::endl;
+
+	Vec4	test;
+	test[3] = 42;
+	std::cout << test << std::endl;
+
 	objShad.use();
 	objShad.setMat4("proj", proj);
 	while(!glfwWindowShouldClose(e.w)) {

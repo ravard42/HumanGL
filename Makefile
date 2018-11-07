@@ -53,6 +53,7 @@ SRC = main.cpp\
 		init.cpp\
 		event.cpp\
 		Vec3.cpp\
+		Vec4.cpp\
 		Mat4.cpp\
 		Shader.cpp\
 		#Camera.cpp
