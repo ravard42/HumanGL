@@ -1,14 +1,17 @@
 ﻿#ifndef SHADER_HPP
-#define	SHADER_HPP
+# define	SHADER_HPP
 
 
-#include <glad/glad.h>
+# include <glad/glad.h>
 
-#include <fstream>
-#include <sstream>
-#include <iostream>
+# include <fstream>
+# include <sstream>
+# include <iostream>
+# include <math.h>
 
-#include "Vec.hpp"
+# include "Vec3.hpp"
+# include "Mat4.hpp"
+
 
 class Shader {
 
@@ -26,10 +29,8 @@ public:
 	~Shader( void );
 
 	void	use( void ) const;
-	void	setUVec3( const std::string &name, Vec & v ) const;
-//	void	setUMat3( const std::string &name, glm::mat3 m ) const;
-//	void	setUMat4( const std::string &name, glm::mat4 m ) const;
-	
+	void	setVec3( const std::string &name, Vec3 & v ) const;
+	void 	setMat4(const std::string &name, Mat4 & mat) const;
 };
 
 #endif

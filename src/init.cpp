@@ -10,7 +10,7 @@ int			init_glfw(t_env *e) {
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	//glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-	if (!(e->w = glfwCreateWindow(WINX, WINY, "LearnOpenGL", NULL, NULL))) {
+	if (!(e->w = glfwCreateWindow(WINX, WINY, "HumanGL", NULL, NULL))) {
 		std::cout << "an error occured in glfwCreateWindow() ..." << std::endl;
 		glfwTerminate();
 		return (-1);

@@ -1,20 +1,8 @@
 ﻿#include "HumanGL.h"
 
-//void	printM4(glm::mat4 mat)
-//{
-//	int		i = -1;
-//
-//	std::cout <<"--------------" << std::endl;
-//	while (++i < 4)
-//		std::cout << mat[0][i] << " | " << mat[1][i] << " | " << mat[2][i] << " | " << mat[3][i] << std::endl;
-//	std::cout <<"--------------" << std::endl;
-//}
-
-
 int	main()
 {
 	t_env		e;
-//	Assimp::Importer		import;
 
 	if (init_glfw(&e) == -1 || init_glad() == -1)
 		return (-1);
@@ -23,16 +11,14 @@ int	main()
 
 //	glEnable(GL_DEPTH_TEST);
 //	Shader		liShad("./shader/light/v.glsl", "./shader/light/f.glsl");
-//	Shader		objShad("./shader/object/v.glsl", "./shader/object/f.glsl");
-
 	Shader		objShad("./shader/object/v.glsl", "./shader/object/f.glsl");
-	static float		vertices[] = {-0.5f, -0.5f, 0.0f,
-												-0.5f, 0.5f, 0.0f,
-												0.5f, 0.5f, 0.0f,
-												0.5f, 0.5f, 0.0f,
-												0.5f, -0.5f, 0.0f,
-												-0.5f, -0.5f, 0.0f 
-};
+	static float		vertices[] = {-0.5f, -0.5f, -2.0f,
+												-0.5f, 0.5f, -2.0f,
+												0.5f, 0.5f, -2.0f,
+												0.5f, 0.5f, -2.0f,
+												0.5f, -0.5f, -2.0f,
+												-0.5f, -0.5f, -2.0f 
+							};
 
 
 	GLuint	vao, vbo;
@@ -77,19 +63,21 @@ int	main()
 	
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	float			t = glfwGetTime();
-	Vec			Col(cos(t), 0.5f, sin(t));
-	Vec	&		col = Col; 
+	Vec3			Col(cos(t), 0.5f, sin(t));
+	Vec3	&		col = Col; 
+	Mat4			Proj = Mat4("Perspective Projection", M_PI / 4 , (float)WINX / (float)WINY, -0.1f, -100.0f);
+	Mat4	&		proj = Proj;
+	std::cout << proj << std::endl;
 
 	objShad.use();
-	while(!glfwWindowShouldClose(e.w))
-	{
+	objShad.setMat4("proj", proj);
+	while(!glfwWindowShouldClose(e.w)) {
 		glClear(GL_COLOR_BUFFER_BIT);
 //		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		t = glfwGetTime();	
-		std::cout << t << std::endl;
-		col.coord[0] = cos(t);
-		col.coord[2] =  sin(t);
-		objShad.setUVec3("col", col);
+		col.v[0] = cos(t);
+		col.v[2] =  sin(t);
+		objShad.setVec3("col", col);
 	
 	
 	//	liCol = glm::vec3(abs(vt.x), vt.x + vt.y, abs(vt.y));

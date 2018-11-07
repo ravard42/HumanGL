@@ -79,15 +79,12 @@ void		Shader::use( void ) const {
 	glUseProgram(this->_progID);
 }
 
-void 		Shader::setUVec3(const std::string &name, Vec & v) const { 
-	glUniform3f(glGetUniformLocation(this->_progID,
-		name.c_str()), v.coord[0], v.coord[1], v.coord[2]); 
-} 
+void 		Shader::setVec3(const std::string &name, Vec3 & vec) const { 
+	unsigned int location = glGetUniformLocation(this->_progID, name.c_str());
+	glUniform3f(location, vec.v[0], vec.v[1], vec.v[2]); 
+}
 
-//void 		Shader::setUMat3(const std::string &name, glm::mat3 m) const { 
-//	glUniformMatrix3fv(glGetUniformLocation(this->_progID, name.c_str()), 1, GL_FALSE, glm::value_ptr(m));
-//} 
-//
-//void 		Shader::setUMat4(const std::string &name, glm::mat4 m) const { 
-//	glUniformMatrix4fv(glGetUniformLocation(this->_progID, name.c_str()), 1, GL_FALSE, glm::value_ptr(m));
-//} 
+void 		Shader::setMat4(const std::string &name, Mat4 & mat) const { 
+	unsigned int location = glGetUniformLocation(this->_progID, name.c_str());
+	glUniformMatrix4fv(location, 1, GL_FALSE, &mat.m[0][0]);
+}

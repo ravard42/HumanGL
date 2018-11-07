@@ -39,7 +39,7 @@ $(LIBGLFW3):
 $(LIBGLAD):
 	@$(MKDIR) $(LIBGLAD)
 	@echo "\033[37mdownloading and extracting glad sources [...]\033[0m"
-	@cd $(LIBPATH) && wget https://glad.dav1d.de/generated/tmp0_frFwglad/glad.zip $(TRASH) && unzip -d $(LIBGLAD) glad.zip $(TRASH)
+	@cd $(LIBPATH) && wget https://glad.dav1d.de/generated/tmpzzF4hVglad/glad.zip $(TRASH) && unzip -d $(LIBGLAD) glad.zip $(TRASH)
 	@echo "\033[32mOK\033[0m"
 	@mv $(LIBGLAD)/src/glad.c $(LIBGLAD)/src/glad.cpp
  
@@ -52,7 +52,8 @@ OBJGLAD = $(LIBGLAD)/src/glad.opp
 SRC = main.cpp\
 		init.cpp\
 		event.cpp\
-		Vec.cpp\
+		Vec3.cpp\
+		Mat4.cpp\
 		Shader.cpp\
 		#Camera.cpp
 OBJ = $(patsubst %.cpp, $(OBJPATH)/%.opp, $(SRC)) 

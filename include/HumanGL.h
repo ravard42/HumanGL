@@ -18,7 +18,8 @@
 # define WINY 640
 
 
-# include "Vec.hpp"
+# include "Vec3.hpp"
+# include "Mat4.hpp"
 # include "Shader.hpp"
 //# include "Camera.hpp"
 
