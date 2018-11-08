@@ -1,27 +1,27 @@
 ﻿#include "Vec3.hpp"
 
 Vec3::Vec3( void ) {
-	std::cout << "Vec3 constructor called" << std::endl;
+//	std::cout << "Vec3 constructor called" << std::endl;
 	v[0] = 0;
 	v[1] = 0;
 	v[2] = 0;
 }
 
 Vec3::Vec3( float x, float y, float z ) {
-	std::cout << "Vec3 parametric constructor called" << std::endl;
+//	std::cout << "Vec3 parametric constructor called" << std::endl;
 	v[0] = x;
 	v[1] = y;
 	v[2] = z;
 }
 
 Vec3::Vec3(Vec3 const  & src) {
-	std::cout << "Vec3 copy constructor called" << std::endl;
+//	std::cout << "Vec3 copy constructor called" << std::endl;
 	*this = src;
 }
 
 
 Vec3::~Vec3( void ) {
-	std::cout << "Vec3 destructor called" << std::endl;
+//	std::cout << "Vec3 destructor called" << std::endl;
 }
 
 float &		Vec3::operator[]( int i)

@@ -9,7 +9,7 @@ int	main()
 
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
-//	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST);
 //	Shader		liShad("./shader/light/v.glsl", "./shader/light/f.glsl");
 	Shader		objShad("./shader/object/v.glsl", "./shader/object/f.glsl");
 	static float		vertices[] = {-0.5f, -0.5f, -2.0f,
@@ -63,31 +63,25 @@ int	main()
 	
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	float			t = glfwGetTime();
-	Vec3			Col(cos(t), 0.5f, sin(t));
-	Vec3	&		col = Col; 
-	Mat4			Proj = Mat4("Perspective Projection", M_PI / 4 , (float)WINX / (float)WINY, -0.1f, -100.0f);
-	Mat4	&		proj = Proj;
-	std::cout << proj << std::endl;
-
-	Mat4	m;	
-	m = Mat4(Vec4(1, 0, 0, 0), Vec4(0, 2, 0, 0), Vec4(0, 0, 3, 0), Vec4(0, 0, 0, 4));
-	std::cout << m << std::endl;
-	m[0][2] = 47;
-	std::cout << m << std::endl;
-
-	Vec4	test;
-	test[3] = 42;
-	std::cout << test << std::endl;
+	Vec3			col; 
+	Mat4			proj = Mat4("Perspective Projection", M_PI / 4 , (float)WINX / (float)WINY, -0.1f, -100.0f);
+	Mat4			model;
+	Mat4			sc = Mat4("Scale", Vec3(1.0f, 2.0f, 1.0f));
+	Mat4			rot;
+	Mat4			trans = Mat4("Translation", Vec3(0.5f, 0.0f, 0.0f));
+	Vec3			n = Vec3(0.0f,0.0f,1.0f);
 
 	objShad.use();
 	objShad.setMat4("proj", proj);
 	while(!glfwWindowShouldClose(e.w)) {
-		glClear(GL_COLOR_BUFFER_BIT);
-//		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		t = glfwGetTime();	
-		col.v[0] = cos(t);
-		col.v[2] =  sin(t);
+		col[0] = abs(cos(t));
+		col[2] =  abs(sin(t));
 		objShad.setVec3("col", col);
+		rot.rotation(float(t), n);
+		model = trans * rot * sc;
+		objShad.setMat4("model", model);
 	
 	
 	//	liCol = glm::vec3(abs(vt.x), vt.x + vt.y, abs(vt.y));

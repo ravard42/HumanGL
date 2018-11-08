@@ -1,7 +1,7 @@
 ﻿#include "Vec4.hpp"
 
 Vec4::Vec4( void ) {
-	std::cout << "Vec4 constructor called" << std::endl;
+//	std::cout << "Vec4 constructor called" << std::endl;
 	v[0] = 0;
 	v[1] = 0;
 	v[2] = 0;
@@ -9,7 +9,7 @@ Vec4::Vec4( void ) {
 }
 
 Vec4::Vec4( float x, float y, float z, float w ) {
-	std::cout << "Vec4 parametric constructor called" << std::endl;
+//	std::cout << "Vec4 parametric constructor called" << std::endl;
 	v[0] = x;
 	v[1] = y;
 	v[2] = z;
@@ -17,13 +17,13 @@ Vec4::Vec4( float x, float y, float z, float w ) {
 }
 
 Vec4::Vec4(Vec4 const  & src) {
-	std::cout << "Vec4 copy constructor called" << std::endl;
+//	std::cout << "Vec4 copy constructor called" << std::endl;
 	*this = src;
 }
 
 
 Vec4::~Vec4( void ) {
-	std::cout << "Vec4 destructor called" << std::endl;
+//	std::cout << "Vec4 destructor called" << std::endl;
 }
 
 float &		Vec4::operator[]( int i)
