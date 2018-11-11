@@ -56,15 +56,17 @@ Vec3     	Vec3::operator*( float k ) const {
 	}
 	return (ret);
 }
+
+float			Vec3::getNorm( void ) const {
+	return sqrt(pow(this->v[0], 2) + pow(this->v[1], 2) + pow(this->v[2], 2));
+}
 	
 Vec3	&		Vec3::normalize( void ) {
-	float		norm = sqrt(pow(this->v[0], 2)
-					+ pow(this->v[1], 2)
-					+ pow(this->v[2], 2));
+	float norm = this->getNorm();
 
-	*this = *this * (1 / norm);
+	*this = (norm != 0.0f) ? *this * (1 / norm) : *this;
 	return *this;
-};
+}
 
 std::ostream &		operator<<( std::ostream & o, Vec3 const & rhs ) {
 

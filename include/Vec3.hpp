@@ -18,6 +18,7 @@ public:
 	Vec3			operator*( float k ) const;
 
 	float		v[3];
+	float		getNorm( void ) const;
 	Vec3	&	normalize( void );
 };
 

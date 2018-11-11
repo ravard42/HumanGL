@@ -12,12 +12,12 @@ int	main()
 	glEnable(GL_DEPTH_TEST);
 //	Shader		liShad("./shader/light/v.glsl", "./shader/light/f.glsl");
 	Shader		objShad("./shader/object/v.glsl", "./shader/object/f.glsl");
-	static float		vertices[] = {-0.5f, -0.5f, -2.0f,
-												-0.5f, 0.5f, -2.0f,
-												0.5f, 0.5f, -2.0f,
-												0.5f, 0.5f, -2.0f,
-												0.5f, -0.5f, -2.0f,
-												-0.5f, -0.5f, -2.0f 
+	static float		vertices[] = {-0.5f, -0.5f, -5.0f,
+												-0.5f, 0.5f, -5.0f,
+												0.5f, 0.5f, -5.0f,
+												0.5f, 0.5f, -5.0f,
+												0.5f, -0.5f, -5.0f,
+												-0.5f, -0.5f, -5.0f 
 							};
 
 

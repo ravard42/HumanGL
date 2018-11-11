@@ -6,6 +6,7 @@
 # include "Vec2.hpp"
 # include "Vec3.hpp"
 # include "Vec4.hpp"
+# include "Mat3.hpp"
 # include "Mat4.hpp"
 
 # define X_POS 68
@@ -19,6 +20,7 @@
 #define NB_KEY 7
 
 #define SPEED	0.03
+#define ROTSPEED 0.02
 
 class Camera {
 
@@ -27,15 +29,16 @@ private:
 	char						_keyEvent;
 
 	float					_speed;
-	Mat4					_trans;
-	Mat4					_base;
+	Vec3					_pos;
+	Mat3					_base3;
+	Mat4					_base4;
 	bool					_firstMouse;	
 	Vec2					_lastMousePos;
-	float					_sensitivity;
 	Vec2					_mouseVector;
 	float					_fov;
 
-	void				_newTrans( void );
+	//void				_newTrans( void );
+	void				_newPos( void );
 	void				_newBase( void );
 
 public:

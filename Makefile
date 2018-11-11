@@ -58,6 +58,7 @@ SRC = main.cpp\
 		Vec2.cpp\
 		Vec3.cpp\
 		Vec4.cpp\
+		Mat3.cpp\
 		Mat4.cpp\
 		Shader.cpp\
 		Camera.cpp\

@@ -62,11 +62,16 @@ Vec4     	Vec4::operator*( float k ) const {
 	return (ret);
 }
 
+float			Vec4::getNorm( void ) const {
+	return sqrt(pow(this->v[0], 2)
+			+ pow(this->v[1], 2)
+			+ pow(this->v[2], 2)
+			+ pow(this->v[3], 2));
+}
+	
 Vec4	&		Vec4::normalize( void ) {
-	float		norm = sqrt(pow(this->v[0], 2)
-					+ pow(this->v[1], 2)
-					+ pow(this->v[2], 2)
-					+ pow(this->v[3], 2));
+	float norm = this->getNorm();
+
 	*this = (norm != 0.0f) ? *this * (1 / norm) : *this;
 	return *this;
 };

@@ -1,39 +1,58 @@
 #include "Camera.hpp"
 
-Camera::Camera( void ) : _keyEvent(0), _speed(SPEED), _firstMouse(true), _sensitivity(0.2f), _fov(45.0f) {
+Camera::Camera( void ) : _keyEvent(0), _speed(SPEED), _firstMouse(true), _fov(45.0f) {
 	std::cout << "Camera default constructor called" << std::endl;
-	this->_trans = Mat4("Translation", Vec3(0.0f, 0.0f, -5.0f));	
+	this->_pos = Vec3(0.0f, 0.0f, 5.0f);	
 }
 
 Camera::~Camera( void ) {
 	std::cout << "Camera destructor called" << std::endl;
 }
 
-void			Camera::_newTrans( void ) {
-	Vec3		xyz((float)((bool)(this->_keyEvent & 1) - (bool)(this->_keyEvent & 2))
+//void			Camera::_newTrans( void ) {
+//	Vec4		xyz((float)((bool)(this->_keyEvent & 1) - (bool)(this->_keyEvent & 2))
+//					, (float)((bool)(this->_keyEvent & 4) - (bool)(this->_keyEvent & 8))
+//					, (float)((bool)(this->_keyEvent & 16) - (bool)(this->_keyEvent & 32))
+//					, 0);
+////	Vec4		transVec = (this->_base[0] * xyz[0] + this->_base[1] * xyz[1] + this->_base[2] * xyz[2]);
+////	transVec.normalize();
+//	this->_speed = (this->_keyEvent & 64) ? 3 * SPEED : SPEED;
+////	transVec = transVec * this->_speed;
+////	this->_trans[3][0] -= transVec[0];
+////	this->_trans[3][1] -= transVec[1];
+////	this->_trans[3][2] -= transVec[2];
+//
+////	this->_trans = Mat4("Translate", xyz * this->_speed) * this->_trans;
+//	this->_trans[3] = this->_trans[3] + xyz * -this->_speed; 
+//}
+
+void			Camera::_newPos( void ) {
+	Vec3		mouv((float)((bool)(this->_keyEvent & 1) - (bool)(this->_keyEvent & 2))
 					, (float)((bool)(this->_keyEvent & 4) - (bool)(this->_keyEvent & 8))
 					, (float)((bool)(this->_keyEvent & 16) - (bool)(this->_keyEvent & 32)));
-	Vec4		transVec = (this->_base[0] * xyz[0] + this->_base[1] * xyz[1] + this->_base[2] * xyz[2]);
-	transVec.normalize();
 	this->_speed = (this->_keyEvent & 64) ? 3 * SPEED : SPEED;
-	transVec = transVec * this->_speed;
-	this->_trans[3][0] -= transVec[0];
-	this->_trans[3][1] -= transVec[1];
-	this->_trans[3][2] -= transVec[2];
+	this->_pos = this->_pos
+					+ this->_base3[0] * mouv[0] * this->_speed
+					+ this->_base3[1] * mouv[1] * this->_speed
+					+ this->_base3[2] * mouv[2] * this->_speed;
 }
-//
-//void			Camera::_newBase( void ) {
-//	glm::vec3	rot;
-//
-//	
-//	rot = -this->_mouseVector.x * glm::vec3(0.0f, 1.0f, 0.0f);
-//	if (!glm::isNull(rot, 0.5f))
-//		this->_base = glm::rotate(glm::mat4(), glm::radians(this->_sensitivity) * glm::length(rot), glm::normalize(rot)) * this->_base;
-//	rot = this->_mouseVector.y * this->_base[0].xyz();
-//	if (!glm::isNull(rot, 0.5f))
-//		this->_base = glm::rotate(glm::mat4(), glm::radians(this->_sensitivity) * glm::length(rot), glm::normalize(rot)) * this->_base;
-//	this->_mouseVector = glm::vec2(0.0f, 0.0f);
-//}
+
+void			Camera::_newBase( void ) {
+	Vec3	rotVec;
+
+	
+	if (this->_mouseVector[0]) {
+		this->_base4 = Mat4("Rotation", ROTSPEED * -this->_mouseVector[0], Vec3(0.0f, 1.0f, 0.0f)) * this->_base4;
+		this->_base3 = Mat3(this->_base4);
+	}
+//	if (this->_mouseVector[1]) {
+//		this->_base4 = Mat4("Rotation", ROTSPEED * this->_mouseVector[1], this->_base3[0]) * this->_base4;
+//		this->_base3 = Mat3(this->_base4);
+//	}
+	this->_mouseVector[0] = 0.0f;
+	this->_mouseVector[1] = 0.0f;
+
+}
 
 void			Camera::setKeyEvent( int key ) {
 	int		i = -1;
@@ -80,10 +99,14 @@ float			Camera::getFov( void ) const {
 Mat4			Camera::setView( void ) {
 	Mat4	view;
 
-	this->_newTrans();
-	view = this->_trans;
-	//this->_newBase();
-	//view = glm::transpose(this->_base) * this->_trans;
+	this->_newBase();
+	this->_newPos();
+
+	view = this->_base4.transpose() * Mat4("Translation", this->_pos * -1);
+
+	
+	//view = this->_base4.transpose();
+//	view = this->_base *  this->_trans;
 	return ( view );
 }
 	

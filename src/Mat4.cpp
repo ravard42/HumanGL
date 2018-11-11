@@ -136,13 +136,8 @@ Mat4 &		Mat4::zero( void ) {
 
 Mat4 &		Mat4::identity( void ) {
 	int	j = -1;
-	int	i;
 
-	while (++j < 4) {
-		i = -1;
-		while (++i < 4)
-			this->m[j][i] = 0;
-	}
+	this->zero();
 	j = -1;
 	while (++j < 4)
 		this->m[j][j] = 1;
@@ -187,6 +182,7 @@ Mat4 &		Mat4::rotation(float radian, Vec3 const & rotVec) {
 
 Mat4 &		Mat4::translation(Vec3 const & trVec) {
 	float	const *tr = trVec.v;
+	
 	this->identity();
 	(*this)[3][0] += tr[0];
 	(*this)[3][1] += tr[1];
@@ -194,20 +190,17 @@ Mat4 &		Mat4::translation(Vec3 const & trVec) {
 	return *this;
 }
 
-Mat4 &	Mat4::transpose( void ) {
+Mat4 			Mat4::transpose( void ) {
 	int	i = 0;
 	int	j;
-	float tmp;
+	Mat4	ret;
 
 	while (++i < 4) {
 		j = -1;
-		while (++j < i) {
-			tmp = m[j][i];
-			m[j][i] = m[i][j];
-			m[i][j] = tmp;
-		}
+		while (++j < 4)
+			ret[i][j] = m[j][i];
 	}
-	return *this;
+	return ret;
 }
 
 std::ostream &		operator<<( std::ostream & o, Mat4 const & rhs ) {

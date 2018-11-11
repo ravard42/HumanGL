@@ -32,7 +32,7 @@ public:
 	Mat4	&	scale(Vec3 const & sc);
 	Mat4	&	rotation(float radian, Vec3 const & n);
 	Mat4	&	translation(Vec3 const & tr);
-	Mat4	&	transpose( void );
+	Mat4		transpose( void );
 };
 
 std::ostream &		operator<<( std::ostream & o, Mat4 const & rhs );
