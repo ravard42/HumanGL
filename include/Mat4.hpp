@@ -20,18 +20,19 @@ public:
 	Mat4(Mat4 const & src );
 	~Mat4( void );
 	Mat4	&		operator=( Mat4 const & src );
-	float *		operator[]( int j );
+	Vec4	&		operator[]( int j );
 	Mat4			operator+( Mat4 const & src ) const;
 	Mat4			operator*( Mat4 const & src ) const;
 	Mat4			operator*( float k ) const;
 
-	float		m[4][4];
-	void		zero( void );
-	void		identity( void );
-	void		perspProj(float fov, float ar, float znear, float zfar);
-	void		scale(Vec3 const & sc);
-	void		rotation(float radian, Vec3 const & n);
-	void		translation(Vec3 const & tr);
+	Vec4		m[4];
+	Mat4	&	zero( void );
+	Mat4	&	identity( void );
+	Mat4	&	perspProj(float fov, float ar, float znear, float zfar);
+	Mat4	&	scale(Vec3 const & sc);
+	Mat4	&	rotation(float radian, Vec3 const & n);
+	Mat4	&	translation(Vec3 const & tr);
+	Mat4	&	transpose( void );
 };
 
 std::ostream &		operator<<( std::ostream & o, Mat4 const & rhs );

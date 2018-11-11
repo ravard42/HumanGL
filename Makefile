@@ -14,6 +14,9 @@ LIBPATH =	$(ROOT)/lib
 LIBGLFW3 =  $(LIBPATH)/glfw-3.2.1
 LIBGLAD =  $(LIBPATH)/glad
 
+DLGLFW3 = https://github.com/glfw/glfw/releases/download/3.2.1/glfw-3.2.1.zip
+DLGLAD = https://glad.dav1d.de/generated/tmpk2KvKxglad/glad.zip
+
 FLAGS = -Wall -Wextra -Werror
 INCL = -I $(LIBGLFW3)/include/GLFW -I $(LIBGLAD)/include -I $(INCLPATH)
 LIB = -L $(LIBGLFW3)/src -lglfw3 -framework AppKit -framework IOKit -framework CoreVideo
@@ -30,7 +33,7 @@ $(LIBPATH):
 
 $(LIBGLFW3):
 	@echo "\033[37mDownloading and extracting glfw3 sources [...]\033[0m"
-	@cd $(LIBPATH) && wget https://github.com/glfw/glfw/releases/download/3.2.1/glfw-3.2.1.zip $(TRASH) && unzip glfw-3.2.1.zip $(TRASH)
+	@cd $(LIBPATH) && wget $(DLGLFW3) $(TRASH) && unzip glfw-3.2.1.zip $(TRASH)
 	@echo "\033[32mOK\033[0m"
 	@echo "\033[37minstalling glfw3 [...] (hopefully few seconds)\033[0m"
 	@cd $(LIBGLFW3) && Cmake ./ $(TRASH) && make -j8 $(TRASH)
@@ -39,7 +42,7 @@ $(LIBGLFW3):
 $(LIBGLAD):
 	@$(MKDIR) $(LIBGLAD)
 	@echo "\033[37mdownloading and extracting glad sources [...]\033[0m"
-	@cd $(LIBPATH) && wget https://glad.dav1d.de/generated/tmpzzF4hVglad/glad.zip $(TRASH) && unzip -d $(LIBGLAD) glad.zip $(TRASH)
+	@cd $(LIBPATH) && wget $(DLGLAD) $(TRASH) && unzip -d $(LIBGLAD) glad.zip $(TRASH)
 	@echo "\033[32mOK\033[0m"
 	@mv $(LIBGLAD)/src/glad.c $(LIBGLAD)/src/glad.cpp
  
@@ -52,11 +55,13 @@ OBJGLAD = $(LIBGLAD)/src/glad.opp
 SRC = main.cpp\
 		init.cpp\
 		event.cpp\
+		Vec2.cpp\
 		Vec3.cpp\
 		Vec4.cpp\
 		Mat4.cpp\
 		Shader.cpp\
-		#Camera.cpp
+		Camera.cpp\
+
 OBJ = $(patsubst %.cpp, $(OBJPATH)/%.opp, $(SRC)) 
 
 $(NAME): $(OBJGLAD) $(OBJ)

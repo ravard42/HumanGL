@@ -56,23 +56,26 @@ Mat4::~Mat4( void ) {
 }
 
 
-Mat4 &    	Mat4::operator=( Mat4 const & src) {
+Mat4 &    	Mat4::operator=( Mat4 const &  src) {
 	int	j = -1;
 	int	i;
 
 	while (++j < 4) {
 		i = -1;
 		while (++i < 4)
-			this->m[j][i] = src.m[j][i];
+			this->m[j][i] = src.m[j].v[i];
 	}
 	return (*this);
 }
 
-float *		Mat4::operator[]( int j )
+Vec4	&		Mat4::operator[]( int j )
 {
-	if ( j < 0 || j > 3 )
-		std::cout << "Index out of bounds" << std::endl;
-	return (this->m[j]);
+	if ( j < 0 || j > 3 ) {
+		std::cout << "Index out of bounds, first data sendt" << std::endl;
+		return this->m[0];
+	}
+	else
+		return this->m[j];
 }
 
 
@@ -84,7 +87,7 @@ Mat4     	Mat4::operator+( Mat4 const & src) const {
 	while (++j < 4) {
 		i = -1;
 		while (++i < 4)
-			ret[j][i] = this->m[j][i] + src.m[j][i];
+			ret[j][i] = this->m[j].v[i] + src.m[j].v[i];
 	}
 	return (ret);
 }
@@ -99,7 +102,7 @@ Mat4			Mat4::operator*( Mat4 const & src ) const {
 		while (++j < 4) {
 			k = -1;
 			while (++k < 4) 
-				ret[j][i] += this->m[k][i] * src.m[j][k];
+				ret[j][i] += this->m[k].v[i] * src.m[j].v[k];
 		}
 	}
 	return ret;
@@ -113,13 +116,13 @@ Mat4     	Mat4::operator*( float k ) const {
 	while (++j < 4) {
 		i = -1;
 		while (++i < 4)
-			ret[j][i] = k * this->m[j][i];
+			ret[j].v[i] = k * this->m[j].v[i];
 	}
 	return (ret);
 }
 
 
-void		Mat4::zero( void ) {
+Mat4 &		Mat4::zero( void ) {
 	int	j = -1;
 	int	i;
 
@@ -128,9 +131,10 @@ void		Mat4::zero( void ) {
 		while (++i < 4)
 			this->m[j][i] = 0;
 	}
+	return *this;
 }
 
-void		Mat4::identity( void ) {
+Mat4 &		Mat4::identity( void ) {
 	int	j = -1;
 	int	i;
 
@@ -142,9 +146,10 @@ void		Mat4::identity( void ) {
 	j = -1;
 	while (++j < 4)
 		this->m[j][j] = 1;
+	return *this;
 }
 
-void		Mat4::perspProj(float fov, float ar, float znear, float zfar) {
+Mat4 &		Mat4::perspProj(float fov, float ar, float znear, float zfar) {
 	this->identity();
 	this->m[0][0] = 1 / (ar * tan(fov / 2));
 	this->m[1][1] = 1 / tan(fov / 2);
@@ -152,17 +157,19 @@ void		Mat4::perspProj(float fov, float ar, float znear, float zfar) {
 	this->m[2][3] = -1;
 	this->m[3][2] = -2 * znear * zfar / (znear - zfar);
 	this->m[3][3] = 0;
+	return *this;
 }
 
-void		Mat4::scale(Vec3 const & scVec) {
+Mat4 &		Mat4::scale(Vec3 const & scVec) {
 	float	const *sc = scVec.v;
 	this->identity();
 	(*this)[0][0] *= sc[0];
 	(*this)[1][1] *= sc[1];
 	(*this)[2][2] *= sc[2];
+	return *this;
 }
 
-void		Mat4::rotation(float radian, Vec3 const & rotVec) {
+Mat4 &		Mat4::rotation(float radian, Vec3 const & rotVec) {
 	float	const *n = rotVec.v;
 	Mat4	id;
 	Mat4	p = Mat4(Vec4(n[0] * n[0], n[0] * n[1], n[0] * n[2], 0),
@@ -175,14 +182,32 @@ void		Mat4::rotation(float radian, Vec3 const & rotVec) {
 				Vec4(0, 0, 0, 0));
 	*this = id * cos(radian) + p * (1 - cos(radian)) + q * sin(radian);
 	(*this)[3][3] = 1;
+	return *this;
 }
 
-void		Mat4::translation(Vec3 const & trVec) {
+Mat4 &		Mat4::translation(Vec3 const & trVec) {
 	float	const *tr = trVec.v;
 	this->identity();
 	(*this)[3][0] += tr[0];
 	(*this)[3][1] += tr[1];
 	(*this)[3][2] += tr[2];
+	return *this;
+}
+
+Mat4 &	Mat4::transpose( void ) {
+	int	i = 0;
+	int	j;
+	float tmp;
+
+	while (++i < 4) {
+		j = -1;
+		while (++j < i) {
+			tmp = m[j][i];
+			m[j][i] = m[i][j];
+			m[i][j] = tmp;
+		}
+	}
+	return *this;
 }
 
 std::ostream &		operator<<( std::ostream & o, Mat4 const & rhs ) {
@@ -195,7 +220,7 @@ std::ostream &		operator<<( std::ostream & o, Mat4 const & rhs ) {
 		j = -1;
 		while (++j < 4) {
 			std::cout << std::setw(10);
-			o << rhs.m[j][i] << "|";
+			o << rhs.m[j].v[i] << "|";
 		}
 		o << std::endl;
 	}

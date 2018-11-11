@@ -6,13 +6,6 @@
 
 # include "glad/glad.h"
 # include "glfw3.h"
-//# include "stb_image.h"
-//# include "glm.hpp"
-//# include "gtc/matrix_transform.hpp"
-//# include "gtc/type_ptr.hpp"
-//#include "Importer.hpp"
-//#include "scene.h"
-//#include "postprocess.h"
 
 # define WINX 800
 # define WINY 640
@@ -22,12 +15,12 @@
 # include "Vec4.hpp"
 # include "Mat4.hpp"
 # include "Shader.hpp"
-//# include "Camera.hpp"
+# include "Camera.hpp"
 
 typedef struct		s_env {
 
 	GLFWwindow		*w;
-//	Camera			cam;
+	Camera			cam;
 
 }					t_env;
 

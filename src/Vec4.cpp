@@ -26,13 +26,6 @@ Vec4::~Vec4( void ) {
 //	std::cout << "Vec4 destructor called" << std::endl;
 }
 
-float &		Vec4::operator[]( int i)
-{
-	if (i < 0 || i > 3)
-		std::cout << "Index out of bounds" << std::endl;
-	return (this->v[i]);
-}
-
 Vec4 &    	Vec4::operator=( Vec4 const & src) {
 	this->v[0] = src.v[0];
 	this->v[1] = src.v[1];
@@ -41,6 +34,42 @@ Vec4 &    	Vec4::operator=( Vec4 const & src) {
 	return (*this);
 }
 
+float &		Vec4::operator[]( int i)
+{
+	if (i < 0 || i > 3) {
+		std::cout << "Index out of bounds, first data sendt" << std::endl;
+		return this->v[0];
+	}
+	return (this->v[i]);
+}
+
+Vec4     	Vec4::operator+( Vec4 const & src) const {
+	Vec4	ret(0.0f, 0.0f, 0.0f, 0.0f);
+	int	i = -1;
+
+	while (++i < 4)
+			ret[i] = this->v[i] + src.v[i];
+	return (ret);
+}
+	
+Vec4     	Vec4::operator*( float k ) const {
+	Vec4	ret(0.0f, 0.0f, 0.0f, 0.0f);
+	int	i = -1;
+
+	while (++i < 4) {
+			ret[i] = k * this->v[i];
+	}
+	return (ret);
+}
+
+Vec4	&		Vec4::normalize( void ) {
+	float		norm = sqrt(pow(this->v[0], 2)
+					+ pow(this->v[1], 2)
+					+ pow(this->v[2], 2)
+					+ pow(this->v[3], 2));
+	*this = (norm != 0.0f) ? *this * (1 / norm) : *this;
+	return *this;
+};
 
 std::ostream &		operator<<( std::ostream & o, Vec4 const & rhs ) {
 	o << "<---VEC4 PRINTER---->" << std::endl;

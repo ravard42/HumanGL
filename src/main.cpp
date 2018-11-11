@@ -65,6 +65,7 @@ int	main()
 	float			t = glfwGetTime();
 	Vec3			col; 
 	Mat4			proj = Mat4("Perspective Projection", M_PI / 4 , (float)WINX / (float)WINY, -0.1f, -100.0f);
+	Mat4			view;
 	Mat4			model;
 	Mat4			sc = Mat4("Scale", Vec3(1.0f, 2.0f, 1.0f));
 	Mat4			rot;
@@ -72,17 +73,23 @@ int	main()
 	Vec3			n = Vec3(0.0f,0.0f,1.0f);
 
 	objShad.use();
-	objShad.setMat4("proj", proj);
 	while(!glfwWindowShouldClose(e.w)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		t = glfwGetTime();	
 		col[0] = abs(cos(t));
 		col[2] =  abs(sin(t));
 		objShad.setVec3("col", col);
+		proj = Mat4("Perspective Projection", e.cam.getFov() * 2 * M_PI / 360 , (float)WINX / (float)WINY, -0.1f, -100.0f);
+		objShad.setMat4("proj", proj);
+		view = e.cam.setView();
+		objShad.setMat4("view", view);
+
+
+
 		rot.rotation(float(t), n);
 		model = trans * rot * sc;
 		objShad.setMat4("model", model);
-	
+
 	
 	//	liCol = glm::vec3(abs(vt.x), vt.x + vt.y, abs(vt.y));
 	//	liPos = glm::vec3(vt.y * 3.0f, 1.0f, vt.x * 3.0f);
@@ -110,6 +117,7 @@ int	main()
 		glfwPollEvents();
 
 	}
+
 
 	//glDeleteVertexArrays(1, &liVao);
 	glDeleteVertexArrays(1, &vao);

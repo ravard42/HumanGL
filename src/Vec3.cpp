@@ -24,13 +24,6 @@ Vec3::~Vec3( void ) {
 //	std::cout << "Vec3 destructor called" << std::endl;
 }
 
-float &		Vec3::operator[]( int i)
-{
-	if (i < 0 || i > 2)
-		std::cout << "Index out of bounds" << std::endl;
-	return (this->v[i]);
-}
-
 Vec3 &    	Vec3::operator=( Vec3 const & src) {
 	this->v[0] = src.v[0];
 	this->v[1] = src.v[1];
@@ -38,6 +31,40 @@ Vec3 &    	Vec3::operator=( Vec3 const & src) {
 	return (*this);
 }
 
+float &		Vec3::operator[]( int i)
+{
+	if (i < 0 || i > 2)
+		std::cout << "Index out of bounds" << std::endl;
+	return (this->v[i]);
+}
+
+Vec3     	Vec3::operator+( Vec3 const & src) const {
+	Vec3	ret(0.0f, 0.0f, 0.0f);
+	int	i = -1;
+
+	while (++i < 3)
+			ret[i] = this->v[i] + src.v[i];
+	return (ret);
+}
+	
+Vec3     	Vec3::operator*( float k ) const {
+	Vec3	ret(0.0f, 0.0f, 0.0f);
+	int	i = -1;
+
+	while (++i < 3) {
+			ret[i] = k * this->v[i];
+	}
+	return (ret);
+}
+	
+Vec3	&		Vec3::normalize( void ) {
+	float		norm = sqrt(pow(this->v[0], 2)
+					+ pow(this->v[1], 2)
+					+ pow(this->v[2], 2));
+
+	*this = *this * (1 / norm);
+	return *this;
+};
 
 std::ostream &		operator<<( std::ostream & o, Vec3 const & rhs ) {
 
