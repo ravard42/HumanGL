@@ -17,10 +17,11 @@
 # define Z_NEG 87
 # define TURBO 340
 
-#define NB_KEY 7
+# define NB_KEY 7
 
-#define SPEED	0.03
-#define ROTSPEED 0.02
+# define SPEED	0.03
+# define RUSH	5
+# define ROTSPEED 0.003
 
 class Camera {
 
@@ -37,7 +38,6 @@ private:
 	Vec2					_mouseVector;
 	float					_fov;
 
-	//void				_newTrans( void );
 	void				_newPos( void );
 	void				_newBase( void );
 

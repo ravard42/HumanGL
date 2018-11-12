@@ -9,29 +9,12 @@ Camera::~Camera( void ) {
 	std::cout << "Camera destructor called" << std::endl;
 }
 
-//void			Camera::_newTrans( void ) {
-//	Vec4		xyz((float)((bool)(this->_keyEvent & 1) - (bool)(this->_keyEvent & 2))
-//					, (float)((bool)(this->_keyEvent & 4) - (bool)(this->_keyEvent & 8))
-//					, (float)((bool)(this->_keyEvent & 16) - (bool)(this->_keyEvent & 32))
-//					, 0);
-////	Vec4		transVec = (this->_base[0] * xyz[0] + this->_base[1] * xyz[1] + this->_base[2] * xyz[2]);
-////	transVec.normalize();
-//	this->_speed = (this->_keyEvent & 64) ? 3 * SPEED : SPEED;
-////	transVec = transVec * this->_speed;
-////	this->_trans[3][0] -= transVec[0];
-////	this->_trans[3][1] -= transVec[1];
-////	this->_trans[3][2] -= transVec[2];
-//
-////	this->_trans = Mat4("Translate", xyz * this->_speed) * this->_trans;
-//	this->_trans[3] = this->_trans[3] + xyz * -this->_speed; 
-//}
-
 void			Camera::_newPos( void ) {
 	Vec3		mouv((float)((bool)(this->_keyEvent & 1) - (bool)(this->_keyEvent & 2))
 					, (float)((bool)(this->_keyEvent & 4) - (bool)(this->_keyEvent & 8))
 					, (float)((bool)(this->_keyEvent & 16) - (bool)(this->_keyEvent & 32)));
 	
-	this->_speed = (this->_keyEvent & 64) ? 3 * SPEED : SPEED;
+	this->_speed = (this->_keyEvent & 64) ? RUSH * SPEED : SPEED;
 	this->_pos = this->_pos
 					+ this->_base3[0] * mouv[0] * this->_speed
 					+ this->_base3[1] * mouv[1] * this->_speed
@@ -108,24 +91,7 @@ Mat4			Camera::setView( void ) {
 
 	this->_newPos();
 	this->_newBase();
-
-
-	std::cout << "XCAM VECTOR" << std::endl;
-	std::cout << this->_base3[0] << std::endl;
-	std::cout << "YCAM VECTOR" << std::endl;
-	std::cout << this->_base3[1] << std::endl;
-	std::cout << "ZCAM VECTOR" << std::endl;
-	std::cout << this->_base3[2] << std::endl;
-
-
 	view = this->_base4.transpose() * Mat4("Translation", this->_pos * -1);
-
-
-	std::cout << "BASE3 & BASE4 & BASE4TRANSPOSE" << std::endl;
-	std::cout << this->_base3 << std::endl;
-	
-	//view = this->_base4.transpose();
-//	view = this->_base *  this->_trans;
 	return ( view );
 }
 	

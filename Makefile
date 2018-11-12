@@ -62,6 +62,7 @@ SRC = main.cpp\
 		Mat4.cpp\
 		Shader.cpp\
 		Camera.cpp\
+		Limb.cpp\
 
 OBJ = $(patsubst %.cpp, $(OBJPATH)/%.opp, $(SRC)) 
 

@@ -9,16 +9,11 @@ int	main()
 
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
-//	Shader		liShad("./shader/light/v.glsl", "./shader/light/f.glsl");
+	
+
 	Shader		objShad("./shader/object/v.glsl", "./shader/object/f.glsl");
-	//static float		vertices[] = {-0.5f, -0.5f, -5.0f,
-	//											-0.5f, 0.5f, -5.0f,
-	//											0.5f, 0.5f, -5.0f,
-	//											0.5f, 0.5f, -5.0f,
-	//											0.5f, -0.5f, -5.0f,
-	//											-0.5f, -0.5f, -5.0f 
-	//						};
 	float vertices[] = {
 		    -0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f,  0.0f, -1.0f,
 		     0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 0.0f,  0.0f, -1.0f, 
@@ -67,7 +62,6 @@ int	main()
 	GLuint	vao, vbo;
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
-
 	
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -78,33 +72,6 @@ int	main()
 	glBindVertexArray(0);
 
 
-//	GLuint	liVao;
-//	glGenVertexArrays(1, &liVao);
-//	glBindVertexArray(liVao);
-//	
-//	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-//	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *)0);
-//	glEnableVertexAttribArray(0);
-//	
-//	glBindVertexArray(0);
-
-
-
-
-//	glm::vec3	liCol;
-//	glm::vec3	liPos;
-//	glm::mat4	liModel;
-//
-//	
-//	glm::vec3	objPos(0.0f, 0.0f, 0.0f);
-//	glm::mat4	objModel;
-//	glm::mat3	objNormalMatrix = glm::transpose(glm::inverse(glm::mat3(objModel)));
-//	objShad.use();
-//	objShad.setUMat4("model", objModel);
-//	objShad.setUMat3("normalMatrix", objNormalMatrix);
-
-	
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	float			t = glfwGetTime();
 	Vec3			col; 
 	Mat4			proj = Mat4("Perspective Projection", M_PI / 4 , (float)WINX / (float)WINY, -0.1f, -100.0f);
@@ -127,31 +94,10 @@ int	main()
 		view = e.cam.setView();
 		objShad.setMat4("view", view);
 
-
-
-		rot.rotation(float(t), n);
+		//rot.rotation(float(t), n);
 		model = trans * rot * sc;
 		objShad.setMat4("model", model);
-
 	
-	//	liCol = glm::vec3(abs(vt.x), vt.x + vt.y, abs(vt.y));
-	//	liPos = glm::vec3(vt.y * 3.0f, 1.0f, vt.x * 3.0f);
-	//	liModel = glm::mat4();
-	//	liModel = glm::translate(liModel, liPos);
-	//	liModel = glm::rotate(liModel, glm::radians(t * 42), glm::vec3(0.0f, 0.0f, 1.0f));
-	//	liModel = glm::scale(liModel, glm::vec3(0.2f));
-	//	liShad.use();
-	//	liShad.setUVec3("Col", liCol);
-	//	liShad.setUMat4("projViewModel", e.cam.setProjViewModel(liModel));
-	//	glBindVertexArray(liVao);
-	//	glDrawArrays(GL_TRIANGLES, 0, 3 * 12);
-	//	glBindVertexArray(0);
-	//	
-	//	objShad.use();
-	//	objShad.setUVec3("lightCol", liCol);
-	//	objShad.setUVec3("lightPos", liPos);
-	//	objShad.setUVec3("viewPos", e.cam.sendViewPos());
-	//	objShad.setUMat4("projViewModel", e.cam.setProjViewModel(objModel));
 		glBindVertexArray(vao);
 		glDrawArrays(GL_TRIANGLES, 0, 3 * 12);
 		glBindVertexArray(0);
@@ -161,11 +107,8 @@ int	main()
 
 	}
 
-
-	//glDeleteVertexArrays(1, &liVao);
 	glDeleteVertexArrays(1, &vao);
 	glDeleteBuffers(1, &vbo);
-	//glDeleteTextures(1, &tex);
 	glfwTerminate();
 	return 0;
 }
