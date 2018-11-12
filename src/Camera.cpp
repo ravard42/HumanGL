@@ -30,6 +30,7 @@ void			Camera::_newPos( void ) {
 	Vec3		mouv((float)((bool)(this->_keyEvent & 1) - (bool)(this->_keyEvent & 2))
 					, (float)((bool)(this->_keyEvent & 4) - (bool)(this->_keyEvent & 8))
 					, (float)((bool)(this->_keyEvent & 16) - (bool)(this->_keyEvent & 32)));
+	
 	this->_speed = (this->_keyEvent & 64) ? 3 * SPEED : SPEED;
 	this->_pos = this->_pos
 					+ this->_base3[0] * mouv[0] * this->_speed
@@ -38,17 +39,23 @@ void			Camera::_newPos( void ) {
 }
 
 void			Camera::_newBase( void ) {
-	Vec3	rotVec;
-
+	Vec3  n;
 	
 	if (this->_mouseVector[0]) {
-		this->_base4 = Mat4("Rotation", ROTSPEED * -this->_mouseVector[0], Vec3(0.0f, 1.0f, 0.0f)) * this->_base4;
+		n = (this->_base3[1][1] >= 0) ?
+			Vec3(0.0f, 1.0f, 0.0f) : Vec3(0.0f, -1.0f, 0.0f);
+		this->_base4 = Mat4("Rotation", ROTSPEED * -this->_mouseVector[0], n)
+			* this->_base4;
+		this->_base4.normalize();
 		this->_base3 = Mat3(this->_base4);
 	}
-//	if (this->_mouseVector[1]) {
-//		this->_base4 = Mat4("Rotation", ROTSPEED * this->_mouseVector[1], this->_base3[0]) * this->_base4;
-//		this->_base3 = Mat3(this->_base4);
-//	}
+	if (this->_mouseVector[1]) {
+		n = this->_base3[0];
+		this->_base4 = Mat4("Rotation", ROTSPEED * this->_mouseVector[1], n)
+			* this->_base4;
+		this->_base4.normalize();
+		this->_base3 = Mat3(this->_base4);
+	}
 	this->_mouseVector[0] = 0.0f;
 	this->_mouseVector[1] = 0.0f;
 
@@ -99,11 +106,23 @@ float			Camera::getFov( void ) const {
 Mat4			Camera::setView( void ) {
 	Mat4	view;
 
-	this->_newBase();
 	this->_newPos();
+	this->_newBase();
+
+
+	std::cout << "XCAM VECTOR" << std::endl;
+	std::cout << this->_base3[0] << std::endl;
+	std::cout << "YCAM VECTOR" << std::endl;
+	std::cout << this->_base3[1] << std::endl;
+	std::cout << "ZCAM VECTOR" << std::endl;
+	std::cout << this->_base3[2] << std::endl;
+
 
 	view = this->_base4.transpose() * Mat4("Translation", this->_pos * -1);
 
+
+	std::cout << "BASE3 & BASE4 & BASE4TRANSPOSE" << std::endl;
+	std::cout << this->_base3 << std::endl;
 	
 	//view = this->_base4.transpose();
 //	view = this->_base *  this->_trans;

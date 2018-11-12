@@ -31,6 +31,7 @@ public:
 	Mat3	&	identity( void );
 	Mat3	&	scale(Vec3 const & sc);
 	Mat3	&	rotation(float radian, Vec3 const & n);
+	Mat3	&	normalize( void );
 	Mat3		transpose( void );
 };
 

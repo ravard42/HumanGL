@@ -116,7 +116,7 @@ Mat4     	Mat4::operator*( float k ) const {
 	while (++j < 4) {
 		i = -1;
 		while (++i < 4)
-			ret[j].v[i] = k * this->m[j].v[i];
+			ret[j][i] = k * this->m[j].v[i];
 	}
 	return (ret);
 }
@@ -146,17 +146,17 @@ Mat4 &		Mat4::identity( void ) {
 
 Mat4 &		Mat4::perspProj(float fov, float ar, float znear, float zfar) {
 	this->identity();
-	this->m[0][0] = 1 / (ar * tan(fov / 2));
-	this->m[1][1] = 1 / tan(fov / 2);
-	this->m[2][2] = (znear + zfar) / (znear - zfar);
-	this->m[2][3] = -1;
-	this->m[3][2] = -2 * znear * zfar / (znear - zfar);
-	this->m[3][3] = 0;
+	(*this)[0][0] = 1 / (ar * tan(fov / 2));
+	(*this)[1][1] = 1 / tan(fov / 2);
+	(*this)[2][2] = (znear + zfar) / (znear - zfar);
+	(*this)[2][3] = -1;
+	(*this)[3][2] = -2 * znear * zfar / (znear - zfar);
+	(*this)[3][3] = 0;
 	return *this;
 }
 
 Mat4 &		Mat4::scale(Vec3 const & scVec) {
-	float	const *sc = scVec.v;
+	Vec3	sc(scVec);
 	this->identity();
 	(*this)[0][0] *= sc[0];
 	(*this)[1][1] *= sc[1];
@@ -165,7 +165,7 @@ Mat4 &		Mat4::scale(Vec3 const & scVec) {
 }
 
 Mat4 &		Mat4::rotation(float radian, Vec3 const & rotVec) {
-	float	const *n = rotVec.v;
+	Vec3	n(rotVec);
 	Mat4	id;
 	Mat4	p = Mat4(Vec4(n[0] * n[0], n[0] * n[1], n[0] * n[2], 0),
 				Vec4(n[1] * n[0], n[1] * n[1], n[1] * n[2], 0),
@@ -180,8 +180,16 @@ Mat4 &		Mat4::rotation(float radian, Vec3 const & rotVec) {
 	return *this;
 }
 
+Mat4 &		Mat4::normalize( void ) {
+	(*this)[0].normalize();
+	(*this)[1].normalize();
+	(*this)[2].normalize();
+	(*this)[3].normalize();
+	return *this;
+}
+
 Mat4 &		Mat4::translation(Vec3 const & trVec) {
-	float	const *tr = trVec.v;
+	Vec3 tr(trVec);
 	
 	this->identity();
 	(*this)[3][0] += tr[0];
@@ -191,7 +199,7 @@ Mat4 &		Mat4::translation(Vec3 const & trVec) {
 }
 
 Mat4 			Mat4::transpose( void ) {
-	int	i = 0;
+	int	i = -1;
 	int	j;
 	Mat4	ret;
 

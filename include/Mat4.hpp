@@ -31,6 +31,7 @@ public:
 	Mat4	&	perspProj(float fov, float ar, float znear, float zfar);
 	Mat4	&	scale(Vec3 const & sc);
 	Mat4	&	rotation(float radian, Vec3 const & n);
+	Mat4	&	normalize( void );
 	Mat4	&	translation(Vec3 const & tr);
 	Mat4		transpose( void );
 };

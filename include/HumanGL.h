@@ -7,8 +7,8 @@
 # include "glad/glad.h"
 # include "glfw3.h"
 
-# define WINX 800
-# define WINY 640
+# define WINX 500
+# define WINY 500
 
 
 # include "Vec3.hpp"

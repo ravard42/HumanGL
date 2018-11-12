@@ -164,6 +164,13 @@ Mat3 &		Mat3::rotation(float radian, Vec3 const & rotVec) {
 	*this = id * cos(radian) + p * (1 - cos(radian)) + q * sin(radian);
 	return *this;
 }
+	
+Mat3 &		Mat3::normalize( void ) {
+	(*this)[0].normalize();
+	(*this)[1].normalize();
+	(*this)[2].normalize();
+	return *this;
+}
 
 Mat3 			Mat3::transpose( void ) {
 	int	i = 0;
