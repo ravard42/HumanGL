@@ -1,10 +1,43 @@
 ﻿#include "Vec3.hpp"
 
 Vec3::Vec3( void ) {
-//	std::cout << "Vec3 constructor called" << std::endl;
+//	std::cout << "Vec3 default constructor called" << std::endl;
 	v[0] = 0;
 	v[1] = 0;
 	v[2] = 0;
+}
+	
+Vec3::Vec3( std::string str ) {
+	if (!str.compare("0")) {
+//		std::cout << "Vec3 Zero constructor called" << std::endl;
+		v[0] = 0;
+		v[1] = 0;
+		v[2] = 0;
+	}
+	else if (!str.compare("1")) {
+//		std::cout << "Vec3 One constructor called" << std::endl;
+		v[0] = 1;
+		v[1] = 1;
+		v[2] = 1;
+	}
+	else if (!str.compare("x")) {
+//		std::cout << "Vec3 X constructor called" << std::endl;
+		v[0] = 1;
+		v[1] = 0;
+		v[2] = 0;
+	}
+	else if (!str.compare("y")) {
+//		std::cout << "Vec3 Y constructor called" << std::endl;
+		v[0] = 0;
+		v[1] = 1;
+		v[2] = 0;
+	}
+	else if (!str.compare("z")) {
+//		std::cout << "Vec3 Z constructor called" << std::endl;
+		v[0] = 0;
+		v[1] = 0;
+		v[2] = 1;
+	}
 }
 
 Vec3::Vec3( float x, float y, float z ) {

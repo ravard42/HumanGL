@@ -14,11 +14,12 @@ private:
 	Vec3				_rot;
 	float				_rad;
 	Vec3				_tr;
+	Vec3				_col;
 
 public:
 
 	Limb( void );
-	Limb( std::string name, Vec3 sc, Vec3 rot, float rad, Vec3 tr);
+	Limb( std::string name, Vec3 sc, Vec3 rot, float rad, Vec3 tr, Vec3 col);
 	Limb(Limb const & src);
 	~Limb( void );
 	Limb &		operator=( Limb const & src);
@@ -28,6 +29,7 @@ public:
 	Vec3			getRot( void ) const;
 	float			getRad( void ) const;
 	Vec3			getTr( void ) const;
+	Vec3			getCol( void ) const;
 };
 
 std::ostream &		operator<<( std::ostream & o, Limb const & rhs );

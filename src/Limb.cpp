@@ -4,8 +4,8 @@ Limb::Limb( void ) : _name("default"){
 //	std::cout << "Limb default constructor called" << std::endl;
 }
 
-Limb::Limb( std::string name, Vec3 sc, Vec3 rot, float rad, Vec3 tr) :
-	_name(name), _sc(sc), _rot(rot), _rad(rad), _tr(tr) {
+Limb::Limb( std::string name, Vec3 sc, Vec3 rot, float rad, Vec3 tr, Vec3 col) :
+	_name(name), _sc(sc), _rot(rot), _rad(rad), _tr(tr), _col(col) {
 //	std::cout << "Limb parametric constructor called" << std::endl;
 }
 	
@@ -24,6 +24,7 @@ Limb &    	Limb::operator=( Limb const & src) {
 	this->_rot = src.getRot();
 	this->_rad = src.getRad();
 	this->_tr = src.getTr();
+	this->_col = src.getCol();
 	return (*this);
 }
 
@@ -47,6 +48,10 @@ Vec3				Limb::getTr( void ) const {
 	return this->_tr;
 }
 
+Vec3				Limb::getCol( void ) const {
+	return this->_col;
+}
+
 
 std::ostream &		operator<<( std::ostream & o, Limb const & rhs ) {
 
@@ -56,6 +61,7 @@ std::ostream &		operator<<( std::ostream & o, Limb const & rhs ) {
 	o << "rotate: " << rhs.getRad() << "radians on =>" << std::endl;
 	o << rhs.getRot() << std::endl;
 	o << "translate: " << rhs.getTr() << std::endl;
+	o << "color: " << rhs.getCol() << std::endl;
 	
 	return o;
 }

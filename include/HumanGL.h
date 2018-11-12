@@ -16,6 +16,7 @@
 # include "Mat4.hpp"
 # include "Shader.hpp"
 # include "Camera.hpp"
+# include "Limb.hpp"
 
 typedef struct		s_env {
 
