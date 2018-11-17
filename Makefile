@@ -15,7 +15,7 @@ LIBGLFW3 =  $(LIBPATH)/glfw-3.2.1
 LIBGLAD =  $(LIBPATH)/glad
 
 DLGLFW3 = https://github.com/glfw/glfw/releases/download/3.2.1/glfw-3.2.1.zip
-DLGLAD = https://glad.dav1d.de/generated/tmpk2KvKxglad/glad.zip
+DLGLAD = https://glad.dav1d.de/generated/tmp2Gq1mQglad/glad.zip
 
 FLAGS = -Wall -Wextra -Werror
 INCL = -I $(LIBGLFW3)/include/GLFW -I $(LIBGLAD)/include -I $(INCLPATH)
@@ -104,10 +104,10 @@ re : fclean all
 
 # Color for c
 #   reset	"\033[0m"
-#   RED  	"\033[37m"
+#   RED  	"\033[31m"
 #   GRN  	"\033[32m"
 #   YEL  	"\033[33m"
-#   BLU  	"\033[32m"
+#   BLU  	"\033[34m"
 #   MAG  	"\033[35m"
 #   CYN  	"\033[36m"
 #   WHT  	"\033[37m"
