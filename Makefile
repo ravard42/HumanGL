@@ -1,15 +1,15 @@
 # NOTE CONCERNANT LES REPETITIONS DES '#'
 # À Travers un exemple :
-#	ici on a 4 rubriques --> #### pour la rubrique 0 de l'intro/défintions/axiomes ( >####< indique le nombre de rubrique total avec inclusion du 0)
-														# pour la rubrique 1
+#	ici on a 4 rubriques --> #### [0] pour la rubrique 0 de l'intro/défintions/axiomes ( >####< indique le nombre de rubrique total avec inclusion du 0)
+														# 1] pour la rubrique 1
 														#
-														## pour la rubrique 2
+														## 2] pour la rubrique 2
 														##
-														### pour la rubrique 3
+														### 3]  pour la rubrique 3
 														###
 
 																					
-#### [0] Définitions & Construct:
+#### [0] Définitions & Construction:
 
 CC = /usr/bin/clang++
 RM = /bin/rm
@@ -38,7 +38,7 @@ INCL = -I $(LIBGLFW3)/include/GLFW -I $(LIBGLAD)/include -I $(INCLPATH)
 LIB = -L $(LIBGLFW3)/src -lglfw3 -framework AppKit -framework IOKit -framework CoreVideo
 
 
-Construct: GLFW&GLAD $(OBJPATH) $(OBJMATHPATH) $(NAME)
+Construction: GLFW&GLAD $(OBJPATH) $(OBJMATHPATH) $(NAME)
 ####
 
 
@@ -69,36 +69,31 @@ $(LIBGLAD):
 #
 
 
-
-## 2] Compilation des sources en .obj
+## 2] Compilation des sources en briques .obj suivi de la  compilation du binaire/executable
 
 $(OBJPATH):
 	@echo "\033[37mCreating ./obj directory and *.obj files [...]\033[0m"
 	@$(MKDIR) $@
 
 $(OBJMATHPATH):
-	@echo "\033[37mCreating ./obj/mathStuff directory and *.obj files in In[...]\033[0m"
+	@echo "\033[37mCreating ./obj/mathStuff directory and mathStuff/*.obj [...]\033[0m"
 	@$(MKDIR) $@
 
 ## 2.a]
 SRCGLAD = $(LIBGLAD)/src/glad.cpp
 OBJGLAD = $(LIBGLAD)/src/glad.opp
-
 $(OBJGLAD): $(SRCGLAD) 
 	@$(CC) -c $< -o $@ $(FLAGS) $(INCL)
-
 
 ## 2.b]
 SRCMATH = Vec2.cpp\
 					Vec3.cpp\
 					Vec4.cpp\
 					Mat3.cpp\
-					Mat4.cpp\
-
+					Mat4.cpp
 OBJMATH = $(patsubst %.cpp, $(OBJMATHPATH)/%.opp, $(SRCMATH))
 $(OBJMATHPATH)/%.opp: $(SRCMATHPATH)/%.cpp 
 	@$(CC) -c $< -o $@ $(FLAGS) $(INCL)
-
 
 ## 2.c]
 SRC = main.cpp\
@@ -106,28 +101,19 @@ SRC = main.cpp\
 		event.cpp\
 		Shader.cpp\
 		Camera.cpp\
-		Limb.cpp\
-#		Vec2.cpp\
-#		Vec3.cpp\
-#		Vec4.cpp\
-#		Mat3.cpp\
-#		Mat4.cpp
-
+		Limb.cpp
 OBJ = $(patsubst %.cpp, $(OBJPATH)/%.opp, $(SRC)) 
 $(OBJPATH)/%.opp: $(SRCPATH)/%.cpp
 	@$(CC) -c $< -o $@ $(FLAGS) $(INCL)
 
 ## 2.d]
-
 $(NAME): $(OBJGLAD) $(OBJ) $(OBJMATH)
 	@echo "\033[32mOK\033[0m"
 	@echo "\033[37mBuilding $@ [...]\033[0m"
 	@$(CC) -o $(NAME) $(OBJGLAD) $(OBJMATH) $(OBJ) $(FLAGS) $(INCL) $(LIB)
-	@echo "\033[36mConstruct is done!\033[0m"
+	@echo "\033[36mConstruction OKKK!\033[0m"
 
 ##
-
-
 
 ### 3] Un peu de rangement
 
@@ -146,7 +132,7 @@ fclean: clean cleanLibs
 	@$(RM) -f $(NAME)
 	@echo "\033[32mOK\033[0m"
 
-re: fclean Construct
+re: fclean Construction
 ###
 
 
@@ -154,8 +140,7 @@ re: fclean Construct
 # $@ = rule's name
 # $^ = all the rule dependencies
 # $< = only the first dependence
-# -j 8 => pour que la lib complie en multi thread ;)
-
+# -j$(sysctl -n hw.physicalcpu)  => pour que la lib complie en multi thread ;)
 
 # Color for c
 #   reset	"\033[0m"
