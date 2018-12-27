@@ -17,6 +17,7 @@
 # include "Shader.hpp"
 # include "Camera.hpp"
 # include "Limb.hpp"
+# include "Human.hpp"
 
 typedef struct		s_env {
 

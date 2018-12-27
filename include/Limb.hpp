@@ -9,14 +9,16 @@ class Limb {
 
 private:
 
-	std::string		_name;
-	Vec3				_sc;
-	Vec3				_rot;
-	float				_rad;
-	Vec3				_tr;
-	Vec3				_col;
+	std::string				_name;
+	Vec3							_sc;
+	Vec3							_rot;
+	float							_rad;
+	Vec3							_tr;
+	Vec3							_col;
 
 public:
+	
+	static Vec3	const	color[];
 
 	Limb( void );
 	Limb( std::string name, Vec3 sc, Vec3 rot, float rad, Vec3 tr, Vec3 col);

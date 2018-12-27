@@ -53,6 +53,8 @@ Vec3				Limb::getCol( void ) const {
 }
 
 
+Vec3 const	Limb::color[] = {Vec3(1.0, 0.0, 0.0), Vec3(0.0, 1.0, 0.0), Vec3(0.0, 0.0, 1.0), Vec3(1.0, 0.0, 1.0)};
+
 std::ostream &		operator<<( std::ostream & o, Limb const & rhs ) {
 
 	o << "<---LIMB PRINTER---->" << std::endl;

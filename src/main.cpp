@@ -82,12 +82,15 @@ int	main()
 	Vec3			blue(0.0f, 0.0f, 1.0f); 
 	Vec3			purple(1.0f, 0.0f, 1.0f); 
 
+	Human	ravard("ravard");
 	Limb	head("head", Vec3(0.17, 0.17, 0.17), Vec3(), 0.0f, Vec3(0, 0.32, 0.0), purple);
 	Limb	lArm("left arm", Vec3(0.07, 0.5, 0.07), Vec3("z"),  -M_PI / 14, Vec3(-0.18f, 0.0f, 0.0f), blue);
 	Limb	rArm("right arm", Vec3(0.07, 0.5, 0.07), Vec3("z"), M_PI / 14, Vec3(0.18f, 0.0f, 0.0f), blue);
 	Limb	chest("chest", Vec3(0.23, 0.5, 0.21), Vec3(), 0.0f, Vec3("0"), green);
 	Limb	lLeg("left leg", Vec3(0.09, 0.5, 0.09), Vec3(), 0.0f, Vec3(-0.07f, -0.5f, 0.0f), red);
 	Limb	rLeg("right leg", Vec3(0.09, 0.5, 0.09), Vec3(), 0.0f, Vec3(0.07f, -0.5f, 0.0f), red);
+
+	std::cout << ravard << std::endl;
 
 
 	objShad.use();
@@ -96,6 +99,7 @@ int	main()
 
 	//	t = glfwGetTime();	
 
+		
 		proj = Mat4("Perspective Projection", e.cam.getFov() * 2 * M_PI / 360 , (float)WINX / (float)WINY, -0.1f, -100.0f);
 		objShad.setMat4("proj", proj);
 		view = e.cam.setView();
