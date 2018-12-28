@@ -4,6 +4,7 @@
 # include <iostream>
 # include <math.h>
 # include "Vec3.hpp"
+# include "Shader.hpp"
 
 class Limb {
 
@@ -17,7 +18,8 @@ private:
 	Vec3							_col;
 
 public:
-	
+
+	static float cube[];	
 	static Vec3	const	color[];
 
 	Limb( void );
@@ -32,6 +34,8 @@ public:
 	float			getRad( void ) const;
 	Vec3			getTr( void ) const;
 	Vec3			getCol( void ) const;
+
+	void			draw( GLuint vao, Shader & shad ) const;
 };
 
 std::ostream &		operator<<( std::ostream & o, Limb const & rhs );

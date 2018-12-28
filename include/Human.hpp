@@ -35,6 +35,8 @@ public:
 	Limb				getChest( void ) const;
 	Limb				getLLeg( void ) const;
 	Limb				getRLeg( void ) const;
+
+	void				draw( GLuint vao, Shader & shad ) const;
 };
 
 std::ostream &		operator<<( std::ostream & o, Human const & rhs );

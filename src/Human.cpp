@@ -56,11 +56,20 @@ Limb					Human::getChest( void ) const {
 }
 
 Limb					Human::getLLeg( void ) const {
-	return this->_lLeg;
-}
+	return this->_lLeg;}
 
 Limb					Human::getRLeg( void ) const {
 	return this->_rLeg;
+}
+
+
+void					Human::draw( GLuint vao, Shader & shad ) const {
+	this->_head.draw(vao, shad);
+	this->_lArm.draw(vao, shad);
+	this->_rArm.draw(vao, shad);
+	this->_chest.draw(vao, shad);
+	this->_lLeg.draw(vao, shad);
+	this->_rLeg.draw(vao, shad);
 }
 
 std::ostream &		operator<<( std::ostream & o, Human const & rhs ) {

@@ -52,8 +52,26 @@ Vec3				Limb::getCol( void ) const {
 	return this->_col;
 }
 
+void				Limb::draw( GLuint vao, Shader & shad ) const {
+		
+		Mat4	model = Mat4("Translation", this->getTr())\
+								* Mat4("Rotation", this->getRad(), this->getRot())\
+								* Mat4("Scale", this->getSc());
+		shad.setMat4("model", model);
+		
+		Vec3	col = this->getCol();
+		shad.setVec3("col", col);
+
+
+		glBindVertexArray(vao);
+		glDrawArrays(GL_TRIANGLES, 0, 3 * 12);
+		glBindVertexArray(0);
+	
+}
 
 Vec3 const	Limb::color[] = {Vec3(1.0, 0.0, 0.0), Vec3(0.0, 1.0, 0.0), Vec3(0.0, 0.0, 1.0), Vec3(1.0, 0.0, 1.0)};
+float Limb::cube[] = {-0.5f, -0.5f, -0.5f, 0.5f, -0.5f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f,  0.5f, -0.5f, -0.5f, 0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, -0.5f, 0.5f, 0.5f, -0.5f, -0.5f, 0.5f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, 0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, -0.5f, 0.5f, -0.5f, -0.5f, 0.5f, -0.5f, -0.5f, 0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, -0.5f, -0.5f, -0.5f, 0.5f, -0.5f, -0.5f, 0.5f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f, -0.5f, -0.5f, 0.5f, -0.5f, -0.5f, -0.5f, -0.5f, 0.5f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f, -0.5f};
+
 
 std::ostream &		operator<<( std::ostream & o, Limb const & rhs ) {
 
