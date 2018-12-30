@@ -1,24 +1,13 @@
 ﻿#include "Human.hpp"
 
-Human::Human( void ) : _name("default"){
+Human::Human( void ) : _name("default") {
 	std::cout << "Human default constructor called" << std::endl;
-	_head = Limb("head", Vec3(0.17, 0.17, 0.17), Vec3(), 0.0f, Vec3(0, 0.32, 0.0), Limb::color[3]);
-	_lArm = Limb("left arm", Vec3(0.07, 0.5, 0.07), Vec3("z"),  -M_PI / 14, Vec3(-0.18f, 0.0f, 0.0f), Limb::color[2]);
-	_rArm = Limb("right arm", Vec3(0.07, 0.5, 0.07), Vec3("z"), M_PI / 14, Vec3(0.18f, 0.0f, 0.0f), Limb::color[2]);
-	_chest = Limb("chest", Vec3(0.23, 0.5, 0.21), Vec3(), 0.0f, Vec3("0"), Limb::color[1]);
-	_lLeg = Limb("left leg", Vec3(0.09, 0.5, 0.09), Vec3(), 0.0f, Vec3(-0.07f, -0.5f, 0.0f), Limb::color[0]);
-	_rLeg = Limb("right leg", Vec3(0.09, 0.5, 0.09), Vec3(), 0.0f, Vec3(0.07f, -0.5f, 0.0f), Limb::color[0]);
-
+	_setLimbs();
 }
 
 Human::Human( std::string name ) : _name(name) {
 	std::cout << "Human " << _name << " join the party!" << std::endl;
-	_head = Limb("head", Vec3(0.17, 0.17, 0.17), Vec3(), 0.0f, Vec3(0, 0.32, 0.0), Limb::color[3]);
-	_lArm = Limb("left arm", Vec3(0.07, 0.5, 0.07), Vec3("z"),  -M_PI / 14, Vec3(-0.18f, 0.0f, 0.0f), Limb::color[2]);
-	_rArm = Limb("right arm", Vec3(0.07, 0.5, 0.07), Vec3("z"), M_PI / 14, Vec3(0.18f, 0.0f, 0.0f), Limb::color[2]);
-	_chest = Limb("chest", Vec3(0.23, 0.5, 0.21), Vec3(), 0.0f, Vec3("0"), Limb::color[1]);
-	_lLeg = Limb("left leg", Vec3(0.09, 0.5, 0.09), Vec3(), 0.0f, Vec3(-0.07f, -0.5f, 0.0f), Limb::color[0]);
-	_rLeg = Limb("right leg", Vec3(0.09, 0.5, 0.09), Vec3(), 0.0f, Vec3(0.07f, -0.5f, 0.0f), Limb::color[0]);
+	_setLimbs();
 }
 	
 //Human::Human(Human const & src) {
@@ -62,6 +51,14 @@ Limb					Human::getRLeg( void ) const {
 	return this->_rLeg;
 }
 
+void					Human::_setLimbs( void ) {
+	_head = Limb("head", Vec3(0.17, 0.17, 0.17), Vec3(), 0.0f, Vec3(0, 0.32, 0.0), Limb::color[3]);
+	_lArm = Limb("left arm", Vec3(0.07, 0.5, 0.07), Vec3("z"),  -M_PI / 14, Vec3(-0.18f, 0.0f, 0.0f), Limb::color[2]);
+	_rArm = Limb("right arm", Vec3(0.07, 0.5, 0.07), Vec3("z"), M_PI / 14, Vec3(0.18f, 0.0f, 0.0f), Limb::color[2]);
+	_chest = Limb("chest", Vec3(0.23, 0.5, 0.21), Vec3(), 0.0f, Vec3("0"), Limb::color[1]);
+	_lLeg = Limb("left leg", Vec3(0.09, 0.5, 0.09), Vec3(), 0.0f, Vec3(-0.07f, -0.5f, 0.0f), Limb::color[0]);
+	_rLeg = Limb("right leg", Vec3(0.09, 0.5, 0.09), Vec3(), 0.0f, Vec3(0.07f, -0.5f, 0.0f), Limb::color[0]);
+}
 
 void					Human::draw( GLuint vao, Shader & shad ) const {
 	this->_head.draw(vao, shad);

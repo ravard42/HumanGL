@@ -29,8 +29,7 @@ int	main()
 	glBindVertexArray(0);
 
 //	float			t = glfwGetTime();
-	Mat4			proj = Mat4("Perspective Projection", M_PI / 4 , (float)WINX / (float)WINY, -0.1f, -100.0f);
-	Mat4			view;
+	Mat4		proj, view;
 
 	Human	ravard("ravard");
 	objShad.use();
@@ -55,8 +54,8 @@ int	main()
 		glfwPollEvents();
 	}
 
-	glDeleteVertexArrays(1, &vao);
 	glDeleteBuffers(1, &vbo);
+	glDeleteVertexArrays(1, &vao);
 	glfwTerminate();
 	return 0;
 }

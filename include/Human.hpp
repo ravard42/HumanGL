@@ -19,6 +19,7 @@ private:
 	Limb					_lLeg;
 	Limb					_rLeg;
 	
+	void					_setLimbs( void );
 
 public:
 
