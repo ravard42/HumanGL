@@ -52,6 +52,22 @@ Vec3				Limb::getCol( void ) const {
 	return this->_col;
 }
 
+void				Limb::setSc( Vec3 sc ) {
+	_sc = sc;
+}
+
+void				Limb::setRot( Vec3 rot ) {
+	_rot = rot;
+}
+
+void				Limb::setRad( float rad ) {
+	_rad = rad;
+}
+
+void				Limb::setTr( Vec3 tr ) {
+	_tr = tr;
+}
+
 void				Limb::draw( GLuint vao, Shader & shad ) const {
 		
 		Mat4	model = Mat4("Translation", this->getTr())\

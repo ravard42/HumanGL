@@ -23,6 +23,7 @@ typedef struct		s_env {
 
 	GLFWwindow		*w;
 	Camera			cam;
+	Human				h;
 
 }					t_env;
 

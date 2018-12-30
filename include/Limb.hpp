@@ -34,6 +34,10 @@ public:
 	float			getRad( void ) const;
 	Vec3			getTr( void ) const;
 	Vec3			getCol( void ) const;
+	void			setSc( Vec3 sc );
+	void			setRot( Vec3 rot );
+	void			setRad( float rad );
+	void			setTr( Vec3 tr );
 
 	void			draw( GLuint vao, Shader & shad ) const;
 };

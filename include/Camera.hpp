@@ -17,7 +17,8 @@
 # define Z_NEG 87
 # define TURBO 340
 
-# define NB_KEY 7
+# define CAM_NB_KEY 7
+
 
 # define SPEED	0.03
 # define RUSH	5

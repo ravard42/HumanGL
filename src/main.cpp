@@ -31,13 +31,16 @@ int	main()
 //	float			t = glfwGetTime();
 	Mat4		proj, view;
 
+	Limb	cube("Cube", Vec3("1"), Vec3(), 0.0, Vec3(1.0, 0.0, 0.0), Vec3("1"));
 	Human	ravard("ravard");
+	e.h = ravard;
 	objShad.use();
-	
+
 	while(!glfwWindowShouldClose(e.w)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//	t = glfwGetTime();	
+		e.h.newPos();
 
 		//<--PROJ-->
 		proj = Mat4("Perspective Projection", e.cam.getFov() * 2 * M_PI / 360 , (float)WINX / (float)WINY, -0.1f, -100.0f);
@@ -48,7 +51,9 @@ int	main()
 		objShad.setMat4("view", view);
 		
 		//<--MODEL-->
-		ravard.draw(vao, objShad);
+		cube.draw(vao, objShad);
+		e.h.draw(vao, objShad);
+
 
 		glfwSwapBuffers(e.w);
 		glfwPollEvents();

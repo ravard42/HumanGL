@@ -47,7 +47,7 @@ void			Camera::_newBase( void ) {
 void			Camera::setKeyEvent( int key ) {
 	int		i = -1;
 
-	while (++i < NB_KEY) 
+	while (++i < CAM_NB_KEY) 
 		if (key == Camera::_keyEntry[i])
 			this->_keyEvent |= (char)pow(2, i);
 }
@@ -55,7 +55,7 @@ void			Camera::setKeyEvent( int key ) {
 void			Camera::unsetKeyEvent( int key ) {
 	int		i = -1;
 
-	while (++i < NB_KEY)
+	while (++i < CAM_NB_KEY)
 		if (key == Camera::_keyEntry[i])
 			this->_keyEvent &= ~(char)pow(2, i);
 }

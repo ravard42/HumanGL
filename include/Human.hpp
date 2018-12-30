@@ -7,9 +7,19 @@
 
 # include "Limb.hpp"
 
+# define RIGHT 262
+# define LEFT 263
+# define BACK 264
+# define FORWARD 265
+
+# define HUMAN_NB_KEY 4
+
+
 class Human {
 
 private:
+	static short const	_keyEntry[];
+	char								_keyEvent;
 
 	std::string		_name;
 	Limb					_head; 
@@ -38,6 +48,9 @@ public:
 	Limb				getRLeg( void ) const;
 
 	void				draw( GLuint vao, Shader & shad ) const;
+	void				setKeyEvent( int key );
+	void				unsetKeyEvent( int key );
+	void				newPos();
 };
 
 std::ostream &		operator<<( std::ostream & o, Human const & rhs );

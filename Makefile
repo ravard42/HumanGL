@@ -25,16 +25,17 @@ SRCMATHPATH = $(ROOT)/src/mathStuff
 OBJPATH = 	$(ROOT)/obj
 OBJMATHPATH = $(ROOT)/obj/mathStuff
 INCLPATH = 	$(ROOT)/include
+INCLMATHPATH = $(ROOT)/include/mathStuff
 LIBPATH =	$(ROOT)/lib
 
 LIBGLFW3 =  $(LIBPATH)/glfw-3.2.1
 LIBGLAD =  $(LIBPATH)/glad
 
 DLGLFW3 = https://github.com/glfw/glfw/releases/download/3.2.1/glfw-3.2.1.zip
-DLGLAD = https://glad.dav1d.de/generated/tmpPo5skqglad/glad.zip
+DLGLAD = https://glad.dav1d.de/generated/tmpUTInkiglad/glad.zip
 
 FLAGS = -Wall -Wextra -Werror
-INCL = -I $(LIBGLFW3)/include/GLFW -I $(LIBGLAD)/include -I $(INCLPATH)
+INCL = -I $(LIBGLFW3)/include/GLFW -I $(LIBGLAD)/include -I $(INCLPATH) -I $(INCLMATHPATH)
 LIB = -L $(LIBGLFW3)/src -lglfw3 -framework AppKit -framework IOKit -framework CoreVideo
 
 
