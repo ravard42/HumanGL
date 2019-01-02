@@ -10,6 +10,7 @@ public:
 
 	Vec3( void );
 	Vec3( std::string str );
+	Vec3( float k );
 	Vec3( float x, float y, float z );
 	Vec3(Vec3 const & src);
 	~Vec3( void );

@@ -32,7 +32,7 @@ LIBGLFW3 =  $(LIBPATH)/glfw-3.2.1
 LIBGLAD =  $(LIBPATH)/glad
 
 DLGLFW3 = https://github.com/glfw/glfw/releases/download/3.2.1/glfw-3.2.1.zip
-DLGLAD = https://glad.dav1d.de/generated/tmpUTInkiglad/glad.zip
+DLGLAD = https://glad.dav1d.de/generated/tmp8xDuz9glad/glad.zip
 
 FLAGS = -Wall -Wextra -Werror
 INCL = -I $(LIBGLFW3)/include/GLFW -I $(LIBGLAD)/include -I $(INCLPATH) -I $(INCLMATHPATH)
@@ -102,7 +102,11 @@ SRC = main.cpp\
 		event.cpp\
 		Shader.cpp\
 		Camera.cpp\
-		Limb.cpp\
+		Cube.cpp\
+		Chest.cpp\
+		Head.cpp\
+		Arm.cpp\
+		Leg.cpp\
 		Human.cpp
 OBJ = $(patsubst %.cpp, $(OBJPATH)/%.opp, $(SRC)) 
 $(OBJPATH)/%.opp: $(SRCPATH)/%.cpp

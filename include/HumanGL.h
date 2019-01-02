@@ -10,20 +10,25 @@
 # define WINX 500
 # define WINY 500
 
+# define MALA 108
 
 # include "Vec3.hpp"
 # include "Vec4.hpp"
 # include "Mat4.hpp"
 # include "Shader.hpp"
 # include "Camera.hpp"
-# include "Limb.hpp"
+# include "Cube.hpp"
+# include "Head.hpp"
+# include "Chest.hpp"
+# include "Arm.hpp"
+# include "Leg.hpp"
 # include "Human.hpp"
 
 typedef struct		s_env {
 
 	GLFWwindow		*w;
 	Camera			cam;
-	Human				h;
+	Human				*h;
 
 }					t_env;
 

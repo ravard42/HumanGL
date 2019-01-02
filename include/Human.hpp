@@ -5,7 +5,11 @@
 # include <math.h>
 # include "Vec3.hpp"
 
-# include "Limb.hpp"
+# include "Cube.hpp"
+# include "Chest.hpp"
+# include "Head.hpp"
+# include "Leg.hpp"
+# include "Arm.hpp"
 
 # define RIGHT 262
 # define LEFT 263
@@ -22,12 +26,15 @@ private:
 	char								_keyEvent;
 
 	std::string		_name;
-	Limb					_head; 
-	Limb					_lArm;
-	Limb					_rArm;
-	Limb					_chest;
-	Limb					_lLeg;
-	Limb					_rLeg;
+	Chest					_chest;
+	Head					_head; 
+	Leg						_leg; 
+	Arm						_arm; 
+//	Limb					_lArm;
+//	Limb					_rArm;
+//	Limb					_chest;
+//	Limb					_lLeg;
+//	Limb					_rLeg;
 	
 	void					_setLimbs( void );
 
@@ -39,20 +46,20 @@ public:
 	~Human( void );
 //	Human &		operator=( Human const & src);
 
-	std::string	getName( void ) const;
-	Limb				getHead( void ) const;
-	Limb				getLArm( void ) const;
-	Limb				getRArm( void ) const;
-	Limb				getChest( void ) const;
-	Limb				getLLeg( void ) const;
-	Limb				getRLeg( void ) const;
+//	std::string	getName( void ) const;
+//	Limb				getHead( void ) const;
+//	Limb				getLArm( void ) const;
+//	Limb				getRArm( void ) const;
+//	Limb				getChest( void ) const;
+//	Limb				getLLeg( void ) const;
+//	Limb				getRLeg( void ) const;
 
 	void				draw( GLuint vao, Shader & shad ) const;
 	void				setKeyEvent( int key );
 	void				unsetKeyEvent( int key );
-	void				newPos();
+//	void				newPos();
 };
 
-std::ostream &		operator<<( std::ostream & o, Human const & rhs );
+//std::ostream &		operator<<( std::ostream & o, Human const & rhs );
 
 #endif
