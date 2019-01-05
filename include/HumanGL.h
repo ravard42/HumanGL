@@ -18,11 +18,8 @@
 # include "Shader.hpp"
 # include "Camera.hpp"
 # include "Cube.hpp"
-# include "Head.hpp"
-# include "Chest.hpp"
-# include "Arm.hpp"
-# include "Leg.hpp"
 # include "Human.hpp"
+# include "HumanState.hpp"
 
 typedef struct		s_env {
 

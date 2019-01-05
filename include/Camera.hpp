@@ -9,13 +9,13 @@
 # include "Mat3.hpp"
 # include "Mat4.hpp"
 
-# define X_POS 68
-# define X_NEG 65
-# define Y_POS 86
-# define Y_NEG 67
-# define Z_POS 83
-# define Z_NEG 87
-# define TURBO 340
+# define X_POS 	68
+# define X_NEG 	65
+# define Y_POS 	86
+# define Y_NEG 	67
+# define Z_POS 	83
+# define Z_NEG 	87
+# define TURBO 	340
 
 # define CAM_NB_KEY 7
 

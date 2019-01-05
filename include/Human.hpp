@@ -6,18 +6,17 @@
 # include "Vec3.hpp"
 
 # include "Cube.hpp"
-# include "Chest.hpp"
-# include "Head.hpp"
-# include "Leg.hpp"
-# include "Arm.hpp"
+# include "HumanState.hpp"
 
-# define RIGHT 262
-# define LEFT 263
-# define BACK 264
-# define FORWARD 265
+# define 	RIGHT 		262
+# define 	LEFT 			263
+# define 	BACK 			264
+# define 	FORWARD 	265
+# define	HUMAN_CAM	72
 
 # define HUMAN_NB_KEY 4
 
+# define FRAME_RATE	0.1
 
 class Human {
 
@@ -26,17 +25,18 @@ private:
 	char								_keyEvent;
 
 	std::string		_name;
-	Chest					_chest;
-	Head					_head; 
-	Leg						_leg; 
-	Arm						_arm; 
-//	Limb					_lArm;
-//	Limb					_rArm;
-//	Limb					_chest;
-//	Limb					_lLeg;
-//	Limb					_rLeg;
+	Cube					_chest;
+	Cube					_head; 
+	Cube					_rArm; 
+	Cube					_lArm; 
+	Cube					_rLeg; 
+	Cube					_lLeg; 
+	Vec3					_pos;
+
+	HumanState		_state;
 	
 	void					_setLimbs( void );
+	void					_newPos( void );
 
 public:
 
@@ -46,18 +46,11 @@ public:
 	~Human( void );
 //	Human &		operator=( Human const & src);
 
-//	std::string	getName( void ) const;
-//	Limb				getHead( void ) const;
-//	Limb				getLArm( void ) const;
-//	Limb				getRArm( void ) const;
-//	Limb				getChest( void ) const;
-//	Limb				getLLeg( void ) const;
-//	Limb				getRLeg( void ) const;
-
-	void				draw( GLuint vao, Shader & shad ) const;
+	char				getKeyEvent( void ) const;
 	void				setKeyEvent( int key );
 	void				unsetKeyEvent( int key );
-//	void				newPos();
+	Mat4				setView( void );
+	void				draw( GLuint vao, Shader & shad );
 };
 
 //std::ostream &		operator<<( std::ostream & o, Human const & rhs );

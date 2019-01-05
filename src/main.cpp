@@ -30,10 +30,10 @@ int	main()
 //	float			t = glfwGetTime();
 	Mat4		proj, view;
 
-	Cube	c1("Cube1", Vec3("cyan"), M_PI / 4, Vec3("z"), Vec3(0.4, 1.0, 0.1), 0.0, Vec3("z"), Vec3(0.0, 0.0, 0.0));
-	Cube	c2("Cube2", Vec3("cyan"), M_PI / 4, Vec3("z"), Vec3(0.4, 1.0, 0.1), M_PI / 2, Vec3("z"), Vec3(0.0, 0.0, 0.0));
-	Cube	c3("Cube3", Vec3("magenta"), M_PI / 4, Vec3("z"), Vec3(0.4, 1.0, 0.09), M_PI / 4, Vec3("z"), Vec3(0.0, 0.0, 0.0));
-	Cube	c4("Cube4", Vec3("magenta"), M_PI / 4, Vec3("z"), Vec3(0.4, 1.0, 0.09), -M_PI / 4, Vec3("z"), Vec3(0.0, 0.0, 0.0));
+	Cube	c1("Cube1", Vec3("cyan"), Vec3(0), 0.0, Vec3(0), Vec3(1), 0.0, Vec3(0), Vec3(0), Vec3(0.4, 1.0, 0.1), M_PI / 4, Vec3("z"));
+	Cube	c2("Cube2", Vec3("cyan"),	Vec3(0), 0.0, Vec3(0), Vec3(1), M_PI / 2, Vec3("z"), Vec3(0), Vec3(0.4, 1.0, 0.1), M_PI / 4, Vec3("z"));
+	Cube	c3("Cube3", Vec3("magenta"), Vec3(0), 0.0, Vec3(0), Vec3(1), M_PI / 4, Vec3("z"), Vec3(0), Vec3(0.4, 1.0, 0.099), M_PI / 4, Vec3("z"));
+	Cube	c4("Cube4", Vec3("magenta"), Vec3(0), 0.0, Vec3(0), Vec3(1), -M_PI / 4, Vec3("z"), Vec3(0), Vec3(0.4, 1.0, 0.099), M_PI / 4, Vec3("z"));
 	
 
 	Human	ravard("ravard");
@@ -48,22 +48,20 @@ int	main()
 	while(!glfwWindowShouldClose(e.w)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//	t = glfwGetTime();	
-//		e.h->newPos();
 
 		//<--PROJ-->
 		proj = Mat4("Perspective Projection", e.cam.getFov() * 2 * M_PI / 360 , (float)WINX / (float)WINY, -0.1f, -100.0f);
 		objShad.setMat4("proj", proj);
 		
 		//<--VIEW-->
-		view = e.cam.setView();
+		view = (e.h->getKeyEvent() & (char)pow(2, 4)) ? e.h->setView() : e.cam.setView();
 		objShad.setMat4("view", view);
 		
 		//<--MODEL-->
-		c1.draw(vao, objShad);
-		c2.draw(vao, objShad);
-		c3.draw(vao, objShad);
-		c4.draw(vao, objShad);
+		c1.draw(vao, objShad, Mat4(), NULL);
+		c2.draw(vao, objShad, Mat4(), NULL);
+		c3.draw(vao, objShad, Mat4(), NULL);
+		c4.draw(vao, objShad, Mat4(), NULL);
 		e.h->draw(vao, objShad);
 
 
