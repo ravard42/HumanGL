@@ -18,6 +18,18 @@ HumanState::HumanState( void ) : _frame(0), _prevState(0), _state(0) {
 HumanState::~HumanState( void ) {
 }
 
+
+//HumanState &    HumanState::operator=( HumanState const & src) {
+
+//	return (*this);
+//}
+//
+
+
+char							HumanState::getFrame( void ) const {
+	return _frame;
+}
+
 void						HumanState::newState( char keyEvent ) {
 
 	if (keyEvent & 1 || keyEvent & 2 || keyEvent & 4 || keyEvent & 8)
@@ -32,17 +44,6 @@ void						HumanState::newState( char keyEvent ) {
 		_prevState = UNMOVING;
 	}
 
-}
-
-//HumanState &    HumanState::operator=( HumanState const & src) {
-
-//	return (*this);
-//}
-//
-
-
-char							HumanState::getFrame( void ) const {
-	return _frame;
 }
 
 

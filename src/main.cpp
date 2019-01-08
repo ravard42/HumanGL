@@ -29,11 +29,16 @@ int	main()
 
 //	float			t = glfwGetTime();
 	Mat4		proj, view;
+	
+	Cube	 x("x", Vec3("red"), Vec3(0), 0.0, Vec3(0), Vec3(0), Vec3(50, 0.007, 0.007), 0.0, Vec3(0));
+	Cube	 y("y", Vec3("green"), Vec3(0), 0.0, Vec3(0), Vec3(0), Vec3(0.007, 50, 0.007), 0.0, Vec3(0));
+	Cube	 z("z", Vec3("blue"), Vec3(0), 0.0, Vec3(0), Vec3(0), Vec3(0.007, 0.007, 50), 0.0, Vec3(0));
 
-	Cube	c1("Cube1", Vec3("cyan"), Vec3(0), 0.0, Vec3(0), Vec3(1), 0.0, Vec3(0), Vec3(0), Vec3(0.4, 1.0, 0.1), M_PI / 4, Vec3("z"));
-	Cube	c2("Cube2", Vec3("cyan"),	Vec3(0), 0.0, Vec3(0), Vec3(1), M_PI / 2, Vec3("z"), Vec3(0), Vec3(0.4, 1.0, 0.1), M_PI / 4, Vec3("z"));
-	Cube	c3("Cube3", Vec3("magenta"), Vec3(0), 0.0, Vec3(0), Vec3(1), M_PI / 4, Vec3("z"), Vec3(0), Vec3(0.4, 1.0, 0.099), M_PI / 4, Vec3("z"));
-	Cube	c4("Cube4", Vec3("magenta"), Vec3(0), 0.0, Vec3(0), Vec3(1), -M_PI / 4, Vec3("z"), Vec3(0), Vec3(0.4, 1.0, 0.099), M_PI / 4, Vec3("z"));
+	Cube	c1("Cube1", Vec3("cyan"), Vec3(0.0, 0.0, -2.0), 0.0, Vec3(0), Vec3(0), Vec3(0.4, 1.0, 0.1), M_PI / 4, Vec3("z"));
+	Cube	c2("Cube2", Vec3("cyan"),	Vec3(0.0, 0.0, -2.0), M_PI / 2, Vec3("z"), Vec3(0), Vec3(0.4, 1.0, 0.1), M_PI / 4, Vec3("z"));
+	Cube	c3("Cube3", Vec3("magenta"), Vec3(0.0, 0.0, -2.0), M_PI / 4, Vec3("z"), Vec3(0), Vec3(0.4, 1.0, 0.099), M_PI / 4, Vec3("z"));
+	Cube	c4("Cube4", Vec3("magenta"), Vec3(0.0, 0.0, -2.0), -M_PI / 4, Vec3("z"), Vec3(0), Vec3(0.4, 1.0, 0.099), M_PI / 4, Vec3("z"));
+
 	
 
 	Human	ravard("ravard");
@@ -48,7 +53,7 @@ int	main()
 	while(!glfwWindowShouldClose(e.w)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
+		
 		//<--PROJ-->
 		proj = Mat4("Perspective Projection", e.cam.getFov() * 2 * M_PI / 360 , (float)WINX / (float)WINY, -0.1f, -100.0f);
 		objShad.setMat4("proj", proj);
@@ -58,15 +63,20 @@ int	main()
 		objShad.setMat4("view", view);
 		
 		//<--MODEL-->
-		c1.draw(vao, objShad, Mat4(), NULL);
-		c2.draw(vao, objShad, Mat4(), NULL);
-		c3.draw(vao, objShad, Mat4(), NULL);
-		c4.draw(vao, objShad, Mat4(), NULL);
+		x.draw(vao, objShad, Mat4());
+		y.draw(vao, objShad, Mat4());
+		z.draw(vao, objShad, Mat4());
+		c1.draw(vao, objShad, Mat4());
+		c2.draw(vao, objShad, Mat4());
+		c3.draw(vao, objShad, Mat4());
+		c4.draw(vao, objShad, Mat4());
 		e.h->draw(vao, objShad);
 
 
 		glfwSwapBuffers(e.w);
 		glfwPollEvents();
+		
+		//usleep((float)1/3 * pow(10, 5));
 	}
 
 

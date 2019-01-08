@@ -6,9 +6,8 @@ Cube::Cube( void ) : _name("default"), _col(Vec3(1)) {
 //	std::cout << "Cube default constructor called" << std::endl;
 }
 
-Cube::Cube( std::string name, Vec3 col, Vec3 parentTr, float parentRad, Vec3 parentRot, Vec3 parentSc, float rad, Vec3 rot, Vec3 tr, Vec3 sc, float initRad, Vec3 initRot ) :
-							_name(name), _col(col), _parentTr(parentTr), _parentRad(parentRad), _parentRot(parentRot), _parentSc(parentSc),
-							_rad(rad), _rot(rot), _tr(tr), _sc(sc), _initRad(initRad), _initRot(initRot) {
+Cube::Cube( std::string name, Vec3 col, Vec3 tr, float rad, Vec3 rot, Vec3 initTr, Vec3 sc, float initRad, Vec3 initRot ) :
+		_name(name), _col(col), _tr(tr), _rad(rad), _rot(rot), _initTr(initTr), _sc(sc), _initRad(initRad), _initRot(initRot) {
 
 //	std::cout << "Cube parametric constructor called" << std::endl;
 }
@@ -26,21 +25,13 @@ Cube &    	Cube::operator=( Cube const & src) {
 	_name = src.getName();
 	_col = src.getCol();
 
-	//parent
-	_parentTr = src.getParentTr();
-	_parentRad = src.getParentRad();
-	_parentRot = src.getParentRot();
-	_parentSc = src.getParentSc();
-	//
-
-	//Child here
+	_tr = src.getTr();
 	_rad = src.getRad();
 	_rot = src.getRot();
-	_tr = src.getTr();
+	_initTr = src.getInitTr();
 	_sc = src.getSc();
 	_initRad = src.getInitRad();
 	_initRot = src.getInitRot();
-	//
 
 	return (*this);
 }
@@ -55,24 +46,9 @@ Vec3				Cube::getCol( void ) const {
 
 //Parent getter
 
-Vec3				Cube::getParentTr( void ) const {
-	return 	_parentTr;
+Vec3				Cube::getTr( void ) const {
+	return 	_tr;
 }
-
-float				Cube::getParentRad( void ) const {
-	return	_parentRad;
-}
-	
-Vec3				Cube::getParentRot( void ) const {
-	return 	_parentRot;
-}
-
-Vec3				Cube::getParentSc( void ) const {
-	return 	_parentSc;
-}
-//
-
-//Child getter
 
 float				Cube::getRad( void ) const {
 	return this->_rad;
@@ -82,8 +58,8 @@ Vec3				Cube::getRot( void ) const {
 	return this->_rot;
 }
 
-Vec3				Cube::getTr( void ) const {
-	return this->_tr;
+Vec3				Cube::getInitTr( void ) const {
+	return this->_initTr;
 }
 
 Vec3				Cube::getSc( void ) const {
@@ -103,35 +79,41 @@ Vec3				Cube::getInitRot( void ) const {
 
 //
 
-//Child setter
-void				Cube::setRad( float rad ) {
-	_rad = rad;
-}
-
-void				Cube::setRot( Vec3 rot ) {
-	_rot = rot;
-}
-
-void				Cube::setTr( Vec3 tr ) {
-	_tr = tr;
-}
-
-void				Cube::setSc( Vec3 sc ) {
-	_sc = sc;
-}
+////Child setter
+//void				Cube::setRad( float rad ) {
+//	_rad = rad;
+//}
 //
+//void				Cube::setRot( Vec3 rot ) {
+//	_rot = rot;
+//}
+//
+//void				Cube::setTr( Vec3 tr ) {
+//	_tr = tr;
+//}
+//
+//void				Cube::setSc( Vec3 sc ) {
+//	_sc = sc;
+//}
+////
+
+void				Cube::move( HumanState * state ) {
+
+		if (state && (!_name.compare("lArm") || !_name.compare("rArm"))) {
+			_rad = state->getFrame() / (float)60 * M_PI * 2;
+			_rot = Vec3("x");
+		}
+
+}
 
 
-void				Cube::draw( GLuint vao, Shader & shad, Mat4 parentStack, HumanState * state ) const {
-
-	
-		Mat4	test = state && (!_name.compare("lArm") || !_name.compare("rArm")) ? Mat4("Translation", _parentTr) * Mat4("Rotation", state->getFrame() / (float)60 * M_PI * 2, Vec3("x")) : Mat4();
+void				Cube::draw( GLuint vao, Shader & shad, Mat4 parentStack ) const {
 
 
 		Mat4	model = parentStack\
-								* test\
+								* Mat4("Translation", _tr)
 								* Mat4("Rotation", _rad, _rot)\
-								* Mat4("Translation", _tr)\
+								* Mat4("Translation", _initTr)\
 								* Mat4("Scale", _sc)\
 								* Mat4("Rotation", _initRad, _initRot);
 

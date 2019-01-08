@@ -16,7 +16,6 @@
 
 # define HUMAN_NB_KEY 4
 
-# define FRAME_RATE	0.1
 
 class Human {
 

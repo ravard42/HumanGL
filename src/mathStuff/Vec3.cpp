@@ -50,6 +50,12 @@ Vec3::Vec3( std::string str ) {
 		v[1] = 1;
 		v[2] = 0;
 	}
+	else if (!str.compare("skin")) {
+//		std::cout << "Vec3 Z constructor called" << std::endl;
+		v[0] = 1.0;
+		v[1] = 0.8;
+		v[2] = 0.6;
+	}
 }
 
 Vec3::Vec3( float x, float y, float z ) {

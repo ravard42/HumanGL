@@ -1,19 +1,33 @@
 ﻿#include "Human.hpp"
 
-
 void					Human::_setLimbs( void ) {
 //	_head = Cube("head", Vec3("green"), 0.0, Vec3("x"), Vec3(0.17, 0.17, 0.17), 0.0, Vec3("x"), Vec3(0, 0.32, 5.0));
 //	
 //
-//	_lArm = Cube("lArm", Vec3("blue"), 0, Vec3("z"), Vec3(0.1, 0.6, 0.1), 0, Vec3("z"), Vec3(0.0, -0.3, 0.0));
-		_lArm = Cube("lArm", Vec3("blue"), Vec3(-0.2, 0.26, 0.0) , 0.0, Vec3(0), Vec3(1), 0.0, Vec3(0), Vec3(0.0, -0.3, 0.0), Vec3(0.1, 0.6, 0.1), 0.0, Vec3(0));
-		_rArm = Cube("rArm", Vec3("blue"), Vec3(0.2, 0.26, 0.0) , 0.0, Vec3(0), Vec3(1), 0.0, Vec3(0), Vec3(0.0, -0.3, 0.0), Vec3(0.1, 0.6, 0.1), 0.0, Vec3(0));
-//	_rArm = Cube("rArm", Vec3("blue"), 0, Vec3("z"), Vec3(0.07, 0.52, 0.07), 0, Vec3("z"), Vec3(0.155, -0.01, 5.0));
+		_chest = Cube("chest", Vec3("yellow"), Vec3(0), 0.0, Vec3(0), Vec3(0), Vec3(0.3, 0.5, 0.3), 0.0, Vec3(0));
+	
+		_head = Cube("head", Vec3("skin"), Vec3(0.0, 0.3, 0.0) , 0.0, Vec3(0), Vec3(0), Vec3(0.2, 0.2, 0.2), 0.0, Vec3(0));
+	
+		//_lArm = Cube("lArm", Vec3("blue"), Vec3(-0.2, 0.26, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.3, 0.0), Vec3(0.1, 0.6, 0.1), 0.0, Vec3(0));
+		_lArm = Cube("lArm", Vec3("blue"), Vec3(-0.2, 0.21, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.25, 0.0), Vec3(0.1, 0.6, 0.1), 0.0, Vec3(0));
+		_rArm = Cube("rArm", Vec3("blue"), Vec3(0.2, 0.21, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.25, 0.0), Vec3(0.1, 0.6, 0.1), 0.0, Vec3(0));
+		
+		_lLeg = Cube("lLeg", Vec3("red"), Vec3(-0.1, -0.26, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.3, 0.0), Vec3(0.1, 0.6, 0.1), 0.0, Vec3(0));
+		_rLeg = Cube("rLeg", Vec3("red"), Vec3(0.1, -0.26, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.3, 0.0), Vec3(0.1, 0.6, 0.1), 0.0, Vec3(0));
 
-		_chest = Cube("chest", Vec3("yellow"), Vec3(0), 0.0, Vec3(0), Vec3(1), 0.0, Vec3(0), Vec3(0), Vec3(0.3, 0.5, 0.3), 0.0, Vec3(0));
 	
 //	_lLeg = Cube("lLeg", Vec3("red"), 0.0, Vec3("x"), Vec3(0.09, 0.5, 0.09), 0.0, Vec3("x"), Vec3(-0.07, -0.5, 5.0));
 //	_rLeg = Cube("rLeg", Vec3("red"), 0.0, Vec3("x"), Vec3(0.09, 0.5, 0.09), 0.0, Vec3("x"), Vec3(0.07, -0.5, 5.0));
+}
+
+void			Human::_newPos( void ) {
+	Vec3		mouv((float)((bool)(this->_keyEvent & 1) - (bool)(this->_keyEvent & 2))
+					, 0
+					, (float)((bool)(this->_keyEvent & 4) - (bool)(this->_keyEvent & 8)));
+	
+	_pos[0] = _pos[0] + mouv[0] * 0.05;
+	_pos[2] = _pos[2] + mouv[2] * 0.05;
+//	this->_speed = (this->_keyEvent & 64) ? RUSH * SPEED : SPEED;
 }
 
 
@@ -42,15 +56,6 @@ Human::~Human( void ) {
 //}
 //
 
-void			Human::_newPos( void ) {
-	Vec3		mouv((float)((bool)(this->_keyEvent & 1) - (bool)(this->_keyEvent & 2))
-					, 0
-					, (float)((bool)(this->_keyEvent & 4) - (bool)(this->_keyEvent & 8)));
-	
-	_pos[0] = _pos[0] + mouv[0] * 0.05;
-	_pos[2] = _pos[2] + mouv[2] * 0.05;
-//	this->_speed = (this->_keyEvent & 64) ? RUSH * SPEED : SPEED;
-}
 
 char						Human::getKeyEvent( void ) const {
 	return _keyEvent;
@@ -89,15 +94,19 @@ void					Human::draw( GLuint vao, Shader & shad ) {
 	_newPos();
 	_state.newState(_keyEvent);
 //	std::cout << _state << std::endl;
- 	
+
+	_lArm.move(&_state);
+	_rArm.move(&_state);
+	_chest.move(&_state);
+
 	stack = Mat4("Translation", _pos);
 
-//	this->_head.draw(vao, shad, stack, &_state);
-		this->_lArm.draw(vao, shad, stack, &_state);
-		this->_rArm.draw(vao, shad, stack, &_state);
-		this->_chest.draw(vao, shad, stack, &_state);
-//	this->_lLeg.draw(vao, shad, stack, &_state);
-//	this->_rLeg.draw(vao, shad, stack, &_state);
+	this->_head.draw(vao, shad, stack);
+	this->_chest.draw(vao, shad, stack);
+	this->_lArm.draw(vao, shad, stack);
+	this->_rArm.draw(vao, shad, stack);
+	this->_lLeg.draw(vao, shad, stack);
+	this->_rLeg.draw(vao, shad, stack);
 }
 
 short const		Human::_keyEntry[] = {RIGHT, LEFT, BACK, FORWARD, HUMAN_CAM};

@@ -7,8 +7,8 @@
 
 //# include "Cube.hpp"
 
-# define FPS										30
-# define CYCLE_FRAME_NB					60 //2sec
+//# define FPS										30
+# define CYCLE_FRAME_NB					60
 
 # define UNMOVING 0
 #	define WALK			1
@@ -30,6 +30,7 @@ public:
 
 
 	char	getFrame( void ) const;	
+
 	void	newState( char keyEvent );
 };
 

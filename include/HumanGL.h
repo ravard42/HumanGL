@@ -7,6 +7,8 @@
 # include "glad/glad.h"
 # include "glfw3.h"
 
+# include "unistd.h"
+
 # define WINX 500
 # define WINY 500
 
