@@ -50,11 +50,41 @@ Vec3::Vec3( std::string str ) {
 		v[1] = 1;
 		v[2] = 0;
 	}
+	else if (!str.compare("brown")) {
+//		std::cout << "Vec3 Z constructor called" << std::endl;
+		v[0] = 0.6;
+		v[1] = 0.298;
+		v[2] = 0;
+	}
 	else if (!str.compare("skin")) {
 //		std::cout << "Vec3 Z constructor called" << std::endl;
 		v[0] = 1.0;
 		v[1] = 0.8;
 		v[2] = 0.6;
+	}
+	else if (!str.compare("purple")) {
+//		std::cout << "Vec3 Z constructor called" << std::endl;
+		v[0] = 0.8;
+		v[1] = 0.0;
+		v[2] = 0.8;
+	}
+	else if (!str.compare("darkPurple")) {
+//		std::cout << "Vec3 Z constructor called" << std::endl;
+		v[0] = 0.42;
+		v[1] = 0.0;
+		v[2] = 0.0;
+	}
+	else if (!str.compare("darkRed")) {
+//		std::cout << "Vec3 Z constructor called" << std::endl;
+		v[0] = 0.5;
+		v[1] = 0.0;
+		v[2] = 0.5;
+	}
+	else if (!str.compare("orange")) {
+//		std::cout << "Vec3 Z constructor called" << std::endl;
+		v[0] = 1;
+		v[1] = 0.3;
+		v[2] = 0;
 	}
 }
 

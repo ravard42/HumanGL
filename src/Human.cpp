@@ -1,25 +1,12 @@
 ﻿#include "Human.hpp"
 
-void					Human::_setLimbs( void ) {
-//	_head = Cube("head", Vec3("green"), 0.0, Vec3("x"), Vec3(0.17, 0.17, 0.17), 0.0, Vec3("x"), Vec3(0, 0.32, 5.0));
-//	
 //
-		_chest = Cube("chest", Vec3("yellow"), Vec3(0), 0.0, Vec3(0), Vec3(0), Vec3(0.3, 0.5, 0.3), 0.0, Vec3(0));
+//		_tree[0] = &_head;
+//		_tree[1] = &_lArm;
+//		_tree[2] = &_rArm;
+//		_tree[3] = &_lLeg;
+//		_tree[4] = &_rLeg;
 	
-		_head = Cube("head", Vec3("skin"), Vec3(0.0, 0.3, 0.0) , 0.0, Vec3(0), Vec3(0), Vec3(0.2, 0.2, 0.2), 0.0, Vec3(0));
-	
-		//_lArm = Cube("lArm", Vec3("blue"), Vec3(-0.2, 0.26, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.3, 0.0), Vec3(0.1, 0.6, 0.1), 0.0, Vec3(0));
-		_lArm = Cube("lArm", Vec3("blue"), Vec3(-0.2, 0.21, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.25, 0.0), Vec3(0.1, 0.6, 0.1), 0.0, Vec3(0));
-		_rArm = Cube("rArm", Vec3("blue"), Vec3(0.2, 0.21, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.25, 0.0), Vec3(0.1, 0.6, 0.1), 0.0, Vec3(0));
-		
-		_lLeg = Cube("lLeg", Vec3("red"), Vec3(-0.1, -0.26, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.3, 0.0), Vec3(0.1, 0.6, 0.1), 0.0, Vec3(0));
-		_rLeg = Cube("rLeg", Vec3("red"), Vec3(0.1, -0.26, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.3, 0.0), Vec3(0.1, 0.6, 0.1), 0.0, Vec3(0));
-
-	
-//	_lLeg = Cube("lLeg", Vec3("red"), 0.0, Vec3("x"), Vec3(0.09, 0.5, 0.09), 0.0, Vec3("x"), Vec3(-0.07, -0.5, 5.0));
-//	_rLeg = Cube("rLeg", Vec3("red"), 0.0, Vec3("x"), Vec3(0.09, 0.5, 0.09), 0.0, Vec3("x"), Vec3(0.07, -0.5, 5.0));
-}
-
 void			Human::_newPos( void ) {
 	Vec3		mouv((float)((bool)(this->_keyEvent & 1) - (bool)(this->_keyEvent & 2))
 					, 0
@@ -31,14 +18,26 @@ void			Human::_newPos( void ) {
 }
 
 
-Human::Human( void ) : _keyEvent(0), _name("default"), _pos(0, 0, 2) {
+Human::Human( void ) : _keyEvent(0), _name("default"), _pos(0, 0, 2)
+	{
 	std::cout << "Human default constructor called" << std::endl;
-	_setLimbs();
 }
 
-Human::Human( std::string name ) : _keyEvent(0), _name(name), _pos(0, 0, 2) {
+Human::Human( std::string name ) : _keyEvent(0), _name(name), _pos(0, 0, 2),
+		_chest("chest", Vec3("yellow"), Vec3(0.0), 0.0, Vec3(0), Vec3(0), Vec3(0.3, 0.5, 0.15), 0.0, Vec3(0)),
+		_bag("bag", Vec3("brown"), Vec3(0, 0, 0.12), 0.0, Vec3(0), Vec3(0), Vec3(0.3, 0.5, 0.07), 0.0, Vec3(0)),
+		_head("head", Vec3("skin"), Vec3(0.0, 0.34, 0.0) , 0.0, Vec3(0), Vec3(0), Vec3(0.17, 0.17, 0.17), 0.0, Vec3(0)),
+		_cap("cap", Vec3("darkRed"), Vec3(0.0, 0.5, 0.0) , 0.0, Vec3(0), Vec3(0), Vec3(0.03, 0.20, 0.15), 0.0, Vec3(0)),
+		_upLArm("upLArm", Vec3("blue"), Vec3(-0.2, 0.24, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.1, 0.22, 0.1), 0.0, Vec3(0)),
+		_upRArm("upRArm", Vec3("blue"), Vec3(0.2, 0.24, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.1, 0.22, 0.1), 0.0, Vec3(0)),
+		_lowLArm("lowLArm", Vec3("darkPurple"), Vec3(-0.2, 0.005, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.125, 0.0), Vec3(0.1, 0.29, 0.1), 0.0, Vec3(0)),
+		_lowRArm("lowRArm", Vec3("darkPurple"), Vec3(0.2, 0.005, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.125, 0.0), Vec3(0.1, 0.29, 0.1), 0.0, Vec3(0)),
+		_upLLeg("upLLeg", Vec3(0.3), Vec3(-0.1, -0.27, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.1, 0.22, 0.1), 0.0, Vec3(0)),
+		_upRLeg("upRLeg", Vec3(0.3), Vec3(0.1, -0.27, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.1, 0.22, 0.1), 0.0, Vec3(0)),
+		_lowLLeg("lowLLeg", Vec3("orange"), Vec3(-0.1, -0.51, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.125, 0.0), Vec3(0.1, 0.29, 0.1), 0.0, Vec3(0)),
+		_lowRLeg("lowRLeg", Vec3("orange"), Vec3(0.1, -0.51, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.125, 0.0), Vec3(0.1, 0.29, 0.1), 0.0, Vec3(0)) 
+	{
 	std::cout << "Human " << _name << " join the party!" << std::endl;
-	_setLimbs();
 }
 	
 //Human::Human(Human const & src) {
@@ -91,23 +90,39 @@ Mat4			Human::setView( void ) {
 void					Human::draw( GLuint vao, Shader & shad ) {
 	Mat4		stack;
 
-	_newPos();
-	_state.newState(_keyEvent);
+		_newPos();
+		_state.newState(_keyEvent);
+
 //	std::cout << _state << std::endl;
 
-	_lArm.move(&_state);
-	_rArm.move(&_state);
-	_chest.move(&_state);
-
-	stack = Mat4("Translation", _pos);
-
-	this->_head.draw(vao, shad, stack);
-	this->_chest.draw(vao, shad, stack);
-	this->_lArm.draw(vao, shad, stack);
-	this->_rArm.draw(vao, shad, stack);
-	this->_lLeg.draw(vao, shad, stack);
-	this->_rLeg.draw(vao, shad, stack);
+//		_upLArm.move(&_state);
+//		_upRArm.move(&_state);
+//		_lowRArm.move(&_state);
+//		_chest.move(&_state);
+	
+		stack = Mat4("Translation", _pos);
+//
+		_chest.draw(vao, shad, stack);
+		_bag.draw(vao, shad, stack);
+		_head.draw(vao, shad, stack);
+		_cap.draw(vao, shad, stack);
+		_upLArm.draw(vao, shad, stack);
+		_upRArm.draw(vao, shad, stack);
+		_upLLeg.draw(vao, shad, stack);
+		_upRLeg.draw(vao, shad, stack);
+		_lowLArm.draw(vao, shad, stack);
+		_lowRArm.draw(vao, shad, stack);
+		_lowLLeg.draw(vao, shad, stack);
+		_lowRLeg.draw(vao, shad, stack);
 }
+	
+//void					Human::printTree( void ) {
+//	int		i = -1;
+//
+//	while ( (*_tree)[++i])
+//		std::cout << (*_tree)[i]->getName() << std::endl;
+//
+//}
 
 short const		Human::_keyEntry[] = {RIGHT, LEFT, BACK, FORWARD, HUMAN_CAM};
 

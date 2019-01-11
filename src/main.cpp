@@ -29,7 +29,8 @@ int	main()
 
 //	float			t = glfwGetTime();
 	Mat4		proj, view;
-	
+
+	std::cout << std::endl;	
 	Cube	 x("x", Vec3("red"), Vec3(0), 0.0, Vec3(0), Vec3(0), Vec3(50, 0.007, 0.007), 0.0, Vec3(0));
 	Cube	 y("y", Vec3("green"), Vec3(0), 0.0, Vec3(0), Vec3(0), Vec3(0.007, 50, 0.007), 0.0, Vec3(0));
 	Cube	 z("z", Vec3("blue"), Vec3(0), 0.0, Vec3(0), Vec3(0), Vec3(0.007, 0.007, 50), 0.0, Vec3(0));
@@ -38,12 +39,15 @@ int	main()
 	Cube	c2("Cube2", Vec3("cyan"),	Vec3(0.0, 0.0, -2.0), M_PI / 2, Vec3("z"), Vec3(0), Vec3(0.4, 1.0, 0.1), M_PI / 4, Vec3("z"));
 	Cube	c3("Cube3", Vec3("magenta"), Vec3(0.0, 0.0, -2.0), M_PI / 4, Vec3("z"), Vec3(0), Vec3(0.4, 1.0, 0.099), M_PI / 4, Vec3("z"));
 	Cube	c4("Cube4", Vec3("magenta"), Vec3(0.0, 0.0, -2.0), -M_PI / 4, Vec3("z"), Vec3(0), Vec3(0.4, 1.0, 0.099), M_PI / 4, Vec3("z"));
+	std::cout << std::endl;	
 
-	
+
 
 	Human	ravard("ravard");
+	std::cout << std::endl;	
 	e.h = &ravard;
 
+	//ravard.printTree();
 
 	objShad.use();
 
@@ -78,8 +82,6 @@ int	main()
 		
 		//usleep((float)1/3 * pow(10, 5));
 	}
-
-
 
 	glDeleteBuffers(1, &vbo);
 	glDeleteVertexArrays(1, &vao);

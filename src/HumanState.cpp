@@ -16,6 +16,7 @@ HumanState::HumanState( void ) : _frame(0), _prevState(0), _state(0) {
 //}
 
 HumanState::~HumanState( void ) {
+	std::cout << "HumanState destructor called" << std::endl;
 }
 
 

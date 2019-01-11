@@ -22,7 +22,6 @@ private:
 	float							_initRad;
 	Vec3							_initRot;
 
-
 public:
 
 	static float const mala[];	
@@ -53,6 +52,6 @@ public:
 	void			draw( GLuint vao, Shader & shad, Mat4 parentStack ) const;
 };
 
-//std::ostream &		operator<<( std::ostream & o, Cube const & rhs );
+std::ostream &		operator<<( std::ostream & o, Cube const & rhs );
 
 #endif

@@ -20,6 +20,7 @@
 # include "Shader.hpp"
 # include "Camera.hpp"
 # include "Cube.hpp"
+# include "CubeTree.hpp"
 # include "Human.hpp"
 # include "HumanState.hpp"
 

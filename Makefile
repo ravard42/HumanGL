@@ -32,9 +32,9 @@ LIBGLFW3 =  $(LIBPATH)/glfw-3.2.1
 LIBGLAD =  $(LIBPATH)/glad
 
 DLGLFW3 = https://github.com/glfw/glfw/releases/download/3.2.1/glfw-3.2.1.zip
-DLGLAD = https://glad.dav1d.de/generated/tmp1zrZN8glad/glad.zip
+DLGLAD = https://glad.dav1d.de/generated/tmpD1o0YHglad/glad.zip
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -ggdb
 INCL = -I $(LIBGLFW3)/include/GLFW -I $(LIBGLAD)/include -I $(INCLPATH) -I $(INCLMATHPATH)
 LIB = -L $(LIBGLFW3)/src -lglfw3 -framework AppKit -framework IOKit -framework CoreVideo
 
@@ -103,6 +103,7 @@ SRC = main.cpp\
 		Shader.cpp\
 		Camera.cpp\
 		Cube.cpp\
+		CubeTree.cpp\
 		Human.cpp\
 		HumanState.cpp
 OBJ = $(patsubst %.cpp, $(OBJPATH)/%.opp, $(SRC)) 

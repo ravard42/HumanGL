@@ -3,13 +3,13 @@
 float const Cube::mala[] = {-0.5f, -0.5f, -0.5f, 0.5f, -0.5f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f,  0.5f, -0.5f, -0.5f, 0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, -0.5f, 0.5f, 0.5f, -0.5f, -0.5f, 0.5f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, 0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, -0.5f, 0.5f, -0.5f, -0.5f, 0.5f, -0.5f, -0.5f, 0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, -0.5f, -0.5f, -0.5f, 0.5f, -0.5f, -0.5f, 0.5f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f, -0.5f, -0.5f, 0.5f, -0.5f, -0.5f, -0.5f, -0.5f, 0.5f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f, -0.5f};
 
 Cube::Cube( void ) : _name("default"), _col(Vec3(1)) {
-//	std::cout << "Cube default constructor called" << std::endl;
+	std::cout << "Cube default constructor called" << std::endl;
 }
 
 Cube::Cube( std::string name, Vec3 col, Vec3 tr, float rad, Vec3 rot, Vec3 initTr, Vec3 sc, float initRad, Vec3 initRot ) :
 		_name(name), _col(col), _tr(tr), _rad(rad), _rot(rot), _initTr(initTr), _sc(sc), _initRad(initRad), _initRot(initRot) {
 
-//	std::cout << "Cube parametric constructor called" << std::endl;
+	std::cout << "Cube parametric constructor called" << std::endl;
 }
 	
 Cube::Cube(Cube const & src) {
@@ -18,7 +18,7 @@ Cube::Cube(Cube const & src) {
 }
 
 Cube::~Cube( void ) {
-//	std::cout << "Cube destructor called" << std::endl;
+	std::cout << "Cube destructor called" << std::endl;
 }
 
 Cube &    	Cube::operator=( Cube const & src) {
@@ -99,10 +99,10 @@ Vec3				Cube::getInitRot( void ) const {
 
 void				Cube::move( HumanState * state ) {
 
-		if (state && (!_name.compare("lArm") || !_name.compare("rArm"))) {
 			_rad = state->getFrame() / (float)60 * M_PI * 2;
 			_rot = Vec3("x");
-		}
+//		if (state && (!_name.compare("upLArm") || !_name.compare("upRArm")) || !_name.compare("lowRLeg")) {
+	//	}
 
 }
 
@@ -132,15 +132,15 @@ void				Cube::draw( GLuint vao, Shader & shad, Mat4 parentStack ) const {
 
 
 
-//std::ostream &		operator<<( std::ostream & o, Cube const & rhs ) {
-//
-//	o << "<---LIMB PRINTER---->" << std::endl;
-//	o << "name: " << rhs.getName() << std::endl;
+std::ostream &		operator<<( std::ostream & o, Cube const & rhs ) {
+
+	o << "<---Cube PRINTER---->" << std::endl;
+	o << "name: " << rhs.getName() << std::endl;
 //	o << "scale: |" << rhs.getSc() << std::endl;
 //	o << "rotate: " << rhs.getRad() << "radians on =>" << std::endl;
 //	o << rhs.getRot() << std::endl;
 //	o << "translate: " << rhs.getTr() << std::endl;
 //	o << "color: " << rhs.getCol() << std::endl;
-//	
-//	return o;
-//}
+	
+	return o;
+}
