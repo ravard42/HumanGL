@@ -52,8 +52,8 @@ Vec3::Vec3( std::string str ) {
 	}
 	else if (!str.compare("brown")) {
 //		std::cout << "Vec3 Z constructor called" << std::endl;
-		v[0] = 0.6;
-		v[1] = 0.298;
+		v[0] = 0.5;
+		v[1] = 0.258;
 		v[2] = 0;
 	}
 	else if (!str.compare("skin")) {
