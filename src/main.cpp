@@ -12,9 +12,7 @@ int	main()
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
-
-	Shader		objShad("./shader/object/v.glsl", "./shader/object/f.glsl");
-
+	
 	GLuint	vao, vbo;
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
@@ -26,6 +24,11 @@ int	main()
 	glEnableVertexAttribArray(0);
 	
 	glBindVertexArray(0);
+
+	Shader		objShad("./shader/object/v.glsl", "./shader/object/f.glsl");
+
+	Cube::shad = &objShad;
+	Cube::vao = vao;
 
 //	float			t = glfwGetTime();
 	Mat4		proj, view;
@@ -47,12 +50,9 @@ int	main()
 	std::cout << std::endl;	
 	e.h = &ravard;
 
-	//ravard.printTree();
+	ravard.printTree();
 
 	objShad.use();
-
-
-
 
 	while(!glfwWindowShouldClose(e.w)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -63,18 +63,18 @@ int	main()
 		objShad.setMat4("proj", proj);
 		
 		//<--VIEW-->
-		view = (e.h->getKeyEvent() & (char)pow(2, 4)) ? e.h->setView() : e.cam.setView();
+		view = (e.h->getKeyEvent() & (char)pow(2, 5)) ? e.h->setView() : e.cam.setView();
 		objShad.setMat4("view", view);
 		
 		//<--MODEL-->
-		x.draw(vao, objShad, Mat4());
-		y.draw(vao, objShad, Mat4());
-		z.draw(vao, objShad, Mat4());
-		c1.draw(vao, objShad, Mat4());
-		c2.draw(vao, objShad, Mat4());
-		c3.draw(vao, objShad, Mat4());
-		c4.draw(vao, objShad, Mat4());
-		e.h->draw(vao, objShad);
+		x.draw(Mat4());
+		y.draw(Mat4());
+		z.draw(Mat4());
+		c1.draw(Mat4());
+		c2.draw(Mat4());
+		c3.draw(Mat4());
+		c4.draw(Mat4());
+		e.h->moveNdraw();
 
 
 		glfwSwapBuffers(e.w);

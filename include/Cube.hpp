@@ -24,7 +24,9 @@ private:
 
 public:
 
-	static float const mala[];	
+	static float const 	mala[];	
+	static GLuint 			vao;
+	static Shader 	*		shad;
 
 	Cube( void );
 	Cube( std::string name, Vec3 col, Vec3 tr, float rad, Vec3 rot, Vec3 initTr, Vec3 sc, float initRad, Vec3 initRot);
@@ -49,7 +51,7 @@ public:
 //	void						setSc( Vec3 sc );
 
 	void			move( HumanState * state);
-	void			draw( GLuint vao, Shader & shad, Mat4 parentStack ) const;
+	Mat4			draw( Mat4 stack ) const;
 };
 
 std::ostream &		operator<<( std::ostream & o, Cube const & rhs );

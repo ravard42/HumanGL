@@ -23,6 +23,7 @@ public:
 	Vec4	&		operator[]( int j );
 	Mat4			operator+( Mat4 const & src ) const;
 	Mat4			operator*( Mat4 const & src ) const;
+	Mat4	&		operator*=( Mat4 const & src );
 	Mat4			operator*( float k ) const;
 
 	Vec4		m[4];

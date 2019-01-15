@@ -108,6 +108,12 @@ Mat4			Mat4::operator*( Mat4 const & src ) const {
 	return ret;
 }
 
+Mat4	&		Mat4::operator*=( Mat4 const & src ) {
+
+	*this = *this * src;
+	return *this;
+}
+
 Mat4     	Mat4::operator*( float k ) const {
 	Mat4	ret("Zero");
 	int	j = -1;

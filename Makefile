@@ -32,9 +32,9 @@ LIBGLFW3 =  $(LIBPATH)/glfw-3.2.1
 LIBGLAD =  $(LIBPATH)/glad
 
 DLGLFW3 = https://github.com/glfw/glfw/releases/download/3.2.1/glfw-3.2.1.zip
-DLGLAD = https://glad.dav1d.de/generated/tmpD1o0YHglad/glad.zip
+DLGLAD = https://glad.dav1d.de/generated/tmpH8X_xmglad/glad.zip 
 
-FLAGS = -Wall -Wextra -Werror -ggdb
+FLAGS = -Wall -Wextra -Werror -ggdb -fsanitize=address
 INCL = -I $(LIBGLFW3)/include/GLFW -I $(LIBGLAD)/include -I $(INCLPATH) -I $(INCLMATHPATH)
 LIB = -L $(LIBGLFW3)/src -lglfw3 -framework AppKit -framework IOKit -framework CoreVideo
 

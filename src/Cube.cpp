@@ -2,6 +2,9 @@
 
 float const Cube::mala[] = {-0.5f, -0.5f, -0.5f, 0.5f, -0.5f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f,  0.5f, -0.5f, -0.5f, 0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, -0.5f, 0.5f, 0.5f, -0.5f, -0.5f, 0.5f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, 0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, -0.5f, 0.5f, -0.5f, -0.5f, 0.5f, -0.5f, -0.5f, 0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, -0.5f, -0.5f, -0.5f, 0.5f, -0.5f, -0.5f, 0.5f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f, -0.5f, -0.5f, 0.5f, -0.5f, -0.5f, -0.5f, -0.5f, 0.5f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f, -0.5f};
 
+GLuint			Cube::vao = 0;
+Shader	*		Cube::shad = NULL;
+
 Cube::Cube( void ) : _name("default"), _col(Vec3(1)) {
 	std::cout << "Cube default constructor called" << std::endl;
 }
@@ -107,27 +110,26 @@ void				Cube::move( HumanState * state ) {
 }
 
 
-void				Cube::draw( GLuint vao, Shader & shad, Mat4 parentStack ) const {
+Mat4				Cube::draw( Mat4 stack ) const {
 
-
-		Mat4	model = parentStack\
-								* Mat4("Translation", _tr)
-								* Mat4("Rotation", _rad, _rot)\
-								* Mat4("Translation", _initTr)\
-								* Mat4("Scale", _sc)\
-								* Mat4("Rotation", _initRad, _initRot);
-
-
-		shad.setMat4("model", model);
-		
 		Vec3	col = _col;
-		shad.setVec3("col", col);
+		Cube::shad->setVec3("col", col);
+
+		stack	*= Mat4("Translation", _tr)
+						* Mat4("Rotation", _rad, _rot)\
+						* Mat4("Translation", _initTr)\
+						* Mat4("Scale", _sc)\
+						* Mat4("Rotation", _initRad, _initRot);
+		Cube::shad->setMat4("model", stack);
+
+		
 
 
-		glBindVertexArray(vao);
+		glBindVertexArray(Cube::vao);
 		glDrawArrays(GL_TRIANGLES, 0, 3 * 12);
 		glBindVertexArray(0);
-	
+
+		return stack;
 }
 
 

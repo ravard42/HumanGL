@@ -6,28 +6,52 @@
 //		_tree[2] = &_rArm;
 //		_tree[3] = &_lLeg;
 //		_tree[4] = &_rLeg;
-	
-void			Human::_newPos( void ) {
-	Vec3		mouv((float)((bool)(this->_keyEvent & 1) - (bool)(this->_keyEvent & 2))
-					, 0
-					, (float)((bool)(this->_keyEvent & 4) - (bool)(this->_keyEvent & 8)));
-	
-	_pos[0] = _pos[0] + mouv[0] * 0.05;
-	_pos[2] = _pos[2] + mouv[2] * 0.05;
-//	this->_speed = (this->_keyEvent & 64) ? RUSH * SPEED : SPEED;
+
+void			Human::_resetTab( void ) {
+	int			i =	 -1;
+
+	while (++i < 9)
+		_tab[i] = NULL;
 }
 
+void			Human::_initCubeTree( void ) {
+	_resetTab();
+	_tab[0] = &_head;
+	_tab[1] = &_bag;
+	_tab[2] = &_upLArm;
+	_tab[3] = &_upRArm;
+	_tab[4] = &_upLLeg;
+	_tab[5] = &_upRLeg;	
+	_tree = new CubeTree(&_chest, _tab);
 
-Human::Human( void ) : _keyEvent(0), _name("default"), _pos(0, 0, 2)
+	_resetTab();
+	_tab[0] = &_hair;
+	_tree->childTree[0].childAlloc(_tab);
+	_tab[0] = &_lowLArm;;
+	_tree->childTree[1].childAlloc(_tab);
+	_tab[0] = &_lowRArm;;
+	_tree->childTree[2].childAlloc(_tab);
+	_tab[0] = &_lowLLeg;;
+	_tree->childTree[3].childAlloc(_tab);
+	_tab[0] = &_lowRLeg;;
+	_tree->childTree[4].childAlloc(_tab);
+	
+	
+}
+
+	
+
+
+Human::Human( void ) : _keyEvent(0), _name("default"), _pos(0, 0, 2), _rad(0)
 	{
 	std::cout << "Human default constructor called" << std::endl;
 }
 
-Human::Human( std::string name ) : _keyEvent(0), _name(name), _pos(0, 0, 2),
+Human::Human( std::string name ) : _keyEvent(0), _name(name), _pos(0, 0, 2), _rad(0),
 		_chest("chest", Vec3("yellow"), Vec3(0.0), 0.0, Vec3(0), Vec3(0), Vec3(0.3, 0.5, 0.15), 0.0, Vec3(0)),
 		_bag("bag", Vec3("brown"), Vec3(0, 0, 0.12), 0.0, Vec3(0), Vec3(0), Vec3(0.3, 0.5, 0.07), 0.0, Vec3(0)),
 		_head("head", Vec3("skin"), Vec3(0.0, 0.34, 0.0) , 0.0, Vec3(0), Vec3(0), Vec3(0.17, 0.17, 0.17), 0.0, Vec3(0)),
-		_cap("cap", Vec3("darkRed"), Vec3(0.0, 0.5, 0.0) , 0.0, Vec3(0), Vec3(0), Vec3(0.03, 0.20, 0.15), 0.0, Vec3(0)),
+		_hair("hair", Vec3("darkRed"), Vec3(0.0, 0.5, 0.0) , 0.0, Vec3(0), Vec3(0), Vec3(0.03, 0.20, 0.15), 0.0, Vec3(0)),
 		_upLArm("upLArm", Vec3("blue"), Vec3(-0.2, 0.24, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.1, 0.22, 0.1), 0.0, Vec3(0)),
 		_upRArm("upRArm", Vec3("blue"), Vec3(0.2, 0.24, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.1, 0.22, 0.1), 0.0, Vec3(0)),
 		_lowLArm("lowLArm", Vec3("darkPurple"), Vec3(-0.2, 0.005, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.125, 0.0), Vec3(0.1, 0.29, 0.1), 0.0, Vec3(0)),
@@ -35,9 +59,9 @@ Human::Human( std::string name ) : _keyEvent(0), _name(name), _pos(0, 0, 2),
 		_upLLeg("upLLeg", Vec3(0.3), Vec3(-0.1, -0.27, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.1, 0.22, 0.1), 0.0, Vec3(0)),
 		_upRLeg("upRLeg", Vec3(0.3), Vec3(0.1, -0.27, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.1, 0.22, 0.1), 0.0, Vec3(0)),
 		_lowLLeg("lowLLeg", Vec3("orange"), Vec3(-0.1, -0.51, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.125, 0.0), Vec3(0.1, 0.29, 0.1), 0.0, Vec3(0)),
-		_lowRLeg("lowRLeg", Vec3("orange"), Vec3(0.1, -0.51, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.125, 0.0), Vec3(0.1, 0.29, 0.1), 0.0, Vec3(0)) 
-	{
-	std::cout << "Human " << _name << " join the party!" << std::endl;
+		_lowRLeg("lowRLeg", Vec3("orange"), Vec3(0.1, -0.51, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.125, 0.0), Vec3(0.1, 0.29, 0.1), 0.0, Vec3(0)) {
+		_initCubeTree();
+		std::cout << "Human " << _name << " join the party!" << std::endl;
 }
 	
 //Human::Human(Human const & src) {
@@ -46,6 +70,8 @@ Human::Human( std::string name ) : _keyEvent(0), _name(name), _pos(0, 0, 2),
 //}
 
 Human::~Human( void ) {
+	if (_tree)
+		delete _tree;
 	std::cout << _name << " decided to leave the dance floor for now..." << std::endl;
 }
 
@@ -66,8 +92,8 @@ void					Human::setKeyEvent( int key ) {
 	while (++i < HUMAN_NB_KEY) 
 		if (key == Human::_keyEntry[i])
 			_keyEvent |= (char)pow(2, i);
-	if (key == Human::_keyEntry[4])
-			_keyEvent = (_keyEvent & (char)pow(2, 4)) ? _keyEvent & ~(char)pow(2, 4) : _keyEvent | (char)pow(2, 4);
+	if (key == Human::_keyEntry[HUMAN_NB_KEY])
+			_keyEvent = (_keyEvent & (char)pow(2, 5)) ? _keyEvent & ~(char)pow(2, 5) : _keyEvent | (char)pow(2, 5);
 }
 
 void			Human::unsetKeyEvent( int key ) {
@@ -87,10 +113,29 @@ Mat4			Human::setView( void ) {
 	return view;
 }
 
-void					Human::draw( GLuint vao, Shader & shad ) {
+void			Human::_newRot( void ) {
+	float		drad = ((bool)(this->_keyEvent & 1) - (bool)(this->_keyEvent & 2));
+
+	_rad -= drad * 0.05;
+}
+
+void			Human::_newPos( void ) {
+	float		dmouv = ((bool)(this->_keyEvent & 4) - (bool)(this->_keyEvent & 8));
+	float		speed = 0.05;
+
+	speed = (this->_keyEvent & 16) ? 3 * speed : speed;
+	_pos[0] += dmouv * speed * sin(_rad);
+	_pos[2] += dmouv * speed * cos(_rad);
+}
+
+void					Human::moveNdraw( void ) {
 	Mat4		stack;
 
-		_newPos();
+		if (_keyEvent & (char)pow(2, 5)) {
+			_newRot();
+			_newPos();
+		}
+
 		_state.newState(_keyEvent);
 
 //	std::cout << _state << std::endl;
@@ -100,31 +145,20 @@ void					Human::draw( GLuint vao, Shader & shad ) {
 //		_lowRArm.move(&_state);
 //		_chest.move(&_state);
 	
-		stack = Mat4("Translation", _pos);
-//
-		_chest.draw(vao, shad, stack);
-		_bag.draw(vao, shad, stack);
-		_head.draw(vao, shad, stack);
-		_cap.draw(vao, shad, stack);
-		_upLArm.draw(vao, shad, stack);
-		_upRArm.draw(vao, shad, stack);
-		_upLLeg.draw(vao, shad, stack);
-		_upRLeg.draw(vao, shad, stack);
-		_lowLArm.draw(vao, shad, stack);
-		_lowRArm.draw(vao, shad, stack);
-		_lowLLeg.draw(vao, shad, stack);
-		_lowRLeg.draw(vao, shad, stack);
+		stack = Mat4("Translation", _pos) * Mat4("Rotation", _rad, Vec3("y"));
+	//	stack = Mat4("Translation", _pos);
+	//	stack = Mat4("Rotation", _rad, Vec3("y"));
+
+		_tree->draw(stack);
 }
 	
-//void					Human::printTree( void ) {
-//	int		i = -1;
-//
-//	while ( (*_tree)[++i])
-//		std::cout << (*_tree)[i]->getName() << std::endl;
-//
-//}
+void					Human::printTree( void ) {
 
-short const		Human::_keyEntry[] = {RIGHT, LEFT, BACK, FORWARD, HUMAN_CAM};
+		std::cout << *_tree << std::endl;	
+
+}
+
+short const		Human::_keyEntry[] = {RIGHT, LEFT, BACK, FORWARD, TURBO, HUMAN_CAM};
 
 //std::ostream &		operator<<( std::ostream & o, Human const & rhs ) {
 //
