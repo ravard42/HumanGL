@@ -63,7 +63,7 @@ int	main()
 		objShad.setMat4("proj", proj);
 		
 		//<--VIEW-->
-		view = (e.h->getKeyEvent() & (char)pow(2, 5)) ? e.h->setView() : e.cam.setView();
+		view = (e.h->getKeyEvent() & 1) ? e.h->setView() : e.cam.setView();
 		objShad.setMat4("view", view);
 		
 		//<--MODEL-->

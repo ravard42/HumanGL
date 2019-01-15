@@ -33,7 +33,7 @@ char							HumanState::getFrame( void ) const {
 
 void						HumanState::newState( char keyEvent ) {
 
-	if (keyEvent & 1 || keyEvent & 2 || keyEvent & 4 || keyEvent & 8)
+	if (keyEvent & (char)pow(2, 6))
 	{
 		_state = WALK;
 		_frame = (_prevState == UNMOVING) ? 0 : (_frame + 1) % CYCLE_FRAME_NB;

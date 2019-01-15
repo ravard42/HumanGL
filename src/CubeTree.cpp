@@ -57,7 +57,7 @@ void						CubeTree::draw( Mat4 stack ) {
 }
 
 std::string				CubeTree::getFatherName( void ) const {
-	return father->getName();;
+	return father->getName();
 }
 
 std::string				CubeTree::getChildNames( void ) const {

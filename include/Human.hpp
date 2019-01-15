@@ -9,14 +9,15 @@
 # include "Cube.hpp"
 # include "CubeTree.hpp"
 
-# define 	RIGHT 		68
-# define 	LEFT 			65
-# define 	BACK 			83
-# define 	FORWARD 	87
-# define 	TURBO 		340
-# define	HUMAN_CAM	72
+# define 	RIGHT 				68
+# define 	LEFT 					65
+# define 	BACK 					83
+# define 	FORWARD 			87
+# define 	TURBO 				340
+# define	HUMAN_CAM			72
+# define	WALK_EVENT		77
 
-# define HUMAN_NB_KEY 5
+# define HUMAN_NB_KEY 7
 
 
 class Human {
@@ -33,14 +34,15 @@ private:
 	Cube					_chest;
 	Cube					_bag;
 	Cube					_head;
-	Cube					_hair;
+	Cube					_capInf;
+	Cube					_capSup;
 	Cube					_upLArm;
-	Cube					_upRArm;
 	Cube					_lowLArm;
+	Cube					_upRArm;
 	Cube					_lowRArm;
 	Cube					_upLLeg;
-	Cube					_upRLeg;
 	Cube					_lowLLeg;
+	Cube					_upRLeg;
 	Cube					_lowRLeg;
 
 	CubeTree	 *	_tree;
