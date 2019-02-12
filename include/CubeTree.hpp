@@ -27,6 +27,7 @@ public:
 
 	void		draw(Mat4 stack);
 
+	int						getNbChild( void ) const;
 	std::string		getFatherName( void ) const;
 	std::string		getChildNames( void ) const;
 

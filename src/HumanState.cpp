@@ -27,11 +27,11 @@ HumanState::~HumanState( void ) {
 //
 
 
-char							HumanState::getFrame( void ) const {
+short							HumanState::getFrame( void ) const {
 	return _frame;
 }
 
-void						HumanState::newState( char keyEvent ) {
+void							HumanState::newState( char keyEvent ) {
 
 	if (keyEvent & (char)pow(2, 6))
 	{

@@ -55,6 +55,10 @@ void						CubeTree::draw( Mat4 stack ) {
 		childTree[i].draw(stack);
 
 }
+	
+int								CubeTree::getNbChild( void ) const {
+	return _nbChild;
+}
 
 std::string				CubeTree::getFatherName( void ) const {
 	return father->getName();
@@ -70,9 +74,12 @@ std::string				CubeTree::getChildNames( void ) const {
 }
 
 std::ostream &		operator<<( std::ostream & o, CubeTree const & rhs ) {
+	int		i = -1;
 
 	o << "<---CUBETREE PRINTER---->" << std::endl;
-	o << "father: " << rhs.getFatherName() << std::endl;
-	o << "childs" << rhs.getChildNames() << std::endl;
+	o << "father : " << rhs.getFatherName() << std::endl;
+	o << "childs : " << rhs.getChildNames() << std::endl;
+	while (++i < rhs.getNbChild())
+		o << rhs.childTree[i];
 	return o;
 }

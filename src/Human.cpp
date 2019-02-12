@@ -50,12 +50,12 @@ Human::Human( void ) : _keyEvent(0), _name("default"), _pos(0, 0, 2), _rad(0)
 
 Human::Human( std::string name ) : _keyEvent(0), _name(name), _pos(0, 0, 2), _rad(0),
 		_chest("chest", Vec3("yellow"), Vec3(0.0), 0.0, Vec3(0), Vec3(0), Vec3(0.2, 0.4, 0.1), 0.0, Vec3(0)),
-		_bag("bag", Vec3("brown"), Vec3(0, 0, 0.75), 0.0, Vec3(0), Vec3(0), Vec3(0.9, 1, 0.4), 0.0, Vec3(0)),
-		_head("head", Vec3("skin"), Vec3(0.0, 0.66, 0.0) , 0.0, Vec3(0), Vec3(0), Vec3(0.7, 0.3, 0.8), 0.0, Vec3(0)),
-		_capInf("capInf", Vec3("darkRed"), Vec3(0.0, 0.58, -0.4) , 0.0, Vec3(0), Vec3(0), Vec3(1, 0.15, 1.8), 0.0, Vec3(0)),
-		_capSup("capSup", Vec3("darkRed"), Vec3(0.0, 1.5, 0.2) , 0.0, Vec3(0), Vec3(0), Vec3(1, 2, 0.6), 0.0, Vec3(0)),
-		_upLArm("upLArm", Vec3(0.8), Vec3(-1, 0, 0.0) , 0.0, Vec3(0), Vec3(0, 0, 0), Vec3(0.3, 0.55, 0.6), 0.0, Vec3(0)),
-		_lowLArm("lowLArm", Vec3("darkPurple"), Vec3(0, -2, 0.0) , 0.0, Vec3(0), Vec3(0, 0, 0), Vec3(1, 1, 1), 0.0, Vec3(0)),
+		_bag("bag", Vec3("brown"), Vec3(0, 0, 0.075), 0.0, Vec3(0), Vec3(0), Vec3(0.18, 0.4, 0.04), 0.0, Vec3(0)),
+		_head("head", Vec3("skin"), Vec3(0.0, 0.264, 0.0) , 0.0, Vec3(0), Vec3(0), Vec3(0.14, 0.12, 0.08), 0.0, Vec3(0)),
+		_capInf("capInf", Vec3("darkRed"), Vec3(0.0, 0.0696, -0.032) , 0.0, Vec3(0), Vec3(0), Vec3(0.14, 0.018, 0.144), 0.0, Vec3(0)),
+		_capSup("capSup", Vec3("darkRed"), Vec3(0.0, 0.027, 0.0288) , 0.0, Vec3(0), Vec3(0), Vec3(0.14, 0.036, 0.0864), 0.0, Vec3(0)),
+		_upLArm("upLArm", Vec3(0.8), Vec3(-0.14, 0, 0.0) , 0.0, Vec3(0), Vec3(0, 0, 0), Vec3(0.06, 0.22, 0.06), 0.0, Vec3(0)),
+		_lowLArm("lowLArm", Vec3("darkPurple"), Vec3(0, -0.44, 0.0) , 0.0, Vec3(0), Vec3(0, 0, 0), Vec3(0.06, 0.22, 0.06), 0.0, Vec3(0)),
 		_upRArm("upRArm", Vec3("blue"), Vec3(0.2, 0.24, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.1, 0.22, 0.1), 0.0, Vec3(0)),
 		_lowRArm("lowRArm", Vec3("darkPurple"), Vec3(0.2, 0.005, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.125, 0.0), Vec3(0.1, 0.29, 0.1), 0.0, Vec3(0)),
 		_upLLeg("upLLeg", Vec3(0.3), Vec3(-0.1, -0.27, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.1, 0.22, 0.1), 0.0, Vec3(0)),
@@ -139,6 +139,7 @@ void					Human::moveNdraw( void ) {
 		}
 
 		_state.newState(_keyEvent);
+		std::cout << _state << std::endl;
 
 //	std::cout << _state << std::endl;
 

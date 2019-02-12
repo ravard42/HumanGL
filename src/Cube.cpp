@@ -102,7 +102,7 @@ Vec3				Cube::getInitRot( void ) const {
 
 void				Cube::move( HumanState * state ) {
 
-			_rad = state->getFrame() / (float)60 * M_PI * 2;
+			_rad = 0.1 * state->getFrame() / (float)60 * M_PI * 2;
 			_rot = Vec3("x");
 //		if (state && (!_name.compare("upLArm") || !_name.compare("upRArm")) || !_name.compare("lowRLeg")) {
 	//	}
@@ -111,16 +111,16 @@ void				Cube::move( HumanState * state ) {
 
 
 Mat4				Cube::draw( Mat4 stack ) const {
-
-		Vec3	col = _col;
+		Mat4		tmp;
+		Vec3		col = _col;
 		Cube::shad->setVec3("col", col);
 
 		stack	*= Mat4("Translation", _tr)
 						* Mat4("Rotation", _rad, _rot)\
-						* Mat4("Translation", _initTr)\
-						* Mat4("Scale", _sc)\
-						* Mat4("Rotation", _initRad, _initRot);
-		Cube::shad->setMat4("model", stack);
+						* Mat4("Translation", _initTr);
+		tmp = stack *  Mat4("Scale", _sc)\
+								* Mat4("Rotation", _initRad, _initRot);
+		Cube::shad->setMat4("model", tmp);
 
 		
 
