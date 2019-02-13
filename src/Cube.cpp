@@ -100,13 +100,10 @@ Vec3				Cube::getInitRot( void ) const {
 //}
 ////
 
-void				Cube::move( HumanState * state ) {
+void				Cube::move( float rad, Vec3 rot ) {
 
-			_rad = 0.1 * state->getFrame() / (float)60 * M_PI * 2;
-			_rot = Vec3("x");
-//		if (state && (!_name.compare("upLArm") || !_name.compare("upRArm")) || !_name.compare("lowRLeg")) {
-	//	}
-
+			_rad = rad;
+			_rot = rot;
 }
 
 

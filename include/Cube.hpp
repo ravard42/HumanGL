@@ -50,7 +50,7 @@ public:
 //	void						setTr( Vec3 tr );
 //	void						setSc( Vec3 sc );
 
-	void			move( HumanState * state);
+	void			move( float rad, Vec3 rot );
 	Mat4			draw( Mat4 stack ) const;
 };
 

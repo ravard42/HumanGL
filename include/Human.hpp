@@ -19,10 +19,13 @@
 
 # define HUMAN_NB_KEY 7
 
+typedef float (*fptr)(short frame);
 
 class Human {
 
 private:
+	static fptr const		_radFunc[2][2];
+	static Vec3 const		_rotFunc[2][2];
 	static short const	_keyEntry[];
 	char								_keyEvent;
 
@@ -37,12 +40,12 @@ private:
 	Cube					_capInf;
 	Cube					_capSup;
 	Cube					_upLArm;
-	Cube					_lowLArm;
 	Cube					_upRArm;
+	Cube					_lowLArm;
 	Cube					_lowRArm;
 	Cube					_upLLeg;
-	Cube					_lowLLeg;
 	Cube					_upRLeg;
+	Cube					_lowLLeg;
 	Cube					_lowRLeg;
 
 	CubeTree	 *	_tree;
@@ -65,7 +68,7 @@ public:
 	void				setKeyEvent( int key );
 	void				unsetKeyEvent( int key );
 	Mat4				setView( void );
-	void				moveNdraw( void );
+	void				move_and_draw( void );
 
 	void				printTree( void );
 };

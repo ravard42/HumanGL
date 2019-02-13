@@ -8,17 +8,19 @@
 //# include "Cube.hpp"
 
 //# define FPS										30
-# define CYCLE_FRAME_NB						300
+# define CYCLE_FRAME_NB						120
 
-# define UNMOVING 0
-#	define WALK			1
+
+# define UNMOVING -1
+#	define WALK			0
+#	define RUN			1
 
 class HumanState {
 
 private:
 	short		_frame;
-	short		_prevState;
-	short		_state;
+	char		_prevState;
+	char		_state;
 
 public:
 
@@ -30,6 +32,7 @@ public:
 
 
 	short	getFrame( void ) const;	
+	char	getState( void ) const;	
 
 	void	newState( char keyEvent );
 };

@@ -1,12 +1,5 @@
 ﻿#include "Human.hpp"
 
-//
-//		_tree[0] = &_head;
-//		_tree[1] = &_lArm;
-//		_tree[2] = &_rArm;
-//		_tree[3] = &_lLeg;
-//		_tree[4] = &_rLeg;
-
 void			Human::_resetTab( void ) {
 	int			i =	 -1;
 
@@ -54,14 +47,14 @@ Human::Human( std::string name ) : _keyEvent(0), _name(name), _pos(0, 0, 2), _ra
 		_head("head", Vec3("skin"), Vec3(0.0, 0.264, 0.0) , 0.0, Vec3(0), Vec3(0), Vec3(0.14, 0.12, 0.08), 0.0, Vec3(0)),
 		_capInf("capInf", Vec3("darkRed"), Vec3(0.0, 0.0696, -0.032) , 0.0, Vec3(0), Vec3(0), Vec3(0.14, 0.018, 0.144), 0.0, Vec3(0)),
 		_capSup("capSup", Vec3("darkRed"), Vec3(0.0, 0.027, 0.0288) , 0.0, Vec3(0), Vec3(0), Vec3(0.14, 0.036, 0.0864), 0.0, Vec3(0)),
-		_upLArm("upLArm", Vec3(0.8), Vec3(-0.14, 0, 0.0) , 0.0, Vec3(0), Vec3(0, 0, 0), Vec3(0.06, 0.22, 0.06), 0.0, Vec3(0)),
-		_lowLArm("lowLArm", Vec3("darkPurple"), Vec3(0, -0.44, 0.0) , 0.0, Vec3(0), Vec3(0, 0, 0), Vec3(0.06, 0.22, 0.06), 0.0, Vec3(0)),
-		_upRArm("upRArm", Vec3("blue"), Vec3(0.2, 0.24, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.1, 0.22, 0.1), 0.0, Vec3(0)),
-		_lowRArm("lowRArm", Vec3("darkPurple"), Vec3(0.2, 0.005, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.125, 0.0), Vec3(0.1, 0.29, 0.1), 0.0, Vec3(0)),
+		_upLArm("upLArm", Vec3("darkPurple"), Vec3(-0.145, 0.18, 0.0) , 0.0, Vec3(0), Vec3(0, -0.1, 0), Vec3(0.08, 0.22, 0.08), 0.0, Vec3(0)),
+		_upRArm("upRArm", Vec3("darkPurple"), Vec3(0.145, 0.18, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.08, 0.22, 0.08), 0.0, Vec3(0)),
+		_lowLArm("lowLArm", Vec3("skin"), Vec3(0, -0.12, 0.0) , 0.0, Vec3(0), Vec3(0, -0.1, 0), Vec3(0.08, 0.22, 0.08), 0.0, Vec3(0)),
+		_lowRArm("lowRArm", Vec3("skin"), Vec3(0, -0.12, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.08, 0.22, 0.08), 0.0, Vec3(0)),
 		_upLLeg("upLLeg", Vec3(0.3), Vec3(-0.1, -0.27, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.1, 0.22, 0.1), 0.0, Vec3(0)),
-		_lowLLeg("lowLLeg", Vec3("orange"), Vec3(-0.1, -0.51, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.125, 0.0), Vec3(0.1, 0.29, 0.1), 0.0, Vec3(0)),
 		_upRLeg("upRLeg", Vec3(0.3), Vec3(0.1, -0.27, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.1, 0.22, 0.1), 0.0, Vec3(0)),
-		_lowRLeg("lowRLeg", Vec3("orange"), Vec3(0.1, -0.51, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.125, 0.0), Vec3(0.1, 0.29, 0.1), 0.0, Vec3(0)) {
+		_lowLLeg("lowLLeg", Vec3("orange"), Vec3(-0.1, -0.51, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.125, 0.0), Vec3(0.1, 0.29, 0.1), 0.0, Vec3(0)),
+		_lowRLeg("lowRLeg", Vec3("orange"), Vec3(0.1, -0.51, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.1, 0.29, 0.1), 0.0, Vec3(0)) {
 		_initCubeTree();
 		std::cout << "Human " << _name << " join the party!" << std::endl;
 }
@@ -130,7 +123,7 @@ void			Human::_newPos( void ) {
 	_pos[2] += dmouv * speed * cos(_rad);
 }
 
-void					Human::moveNdraw( void ) {
+void					Human::move_and_draw( void ) {
 	Mat4		stack;
 
 		if (_keyEvent & (char)pow(2, 0)) {
@@ -139,14 +132,27 @@ void					Human::moveNdraw( void ) {
 		}
 
 		_state.newState(_keyEvent);
-		std::cout << _state << std::endl;
-
 //	std::cout << _state << std::endl;
 
-			_upLArm.move(&_state);
-//		_upRArm.move(&_state);
-//		_lowRArm.move(&_state);
-//		_chest.move(&_state);
+		_radFunc[0][0](0);
+		_radFunc[0][1](0);
+		_radFunc[1][0](0);
+		_radFunc[1][1](0);
+	
+		short		f = _state.getFrame();
+		char		s = _state.getState();
+
+		if (s != -1) {
+			_upLArm.move(_radFunc[(int)s][0](f), _rotFunc[(int)s][0]);
+			_upRArm.move(_radFunc[(int)s][1](f), _rotFunc[(int)s][0]);
+			_upLLeg.move(_radFunc[(int)s][1](f), _rotFunc[(int)s][0]);
+			_upRLeg.move(_radFunc[(int)s][0](f), _rotFunc[(int)s][0]);
+
+		}
+
+//	_upRArm.move(&_state);
+//	_lowRArm.move(&_state);
+//	_chest.move(&_state);
 	
 		stack = Mat4("Translation", _pos) * Mat4("Rotation", _rad, Vec3("y"));
 	//	stack = Mat4("Translation", _pos);
@@ -162,6 +168,43 @@ void					Human::printTree( void ) {
 }
 
 short const		Human::_keyEntry[] = {HUMAN_CAM, RIGHT, LEFT, BACK, FORWARD, TURBO, WALK_EVENT};
+
+
+float					inter(short inf, short sup, short frame) {
+		if (frame >= inf && frame <= sup)
+			return 1;
+		return 0;
+}
+
+float					walk_0( short f ) {
+	float		ret = inter(0, 30, f) * (float)f / 30 * M_PI / 6\
+ 								+ inter(31, 90, f) * (M_PI / 6 - ((float)f - 30) / 60 * M_PI / 3)\
+ 								+ inter(91, 120, f) * (-M_PI / 6 + ((float)f - 90) / 30 * M_PI / 6);
+	
+	return (ret);
+}
+
+float					walk_1( short f ) {
+	float		ret = inter(0, 30, f) * (float)f / 30 * M_PI / 6\
+ 								+ inter(31, 90, f) * (M_PI / 6 - ((float)f - 30) / 60 * M_PI / 3)\
+ 								+ inter(91, 120, f) * (-M_PI / 6 + ((float)f - 90) / 30 * M_PI / 6);
+	return (-ret);
+}
+
+float					run_0( short f ) {
+	(void)f;
+	std::cout << "run_0" << std::endl;
+	return 0.0;
+}
+
+float					run_1( short f ) {
+	(void)f;
+	std::cout << "run_1" << std::endl;
+	return 1.0;
+}
+
+fptr const		Human::_radFunc[2][2] = {{walk_0, walk_1},{run_0, run_1}};
+Vec3 const		Human::_rotFunc[2][2] = {{Vec3("x")}};
 
 //std::ostream &		operator<<( std::ostream & o, Human const & rhs ) {
 //

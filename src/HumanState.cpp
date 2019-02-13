@@ -1,7 +1,7 @@
 ﻿#include "HumanState.hpp"
 
 
-HumanState::HumanState( void ) : _frame(0), _prevState(0), _state(0) {
+HumanState::HumanState( void ) : _frame(0), _prevState(UNMOVING), _state(UNMOVING) {
 	std::cout << "HumanState default constructor called" << std::endl;
 }
 
@@ -29,6 +29,10 @@ HumanState::~HumanState( void ) {
 
 short							HumanState::getFrame( void ) const {
 	return _frame;
+}
+
+char							HumanState::getState( void ) const {
+	return _state;
 }
 
 void							HumanState::newState( char keyEvent ) {

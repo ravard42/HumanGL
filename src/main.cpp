@@ -74,7 +74,7 @@ int	main()
 		c2.draw(Mat4());
 		c3.draw(Mat4());
 		c4.draw(Mat4());
-		e.h->moveNdraw();
+		e.h->move_and_draw();
 
 
 		glfwSwapBuffers(e.w);
