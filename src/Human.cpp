@@ -15,6 +15,8 @@ void			Human::_initCubeTree( void ) {
 	_tab[3] = &_upRArm;
 	_tab[4] = &_upLLeg;
 	_tab[5] = &_upRLeg;	
+	_tab[6] = &_bandeSup;
+	_tab[7] = &_bandeInf;	
 	_tree = new CubeTree(&_chest, _tab);
 
 	_resetTab();
@@ -43,18 +45,20 @@ Human::Human( void ) : _keyEvent(0), _name("default"), _pos(0, 0, 2), _rad(0)
 
 Human::Human( std::string name ) : _keyEvent(0), _name(name), _pos(0, 0, 2), _rad(0),
 		_chest("chest", Vec3("yellow"), Vec3(0.0), 0.0, Vec3(0), Vec3(0), Vec3(0.2, 0.4, 0.1), 0.0, Vec3(0)),
-		_bag("bag", Vec3("brown"), Vec3(0, 0, 0.075), 0.0, Vec3(0), Vec3(0), Vec3(0.18, 0.4, 0.04), 0.0, Vec3(0)),
-		_head("head", Vec3("skin"), Vec3(0.0, 0.264, 0.0) , 0.0, Vec3(0), Vec3(0), Vec3(0.14, 0.12, 0.08), 0.0, Vec3(0)),
-		_capInf("capInf", Vec3("darkRed"), Vec3(0.0, 0.0696, -0.032) , 0.0, Vec3(0), Vec3(0), Vec3(0.14, 0.018, 0.144), 0.0, Vec3(0)),
+		_bandeSup("bandeSup", Vec3(0.5), Vec3(0.0, 0.02, 0), 0.0, Vec3(0), Vec3(0), Vec3(0.21, 0.04, 0.11), 0.0, Vec3(0)),
+		_bandeInf("bandeInf", Vec3(0.5), Vec3(0.0, -0.13, 0), 0.0, Vec3(0), Vec3(0), Vec3(0.21, 0.04, 0.11), 0.0, Vec3(0)),
+		_bag("bag", Vec3("brown"), Vec3(0, 0, 0.07), 0.0, Vec3(0), Vec3(0), Vec3(0.18, 0.4, 0.04), 0.0, Vec3(0)),
+		_head("head", Vec3("skin"), Vec3(0.0, 0.25, 0.0) , 0.0, Vec3(0), Vec3(0), Vec3(0.145, 0.12, 0.085), 0.0, Vec3(0)),
+		_capInf("capInf", Vec3("darkRed"), Vec3(0.0, 0.069, -0.029) , 0.0, Vec3(0), Vec3(0), Vec3(0.145, 0.018, 0.144), 0.0, Vec3(0)),
 		_capSup("capSup", Vec3("darkRed"), Vec3(0.0, 0.027, 0.0288) , 0.0, Vec3(0), Vec3(0), Vec3(0.14, 0.036, 0.0864), 0.0, Vec3(0)),
-		_upLArm("upLArm", Vec3("darkPurple"), Vec3(-0.145, 0.18, 0.0) , 0.0, Vec3(0), Vec3(0, -0.1, 0), Vec3(0.08, 0.22, 0.08), 0.0, Vec3(0)),
-		_upRArm("upRArm", Vec3("darkPurple"), Vec3(0.145, 0.18, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.08, 0.22, 0.08), 0.0, Vec3(0)),
-		_lowLArm("lowLArm", Vec3("skin"), Vec3(0, -0.12, 0.0) , 0.0, Vec3(0), Vec3(0, -0.1, 0), Vec3(0.08, 0.22, 0.08), 0.0, Vec3(0)),
-		_lowRArm("lowRArm", Vec3("skin"), Vec3(0, -0.12, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.08, 0.22, 0.08), 0.0, Vec3(0)),
-		_upLLeg("upLLeg", Vec3(0.3), Vec3(-0.1, -0.27, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.1, 0.22, 0.1), 0.0, Vec3(0)),
-		_upRLeg("upRLeg", Vec3(0.3), Vec3(0.1, -0.27, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.1, 0.22, 0.1), 0.0, Vec3(0)),
-		_lowLLeg("lowLLeg", Vec3("orange"), Vec3(-0.1, -0.51, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.125, 0.0), Vec3(0.1, 0.29, 0.1), 0.0, Vec3(0)),
-		_lowRLeg("lowRLeg", Vec3("orange"), Vec3(0.1, -0.51, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.1, 0.29, 0.1), 0.0, Vec3(0)) {
+		_upLArm("upLArm", Vec3("darkPurple"), Vec3(-0.138, 0.18, 0.0) , 0.0, Vec3(0), Vec3(0, -0.1, 0), Vec3(0.072, 0.22, 0.072), 0.0, Vec3(0)),
+		_upRArm("upRArm", Vec3("darkPurple"), Vec3(0.138, 0.18, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.072, 0.22, 0.072), 0.0, Vec3(0)),
+		_lowLArm("lowLArm", Vec3("skin"), Vec3(0, -0.12, 0.0) , 0.0, Vec3(0), Vec3(0, -0.1, 0), Vec3(0.072, 0.22, 0.072), 0.0, Vec3(0)),
+		_lowRArm("lowRArm", Vec3("skin"), Vec3(0, -0.12, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.072, 0.22, 0.072), 0.0, Vec3(0)),
+		_upLLeg("upLLeg", Vec3("blue jeanz"), Vec3(-0.05, -0.21, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.09, 0.22, 0.09), 0.0, Vec3(0)),
+		_upRLeg("upRLeg", Vec3("blue jeanz"), Vec3(0.05, -0.21, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.09, 0.22, 0.09), 0.0, Vec3(0)),
+		_lowLLeg("lowLLeg", Vec3("blue jeanz"), Vec3(0, -0.15, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.105, 0.0), Vec3(0.09, 0.29, 0.09), 0.0, Vec3(0)),
+		_lowRLeg("lowRLeg", Vec3("blue jeanz"), Vec3(0, -0.15, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.105, 0.0), Vec3(0.09, 0.29, 0.09), 0.0, Vec3(0)) {
 		_initCubeTree();
 		std::cout << "Human " << _name << " join the party!" << std::endl;
 }

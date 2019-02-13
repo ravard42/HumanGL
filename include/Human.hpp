@@ -35,6 +35,8 @@ private:
 	HumanState		_state;
 	
 	Cube					_chest;
+	Cube					_bandeSup;
+	Cube					_bandeInf;
 	Cube					_bag;
 	Cube					_head;
 	Cube					_capInf;

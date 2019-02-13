@@ -32,6 +32,11 @@ Vec3::Vec3( std::string str ) {
 		v[1] = 0;
 		v[2] = 1;
 	}
+	else if (!str.compare("blue jeanz")) {
+		v[0] = 0.20;
+		v[1] = 0.25;
+		v[2] = 0.42;
+	}
 	else if (!str.compare("magenta")) {
 //		std::cout << "Vec3 Z constructor called" << std::endl;
 		v[0] = 1;
