@@ -1,11 +1,11 @@
 ﻿#include "CubeTree.hpp"
 
 CubeTree::CubeTree( void ) : _nbChild(0), father(NULL), childTree(NULL) {
-	std::cout << "CubeTree default constructor called" << std::endl;
+//	std::cout << "CubeTree default constructor called" << std::endl;
 }
 
 CubeTree::CubeTree( Cube * f, Cube ** ch ) : _nbChild(0), father(f), childTree(NULL) {
-	std::cout << "CubeTree parametric constructor called" << std::endl;
+//	std::cout << "CubeTree parametric constructor called" << std::endl;
 	childAlloc(ch);
 }
 	
@@ -17,7 +17,7 @@ CubeTree::CubeTree( Cube * f, Cube ** ch ) : _nbChild(0), father(f), childTree(N
 CubeTree::~CubeTree( void ) {
 	if (childTree)
 		delete [] childTree;
-	std::cout << "CubeTree destructor called" << std::endl;
+//	std::cout << "CubeTree destructor called" << std::endl;
 }
 
 //CubeTree &    	CubeTree::operator=( CubeTree const & src) {

@@ -1,21 +1,21 @@
 # NOTE CONCERNANT LES REPETITIONS DES '#'
 # À Travers un exemple :
 #	ici on a 4 rubriques --> #### [0] pour la rubrique 0 de l'intro/défintions/axiomes ( >####< indique le nombre de rubrique total avec inclusion du 0)
-														# 1] pour la rubrique 1
-														#
-														## 2] pour la rubrique 2
-														##
-														### 3]  pour la rubrique 3
-														###
+				# 1] pour la rubrique 1
+				#
+				## 2] pour la rubrique 2
+				##
+				### 3]  pour la rubrique 3
+				###
 
 																					
 #### [0] Définitions & Construction:
 
-CC = /usr/bin/clang++
+CC = /usr/bin/g++
 RM = /bin/rm
 MAKE = /usr/bin/make
 MKDIR = /bin/mkdir
-TRASH = &>/dev/null
+TRASH = > /dev/null 2>&1
 
 NAME = HumanGL 
 
@@ -32,12 +32,14 @@ LIBGLFW3 =  $(LIBPATH)/glfw-3.2.1
 LIBGLAD =  $(LIBPATH)/glad
 
 DLGLFW3 = https://github.com/glfw/glfw/releases/download/3.2.1/glfw-3.2.1.zip
-DLGLAD = https://glad.dav1d.de/generated/tmps4yBeoglad/glad.zip
+DLGLAD = https://glad.dav1d.de/generated/tmpIJEEZDglad/glad.zip;
+
 
 FLAGS = -Wall -Wextra -Werror -ggdb -fsanitize=address
 #FLAGS = -Wall -Wextra -Werror
 INCL = -I $(LIBGLFW3)/include/GLFW -I $(LIBGLAD)/include -I $(INCLPATH) -I $(INCLMATHPATH)
-LIB = -L $(LIBGLFW3)/src -lglfw3 -framework AppKit -framework IOKit -framework CoreVideo
+LIB = -L $(LIBGLFW3)/src -lglfw3 -lX11 -lpthread -lXrandr -ldl -lXxf86vm -lXinerama -lXcursor
+#LIB = -L $(LIBGLFW3)/src -lglfw3 -framework AppKit -framework IOKit -framework CoreVideo
 
 
 Construction: GLFW&GLAD $(OBJPATH) $(OBJMATHPATH) $(NAME)
@@ -59,7 +61,8 @@ $(LIBGLFW3):
 	@cd $(LIBPATH) && wget $(DLGLFW3) $(TRASH) && unzip glfw-3.2.1.zip $(TRASH)
 	@echo "\033[32mOK\033[0m"
 	@echo "\033[37minstalling glfw3 [...] (hopefully few seconds)\033[0m"
-	@cd $(LIBGLFW3) && Cmake ./ $(TRASH) && make -j8 $(TRASH)
+	@cd $(LIBGLFW3) && cmake ./ $(TRASH) && make -j8 $(TRASH)
+	#@cd $(LIBGLFW3) && Cmake ./ $(TRASH) && make -j8 $(TRASH)
 	@echo "\033[32mOK\033[0m"
 
 $(LIBGLAD):

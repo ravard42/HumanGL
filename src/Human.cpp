@@ -40,7 +40,7 @@ void			Human::_initCubeTree( void ) {
 
 Human::Human( void ) : _keyEvent(0), _name("default"), _pos(0, 0, 2), _rad(0)
 	{
-	std::cout << "Human default constructor called" << std::endl;
+//	std::cout << "Human default constructor called" << std::endl;
 }
 
 Human::Human( std::string name ) : _keyEvent(0), _name(name), _pos(0, 0, 2), _rad(0),
@@ -60,7 +60,7 @@ Human::Human( std::string name ) : _keyEvent(0), _name(name), _pos(0, 0, 2), _ra
 		_lowLLeg("lowLLeg", Vec3("blue jeanz"), Vec3(0, -0.15, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.105, 0.0), Vec3(0.09, 0.29, 0.09), 0.0, Vec3(0)),
 		_lowRLeg("lowRLeg", Vec3("blue jeanz"), Vec3(0, -0.15, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.105, 0.0), Vec3(0.09, 0.29, 0.09), 0.0, Vec3(0)) {
 		_initCubeTree();
-		std::cout << "Human " << _name << " join the party!" << std::endl;
+//		std::cout << "Human " << _name << " join the party!" << std::endl;
 }
 	
 //Human::Human(Human const & src) {
@@ -71,7 +71,7 @@ Human::Human( std::string name ) : _keyEvent(0), _name(name), _pos(0, 0, 2), _ra
 Human::~Human( void ) {
 	if (_tree)
 		delete _tree;
-	std::cout << _name << " decided to leave the dance floor for now..." << std::endl;
+//	std::cout << _name << " decided to leave the dance floor for now..." << std::endl;
 }
 
 //Human &    	Human::operator=( Human const & src) {
@@ -140,8 +140,8 @@ void					Human::move_and_draw( void ) {
 
 		_radFunc[0][0](0);
 		_radFunc[0][1](0);
-		_radFunc[1][0](0);
-		_radFunc[1][1](0);
+	//	_radFunc[1][0](0);
+	//	_radFunc[1][1](0);
 	
 		short		f = _state.getFrame();
 		char		s = _state.getState();

@@ -6,13 +6,13 @@ GLuint			Cube::vao = 0;
 Shader	*		Cube::shad = NULL;
 
 Cube::Cube( void ) : _name("default"), _col(Vec3(1)) {
-	std::cout << "Cube default constructor called" << std::endl;
+//	std::cout << "Cube default constructor called" << std::endl;
 }
 
 Cube::Cube( std::string name, Vec3 col, Vec3 tr, float rad, Vec3 rot, Vec3 initTr, Vec3 sc, float initRad, Vec3 initRot ) :
 		_name(name), _col(col), _tr(tr), _rad(rad), _rot(rot), _initTr(initTr), _sc(sc), _initRad(initRad), _initRot(initRot) {
 
-	std::cout << "Cube parametric constructor called" << std::endl;
+//	std::cout << "Cube parametric constructor called" << std::endl;
 }
 	
 Cube::Cube(Cube const & src) {
@@ -21,7 +21,7 @@ Cube::Cube(Cube const & src) {
 }
 
 Cube::~Cube( void ) {
-	std::cout << "Cube destructor called" << std::endl;
+//	std::cout << "Cube destructor called" << std::endl;
 }
 
 Cube &    	Cube::operator=( Cube const & src) {
