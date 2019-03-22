@@ -38,8 +38,7 @@ Vec2 &    	Vec2::operator=( Vec2 const & src) {
 
 std::ostream &		operator<<( std::ostream & o, Vec2 const & rhs ) {
 
-	o << "<---VEC2 PRINTER---->" << std::endl;
-	o << "		|" << rhs.v[0] << std::endl;
-	o << "		|" << rhs.v[1] << std::endl;
+	o << "VEC2(" << rhs.v[0] <<
+		"," << rhs.v[1] << ")";
 	return o;
 }

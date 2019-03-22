@@ -156,9 +156,8 @@ Vec3	&		Vec3::normalize( void ) {
 
 std::ostream &		operator<<( std::ostream & o, Vec3 const & rhs ) {
 
-	o << "<---VEC3 PRINTER---->" << std::endl;
-	o << "		|" << rhs.v[0] << std::endl;
-	o << "		|" << rhs.v[1] << std::endl;
-	o << "		|" << rhs.v[2] << std::endl;
+	o << "VEC3(" << rhs.v[0] <<
+		"," << rhs.v[1] <<
+		"," << rhs.v[2] << ")";
 	return o;
 }

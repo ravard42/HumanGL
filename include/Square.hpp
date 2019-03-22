@@ -1,13 +1,12 @@
-﻿#ifndef CUBE_HPP
-# define CUBE_HPP
+#ifndef PLANE_HPP
+# define PLANE_HPP
 
 # include <iostream>
 # include <math.h>
 # include "Vec3.hpp"
 # include "Shader.hpp"
-# include "HumanState.hpp"
 
-class Cube {
+class Square {
 
 private:
 
@@ -28,11 +27,11 @@ public:
 	static GLuint 			vao_id;
 	static Shader 	*		shad;
 
-	Cube( void );
-	Cube( std::string name, Vec3 col, Vec3 tr, float rad, Vec3 rot, Vec3 initTr, Vec3 sc, float initRad, Vec3 initRot);
-	Cube(Cube const & src);
-	~Cube( void );
-	Cube &		operator=( Cube const & src);
+	Square( void );
+	Square( std::string name, Vec3 col, Vec3 tr, float rad, Vec3 rot, Vec3 initTr, Vec3 sc, float initRad, Vec3 initRot);
+	Square(Square const & src);
+	~Square( void );
+	Square &		operator=( Square const & src);
 
 	std::string				getName( void ) const;
 	Vec3						getCol( void ) const;
@@ -45,13 +44,12 @@ public:
 	float						getInitRad( void ) const;
 	Vec3						getInitRot( void ) const;
 
-
 	void						setAttr( std::string name, Vec3 col, Vec3 tr, float rad, Vec3 rot, Vec3 initTr, Vec3 sc, float initRad, Vec3 initRot);
 
-	void			move( float rad, Vec3 rot );
-	Mat4			draw( Mat4 stack ) const;
+	void						move( float rad, Vec3 rot );
+	Mat4						draw( Mat4 stack ) const;
 };
 
-std::ostream &		operator<<( std::ostream & o, Cube const & rhs );
+std::ostream &		operator<<( std::ostream & o, Square const & rhs );
 
 #endif

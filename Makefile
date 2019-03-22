@@ -32,7 +32,7 @@ LIBGLFW3 =  $(LIBPATH)/glfw-3.2.1
 LIBGLAD =  $(LIBPATH)/glad
 
 DLGLFW3 = https://github.com/glfw/glfw/releases/download/3.2.1/glfw-3.2.1.zip
-DLGLAD = https://glad.dav1d.de/generated/tmpIJEEZDglad/glad.zip;
+DLGLAD = https://glad.dav1d.de/generated/tmpckq85Jglad/glad.zip
 
 
 FLAGS = -Wall -Wextra -Werror -ggdb -fsanitize=address
@@ -52,24 +52,24 @@ Construction: GLFW&GLAD $(OBJPATH) $(OBJMATHPATH) $(NAME)
 GLFW&GLAD: $(LIBPATH) $(LIBGLFW3) $(LIBGLAD)
 
 $(LIBPATH):
-	@echo "\033[37mCreating ./lib directory\033[0m"
+	@echo -e "\033[37mCreating ./lib directory\033[0m"
 	@$(MKDIR) $(LIBPATH)
-	@echo "\033[32mOK\033[0m"
+	@echo -e "\033[32mOK\033[0m"
 
 $(LIBGLFW3):
-	@echo "\033[37mDownloading and extracting glfw3 sources [...]\033[0m"
+	@echo -e "\033[37mDownloading and extracting glfw3 sources [...]\033[0m"
 	@cd $(LIBPATH) && wget $(DLGLFW3) $(TRASH) && unzip glfw-3.2.1.zip $(TRASH)
-	@echo "\033[32mOK\033[0m"
-	@echo "\033[37minstalling glfw3 [...] (hopefully few seconds)\033[0m"
+	@echo -e "\033[32mOK\033[0m"
+	@echo -e "\033[37minstalling glfw3 [...] (hopefully few seconds)\033[0m"
 	@cd $(LIBGLFW3) && cmake ./ $(TRASH) && make -j8 $(TRASH)
 	#@cd $(LIBGLFW3) && Cmake ./ $(TRASH) && make -j8 $(TRASH)
-	@echo "\033[32mOK\033[0m"
+	@echo -e "\033[32mOK\033[0m"
 
 $(LIBGLAD):
 	@$(MKDIR) $(LIBGLAD)
-	@echo "\033[37mdownloading and extracting glad sources [...]\033[0m"
+	@echo -e "\033[37mdownloading and extracting glad sources [...]\033[0m"
 	@cd $(LIBPATH) && wget $(DLGLAD) $(TRASH) && unzip -d $(LIBGLAD) glad.zip $(TRASH)
-	@echo "\033[32mOK\033[0m"
+	@echo -e "\033[32mOK\033[0m"
 	@mv $(LIBGLAD)/src/glad.c $(LIBGLAD)/src/glad.cpp
 #
 
@@ -77,11 +77,11 @@ $(LIBGLAD):
 ## 2] Compilation des sources en briques .obj suivi de la  compilation du binaire/executable
 
 $(OBJPATH):
-	@echo "\033[37mCreating ./obj directory and *.obj files [...]\033[0m"
+	@echo -e "\033[37mCreating ./obj directory and *.obj files [...]\033[0m"
 	@$(MKDIR) $@
 
 $(OBJMATHPATH):
-	@echo "\033[37mCreating ./obj/mathStuff directory and mathStuff/*.obj [...]\033[0m"
+	@echo -e "\033[37mCreating ./obj/mathStuff directory and mathStuff/*.obj [...]\033[0m"
 	@$(MKDIR) $@
 
 ## 2.a]
@@ -106,6 +106,7 @@ SRC = main.cpp\
 		event.cpp\
 		Shader.cpp\
 		Camera.cpp\
+		Square.cpp\
 		Cube.cpp\
 		CubeTree.cpp\
 		Human.cpp\
@@ -116,29 +117,29 @@ $(OBJPATH)/%.opp: $(SRCPATH)/%.cpp
 
 ## 2.d]
 $(NAME): $(OBJGLAD) $(OBJ) $(OBJMATH)
-	@echo "\033[32mOK\033[0m"
-	@echo "\033[37mBuilding $@ [...]\033[0m"
+	@echo -e "\033[32mOK\033[0m"
+	@echo -e "\033[37mBuilding $@ [...]\033[0m"
 	@$(CC) -o $(NAME) $(OBJGLAD) $(OBJMATH) $(OBJ) $(FLAGS) $(INCL) $(LIB)
-	@echo "\033[36mConstruction OKKK!\033[0m"
+	@echo -e "\033[36mConstruction OKKK!\033[0m"
 
 ##
 
 ### 3] Un peu de rangement
 
 clean:
-	@echo "\033[37mDeleting ./obj directory\033[0m"
+	@echo -e "\033[37mDeleting ./obj directory\033[0m"
 	@$(RM) -rf $(OBJPATH)
-	@echo "\033[32mOK\033[0m"
+	@echo -e "\033[32mOK\033[0m"
 
 cleanLibs:
-	@echo "\033[37mDeleting ./lib directory\033[0m"
+	@echo -e "\033[37mDeleting ./lib directory\033[0m"
 	@$(RM) -rf $(LIBPATH)
-	@echo "\033[32mOK\033[0m"
+	@echo -e "\033[32mOK\033[0m"
 
 fclean: clean cleanLibs
-	@echo "\033[37mDeleting HumanGL binary\033[0m"
+	@echo -e "\033[37mDeleting HumanGL binary\033[0m"
 	@$(RM) -f $(NAME)
-	@echo "\033[32mOK\033[0m"
+	@echo -e "\033[32mOK\033[0m"
 
 re: fclean Construction
 ###

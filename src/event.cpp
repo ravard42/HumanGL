@@ -5,12 +5,12 @@ static void			key_press(GLFWwindow *window, int key, t_env *e) {
 	if (key == GLFW_KEY_ESCAPE)
 		glfwSetWindowShouldClose(window, GLFW_TRUE);
 	e->cam.setKeyEvent(key);
-	e->h->setKeyEvent(key);
+	e->h.setKeyEvent(key);
 }
 
 static void			key_release(int key, t_env *e) {
 	e->cam.unsetKeyEvent(key);
-	e->h->unsetKeyEvent(key);
+	e->h.unsetKeyEvent(key);
 }
 
 static void			my_key_callback(GLFWwindow *window, int key,

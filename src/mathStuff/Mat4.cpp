@@ -50,11 +50,9 @@ Mat4::Mat4(Mat4 const  & src) {
 	*this = src;
 }
 
-
 Mat4::~Mat4( void ) {
 //	std::cout << "Mat4 destructor called" << std::endl;
 }
-
 
 Mat4 &    	Mat4::operator=( Mat4 const &  src) {
 	int	j = -1;
@@ -77,7 +75,6 @@ Vec4	&		Mat4::operator[]( int j )
 	else
 		return this->m[j];
 }
-
 
 Mat4     	Mat4::operator+( Mat4 const & src) const {
 	Mat4	ret("Zero");
@@ -126,7 +123,6 @@ Mat4     	Mat4::operator*( float k ) const {
 	}
 	return (ret);
 }
-
 
 Mat4 &		Mat4::zero( void ) {
 	int	j = -1;
@@ -221,15 +217,16 @@ std::ostream &		operator<<( std::ostream & o, Mat4 const & rhs ) {
 	int	i = -1;
 	int	j;
 
-	o << "<---MAT4 PRINTER---->" << std::endl;
+	o << "<-----MAT4 PRINTER----->" << std::endl;
 	while (++i < 4) {
 		o << "|";
 		j = -1;
 		while (++j < 4) {
-			std::cout << std::setw(10);
+			std::cout << std::setw(6);
 			o << rhs.m[j].v[i] << "|";
 		}
 		o << std::endl;
 	}
+	o << "<---------------------->";
 	return o;
 }

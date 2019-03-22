@@ -77,10 +77,9 @@ Vec4	&		Vec4::normalize( void ) {
 };
 
 std::ostream &		operator<<( std::ostream & o, Vec4 const & rhs ) {
-	o << "<---VEC4 PRINTER---->" << std::endl;
-	o << "    |" << rhs.v[0] << std::endl;
-	o << "    |" << rhs.v[1] << std::endl;
-	o << "    |" << rhs.v[2] << std::endl;
-	o << "    |" << rhs.v[3] << std::endl;
+	o << "VEC4(" << rhs.v[0] <<
+		"," << rhs.v[1] <<
+		"," << rhs.v[2] <<
+		"," << rhs.v[3] << ")";
 	return o;
 }

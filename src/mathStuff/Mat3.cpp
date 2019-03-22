@@ -185,20 +185,20 @@ Mat3 			Mat3::transpose( void ) {
 	return ret;
 }
 
-
 std::ostream &		operator<<( std::ostream & o, Mat3 const & rhs ) {
 	int	i = -1;
 	int	j;
 
-	o << "<---MAT4 PRINTER---->" << std::endl;
+	o << "<---MAT3 PRINTER---->" << std::endl;
 	while (++i < 3) {
 		o << "|";
 		j = -1;
 		while (++j < 3) {
-			std::cout << std::setw(10);
+			std::cout << std::setw(6);
 			o << rhs.m[j].v[i] << "|";
 		}
 		o << std::endl;
 	}
+	o << "<------------------->";
 	return o;
 }
