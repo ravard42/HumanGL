@@ -32,7 +32,7 @@ LIBGLFW3 =  $(LIBPATH)/glfw-3.2.1
 LIBGLAD =  $(LIBPATH)/glad
 
 DLGLFW3 = https://github.com/glfw/glfw/releases/download/3.2.1/glfw-3.2.1.zip
-DLGLAD = https://glad.dav1d.de/generated/tmpckq85Jglad/glad.zip
+DLGLAD = https://glad.dav1d.de/generated/tmplbqGVNglad/glad.zip
 
 
 FLAGS = -Wall -Wextra -Werror -ggdb -fsanitize=address
@@ -110,7 +110,7 @@ SRC = main.cpp\
 		Cube.cpp\
 		CubeTree.cpp\
 		Human.cpp\
-		HumanState.cpp
+
 OBJ = $(patsubst %.cpp, $(OBJPATH)/%.opp, $(SRC)) 
 $(OBJPATH)/%.opp: $(SRCPATH)/%.cpp
 	@$(CC) -c $< -o $@ $(FLAGS) $(INCL)

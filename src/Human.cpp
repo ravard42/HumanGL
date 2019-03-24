@@ -38,12 +38,12 @@ void			Human::_initCubeTree( void ) {
 	
 
 
-Human::Human( void ) : _keyEvent(0), _name("default"), _pos(0, 0, 2), _rad(0)
+Human::Human( void ) : _p_keyEvent(0), _pr_keyEvent(0), _name("default"), _pos(0, 0, 2), _rad(0), _state{}
 	{
 //	std::cout << "Human default constructor called" << std::endl;
 }
 
-Human::Human( std::string name ) : _keyEvent(0), _name(name), _pos(0, 0, 2), _rad(0),
+Human::Human( std::string name ) : _p_keyEvent(0), _pr_keyEvent(0), _name(name), _pos(0, 0, 0), _rad(0), _state{},
 		_chest("chest", Vec3("yellow"), Vec3(0.0), 0.0, Vec3(0), Vec3(0), Vec3(0.2, 0.4, 0.1), 0.0, Vec3(0)),
 		_bandeSup("bandeSup", Vec3(0.5), Vec3(0.0, 0.02, 0), 0.0, Vec3(0), Vec3(0), Vec3(0.21, 0.04, 0.11), 0.0, Vec3(0)),
 		_bandeInf("bandeInf", Vec3(0.5), Vec3(0.0, -0.13, 0), 0.0, Vec3(0), Vec3(0), Vec3(0.21, 0.04, 0.11), 0.0, Vec3(0)),
@@ -53,8 +53,8 @@ Human::Human( std::string name ) : _keyEvent(0), _name(name), _pos(0, 0, 2), _ra
 		_capSup("capSup", Vec3("darkRed"), Vec3(0.0, 0.027, 0.0288) , 0.0, Vec3(0), Vec3(0), Vec3(0.14, 0.036, 0.0864), 0.0, Vec3(0)),
 		_upLArm("upLArm", Vec3("darkPurple"), Vec3(-0.138, 0.18, 0.0) , 0.0, Vec3(0), Vec3(0, -0.1, 0), Vec3(0.072, 0.22, 0.072), 0.0, Vec3(0)),
 		_upRArm("upRArm", Vec3("darkPurple"), Vec3(0.138, 0.18, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.072, 0.22, 0.072), 0.0, Vec3(0)),
-		_lowLArm("lowLArm", Vec3("skin"), Vec3(0, -0.12, 0.0) , 0.0, Vec3(0), Vec3(0, -0.1, 0), Vec3(0.072, 0.22, 0.072), 0.0, Vec3(0)),
-		_lowRArm("lowRArm", Vec3("skin"), Vec3(0, -0.12, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.072, 0.22, 0.072), 0.0, Vec3(0)),
+		_lowLArm("lowLArm", Vec3("skin"), Vec3(0, -0.12, 0.0) , 0.0, Vec3(0), Vec3(0, -0.1, 0), Vec3(0.071, 0.22, 0.071), 0.0, Vec3(0)),
+		_lowRArm("lowRArm", Vec3("skin"), Vec3(0, -0.12, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.071, 0.22, 0.071), 0.0, Vec3(0)),
 		_upLLeg("upLLeg", Vec3("blue jeanz"), Vec3(-0.05, -0.21, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.09, 0.22, 0.09), 0.0, Vec3(0)),
 		_upRLeg("upRLeg", Vec3("blue jeanz"), Vec3(0.05, -0.21, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.09, 0.22, 0.09), 0.0, Vec3(0)),
 		_lowLLeg("lowLLeg", Vec3("blue jeanz"), Vec3(0, -0.15, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.105, 0.0), Vec3(0.09, 0.29, 0.09), 0.0, Vec3(0)),
@@ -81,26 +81,29 @@ Human::~Human( void ) {
 //
 
 
-char						Human::getKeyEvent( void ) const {
-	return _keyEvent;
+char						Human::get_p_keyEvent( void ) const {
+	return _p_keyEvent;
+}
+
+char						Human::get_pr_keyEvent( void ) const {
+	return _pr_keyEvent;
 }
 
 void					Human::setKeyEvent( int key ) {
-	int		i = 0;
 
-	if (key == Human::_keyEntry[0])
-			_keyEvent = (_keyEvent & (char)pow(2, 0)) ? _keyEvent & ~(char)pow(2, 0) : _keyEvent | (char)pow(2, 0);
-	while (++i < HUMAN_NB_KEY) 
-		if (key == Human::_keyEntry[i])
-			_keyEvent |= (char)pow(2, i);
+	if (key == Human::_p_keyEntry[0])
+			_p_keyEvent = (_p_keyEvent & (char)pow(2, 0)) ? _p_keyEvent & ~(char)pow(2, 0) : _p_keyEvent | (char)pow(2, 0);
+	if (_p_keyEvent & 1 && key == Human::_p_keyEntry[1])
+			_p_keyEvent = (_p_keyEvent & (char)pow(2, 1)) ? _p_keyEvent : _p_keyEvent | (char)pow(2, 1);
+	for (int i = 0; i < PR_KEY_NB; i++)
+		if (key == Human::_pr_keyEntry[i])
+			_pr_keyEvent |= (char)pow(2, i);
 }
 
 void			Human::unsetKeyEvent( int key ) {
-	int		i = 0;
-
-	while (++i < HUMAN_NB_KEY)
-		if (key == Human::_keyEntry[i])
-			this->_keyEvent &= ~(char)pow(2, i);
+	for (int i = 0; i < PR_KEY_NB; i++)
+		if (key == Human::_pr_keyEntry[i])
+			_pr_keyEvent &= ~(char)pow(2, i);
 }
 
 
@@ -113,102 +116,152 @@ Mat4			Human::setView( void ) {
 }
 
 void			Human::_newRot( void ) {
-	float		drad = ((bool)(this->_keyEvent & 2) - (bool)(this->_keyEvent & 4));
+	float		drad = ((bool)(_pr_keyEvent & 1) - (bool)(_pr_keyEvent & 2));
 
-	_rad -= drad * 0.05;
+	_rad += drad * ROT_SPEED;
 }
 
-void			Human::_newPos( void ) {
-	float		dmouv = ((bool)(this->_keyEvent & 8) - (bool)(this->_keyEvent & 16));
-	float		speed = 0.05;
+void			Human::_newPos(float save_dmouv, float save_rad) {
+	float		dmouv = ((bool)(this->_pr_keyEvent & 4) - (bool)(this->_pr_keyEvent & 8));
+	float		rad = _rad;
 
-	speed = (this->_keyEvent & 32) ? 3 * speed : speed;
-	_pos[0] += dmouv * speed * sin(_rad);
-	_pos[2] += dmouv * speed * cos(_rad);
+	dmouv = (_pr_keyEvent & 16) ? 3 * WALK_SPEED * dmouv : WALK_SPEED * dmouv;
+
+	if (save_dmouv != -1) {
+		dmouv = save_dmouv;
+		rad = save_rad;
+	}
+	_pos[0] -= dmouv * sin(rad);
+	_pos[2] -= dmouv * cos(rad);
+	_pos[0] = (fabs(_pos[0]) > 25.0) ? 25.0 * _pos[0] / fabs(_pos[0]) : _pos[0];
+	_pos[2] = (fabs(_pos[2]) > 25.0) ? 25.0 * _pos[2] / fabs(_pos[2]) : _pos[2];
 }
 
 void					Human::move_and_draw( void ) {
-	Mat4		stack;
+		static float save_dmouv = -1;
+		static float save_rad = -1;
 
-		if (_keyEvent & (char)pow(2, 0)) {
+		printKeyEvents();
+
+
+		if (_p_keyEvent & 1) {
+			if (_state[0] != JUMP && _p_keyEvent & 2) {
+				_state[1] = JUMP;
+				_fbf = 0;
+				save_dmouv = ((bool)(this->_pr_keyEvent & 4) - (bool)(this->_pr_keyEvent & 8));
+				save_dmouv = (_pr_keyEvent & 16) ? 3 * WALK_SPEED * save_dmouv : WALK_SPEED * save_dmouv;
+				save_rad = _rad;
+			}
+			else if (_p_keyEvent & 2) {
+				_fbf += 2;
+				if (_fbf >= NFAS) {
+					_p_keyEvent &= ~2;
+					_state[1] = _state[0] = _fbf = UNMOVING;
+					save_dmouv = -1;
+				}
+			}
+			if ( _state[1] != JUMP && (_pr_keyEvent & (char)pow(2, 2) || _pr_keyEvent & (char)pow(2,3))) {
+				_state[1] = (_pr_keyEvent & (char)pow(2, 4)) ? RUN : WALK;
+				_fbf = (_fbf + _state[1]) % NFAS;
+			}
+		//	else
+		//		_state[1] = _state[0] = _fbf = UNMOVING;
+		//	_fbf = (_state[1] != UNMOVING && _state[1] == _state[0]) ? (_fbf + 1) % NFAS : 0;
+			_state[0] = _state[1];
+		}
+	//	else
+	//		_state[1] = _state[0] = _fbf = UNMOVING;
+
+		if (_state[1] == WALK || _state[1] == RUN) {
+			float radChest = (_state[1] == 2) ? -M_PI / 10 : 0;
+			_chest.move( radChest, Vec3("x"));
+			_upLArm.move(_anim_func[0](_fbf, M_PI / 6 * _state[1], 0), Vec3("x"));
+			_upRArm.move(-1 * _anim_func[0](_fbf, M_PI / 6 * _state[1], 0), Vec3("x"));
+			_upLLeg.move(-1 * _anim_func[0](_fbf, M_PI / 6 * _state[1], 0), Vec3("x"));
+			_upRLeg.move(_anim_func[0](_fbf, M_PI / 6 * _state[1], 0), Vec3("x"));
+			_lowLArm.move(_anim_func[1](_fbf, M_PI / 6 * _state[1], 0), Vec3("x"));
+			_lowRArm.move(_anim_func[1](_fbf, M_PI / 6 * _state[1], 1), Vec3("x"));
+			_lowLLeg.move(_anim_func[1](_fbf, -M_PI / 6 * _state[1], 2), Vec3("x"));
+			_lowRLeg.move(_anim_func[1](_fbf, -M_PI / 6 * _state[1], 3), Vec3("x"));
+		}
+		
+		if (_p_keyEvent & 1)	{
 			_newRot();
-			_newPos();
+			_newPos(save_dmouv, save_rad);
+			if (_state[1] == JUMP) {
+				_chest.move( _fbf / 100.0 * (4 * M_PI), Vec3(1.0, 0.0, 0.0).normalize());
+				_pos[1] = 99 * JUMP_LVL * _fbf - JUMP_LVL * pow(_fbf, 2);
+			}
 		}
 
-		_state.newState(_keyEvent);
-//	std::cout << _state << std::endl;
-
-		_radFunc[0][0](0);
-		_radFunc[0][1](0);
-	//	_radFunc[1][0](0);
-	//	_radFunc[1][1](0);
-	
-		short		f = _state.getFrame();
-		char		s = _state.getState();
-
-		if (s != -1) {
-			_upLArm.move(_radFunc[(int)s][0](f), _rotFunc[(int)s][0]);
-			_upRArm.move(_radFunc[(int)s][1](f), _rotFunc[(int)s][0]);
-			_upLLeg.move(_radFunc[(int)s][1](f), _rotFunc[(int)s][0]);
-			_upRLeg.move(_radFunc[(int)s][0](f), _rotFunc[(int)s][0]);
-
-		}
-
-//	_upRArm.move(&_state);
-//	_lowRArm.move(&_state);
-//	_chest.move(&_state);
-	
-		stack = Mat4("Translation", _pos) * Mat4("Rotation", _rad, Vec3("y"));
-	//	stack = Mat4("Translation", _pos);
-	//	stack = Mat4("Rotation", _rad, Vec3("y"));
+		Mat4		stack = Mat4("Translation", _pos) * Mat4("Rotation", _rad, Vec3("y"));
 
 		_tree->draw(stack);
 }
+		
+void					Human::printKeyEvents( void ) {
+		std::cout << "PRESS KEY EVENTS" << std::endl;
+		for(int i = 0; i < 8; i++)
+			std::cout << (bool)(_p_keyEvent & (char)pow(2, i));
+		std::cout << std::endl;
+		std::cout << "PRESS & RELEASE KEY EVENTS" << std::endl;
+		for(int i = 0; i < 8; i++)
+			std::cout << (bool)(_pr_keyEvent & (char)pow(2, i));
+		std::cout << std::endl << std::endl;
+}
 	
 void					Human::printTree( void ) {
-
 		std::cout << *_tree << std::endl;	
-
 }
 
-short const		Human::_keyEntry[] = {HUMAN_CAM, RIGHT, LEFT, BACK, FORWARD, TURBO, WALK_EVENT};
 
 
-float					inter(short inf, short sup, short frame) {
-		if (frame >= inf && frame <= sup)
+float				inter(unsigned char inf, unsigned char sup, unsigned char frame) {
+		if (frame >= inf && frame < sup)
 			return 1;
 		return 0;
 }
 
-float					walk_0( short f ) {
-	float		ret = inter(0, 30, f) * (float)f / 30 * M_PI / 6\
- 								+ inter(31, 90, f) * (M_PI / 6 - ((float)f - 30) / 60 * M_PI / 3)\
- 								+ inter(91, 120, f) * (-M_PI / 6 + ((float)f - 90) / 30 * M_PI / 6);
-	
+// anim_0 <=> avant arriere arriere avant (0->lim, lim->0, 0->-lim, -lim->0)
+float				anim_0( unsigned char f, float lim, char param ) {
+	unsigned char	seq = NFAS / 4;
+	unsigned char 	seq_f = f % seq;
+	float ratio = (float)seq_f / seq;
+	float		ret = inter(0, seq, f) * ratio * lim\
+ 						+ inter(seq, 2*seq, f) * lim * (1 - ratio)\
+ 						+ inter(2*seq, 3*seq, f) * (-lim) * ratio
+ 						+ inter(3*seq, 4*seq, f) * lim * (ratio - 1);
+	(void)param;
 	return (ret);
 }
 
-float					walk_1( short f ) {
-	float		ret = inter(0, 30, f) * (float)f / 30 * M_PI / 6\
- 								+ inter(31, 90, f) * (M_PI / 6 - ((float)f - 30) / 60 * M_PI / 3)\
- 								+ inter(91, 120, f) * (-M_PI / 6 + ((float)f - 90) / 30 * M_PI / 6);
-	return (-ret);
+
+// anim_1 <=> avant arriere
+float				anim_1( unsigned char f, float lim, char param) {
+
+	unsigned char	seq = NFAS / 4;
+	unsigned char 	seq_f = f % seq;
+	float ratio = (float)seq_f / seq;
+	float		ret;
+
+	if (param == 0)
+		ret = inter(0, seq, f) * lim * ratio\
+ 				+ inter(seq, 2*seq, f) * lim * (1 - ratio);
+	else if (param == 1)
+				ret =  inter(2*seq, 3*seq, f) * lim * ratio\
+ 				+ inter(3*seq, 4*seq, f) * lim * (1 - ratio);
+	else if (param == 2)
+		ret = inter(seq, 2*seq, f) * lim * ratio\
+ 				+ inter(2*seq, 3*seq, f) * lim * (1 - ratio);
+	else if(param == 3)
+		ret = inter(0, seq, f) * lim * (1 - ratio)\
+ 				+ inter(3*seq, 4*seq, f) * lim * ratio;
+	return (ret);
 }
 
-float					run_0( short f ) {
-	(void)f;
-	std::cout << "run_0" << std::endl;
-	return 0.0;
-}
-
-float					run_1( short f ) {
-	(void)f;
-	std::cout << "run_1" << std::endl;
-	return 1.0;
-}
-
-fptr const		Human::_radFunc[2][2] = {{walk_0, walk_1},{run_0, run_1}};
-Vec3 const		Human::_rotFunc[2][2] = {{Vec3("x")}};
+fptr const		Human::_anim_func[2] = {anim_0, anim_1};
+short const		Human::_p_keyEntry[] = {HUMAN_CAM, JUMP_KEY};
+short const		Human::_pr_keyEntry[] = {LEFT, RIGHT, FORWARD, BACKWARD, TURBO};
 
 //std::ostream &		operator<<( std::ostream & o, Human const & rhs ) {
 //

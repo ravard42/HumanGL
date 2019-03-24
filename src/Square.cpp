@@ -103,7 +103,7 @@ Mat4				Square::draw( Mat4 stack ) const {
 		Square::shad->setMat4("model", tmp);
 
 		glBindVertexArray(Square::vao_id);
-		glDrawArrays(GL_TRIANGLES, 0, 3 * 12);
+		glDrawArrays(GL_TRIANGLES, 0, 3 * 2);
 		glBindVertexArray(0);
 
 		return stack;

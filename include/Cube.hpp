@@ -5,7 +5,6 @@
 # include <math.h>
 # include "Vec3.hpp"
 # include "Shader.hpp"
-# include "HumanState.hpp"
 
 class Cube {
 

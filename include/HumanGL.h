@@ -12,11 +12,10 @@
 # define WINX 500
 # define WINY 500
 
-
 # define SQUARE_DATA_NB 18
 # define	ENV_SQUARE_NB 1
 # define CUBE_DATA_NB 108
-# define	ENV_CUBE_NB 7
+# define	ENV_CUBE_NB 5
 
 # include "Vec3.hpp"
 # include "Vec4.hpp"
@@ -27,7 +26,6 @@
 # include "Cube.hpp"
 # include "CubeTree.hpp"
 # include "Human.hpp"
-# include "HumanState.hpp"
 
 typedef struct		s_env {
 
