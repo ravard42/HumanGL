@@ -50,6 +50,8 @@ private:
 	float				_rad;
 	int				_state[2];
 	unsigned char	_fbf; //frame-by-frame (animation)
+	CubeTree	 	*	_tree;
+	Cube			*	_tab[10];	
 	
 	Cube				_chest;
 	Cube				_bandeSup;
@@ -67,13 +69,12 @@ private:
 	Cube				_lowLLeg;
 	Cube				_lowRLeg;
 
-	CubeTree	 	*	_tree;
-	Cube			*	_tab[10];	
-
 	void				_resetTab( void );	
 	void				_initCubeTree( void );
 	void				_newRot( void );
 	void				_newPos( float save_dmouv = -1, float save_rad = 0.0);
+	void				_state_update( float * save_dmouv, float * save_rad );
+	void				_animate( void );
 
 public:
 
@@ -88,7 +89,7 @@ public:
 	void				setKeyEvent( int key );
 	void				unsetKeyEvent( int key );
 	Mat4				setView( void );
-	void				move_and_draw( void );
+	void				draw( void );
 
 	void				printKeyEvents( void );
 	void				printTree( void );

@@ -12,22 +12,17 @@ private:
 	int					_nbChild;
 
 public:
-	Cube			*	father;
-	CubeTree	* childTree;
+	Cube					*	father;
+	CubeTree				* childTree;
 
 	CubeTree( void );
-	//CubeTree(Cube * father, int childNumber );
 	CubeTree(Cube * father, Cube ** childs );
-//	CubeTree(CubeTree const & src);
 	~CubeTree( void );
-//	CubeTree &		operator=( CubeTree const & src);
-	//Cube  &		operator[]( int i );
 
-	void		childAlloc( Cube ** ch );
+	void				childAlloc( Cube ** ch );
+	void				draw(Mat4 stack);
 
-	void		draw(Mat4 stack);
-
-	int						getNbChild( void ) const;
+	int				getNbChild( void ) const;
 	std::string		getFatherName( void ) const;
 	std::string		getChildNames( void ) const;
 

@@ -94,13 +94,19 @@ Mat4				Cube::draw( Mat4 stack ) const {
 		Vec3		col = _col;
 		
 		Cube::shad->setVec3("col", col);
+/*		stack	*= Mat4("Translation", _tr)
+//					* Mat4("Rotation", _rad, _rot)\
+//					* Mat4("Translation", _initTr)\
+//					* Mat4("Scale", _sc)
+//					* Mat4("Rotation", _initRad, _initRot);
+		Cube::shad->setMat4("model", stack);*/
 		stack	*= Mat4("Translation", _tr)
 					* Mat4("Rotation", _rad, _rot)\
 					* Mat4("Translation", _initTr);
 		tmp = stack * Mat4("Scale", _sc)\
 						* Mat4("Rotation", _initRad, _initRot);
 		Cube::shad->setMat4("model", tmp);
-
+	
 		glBindVertexArray(Cube::vao_id);
 		glDrawArrays(GL_TRIANGLES, 0, 3 * 12);
 		glBindVertexArray(0);

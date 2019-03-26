@@ -58,7 +58,7 @@ void			draw_all(t_env *e) {
 			e->s[i].draw(Mat4());
 		for (int i=0; i < ENV_CUBE_NB; ++i)
 			e->c[i].draw(Mat4());
-		e->h.move_and_draw();
+		e->h.draw();
 
 		glfwSwapBuffers(e->w);
 }
@@ -68,7 +68,7 @@ int	main()
 	GLFWwindow	*w;
 	if (!(w = init_OpenGL()))
 		return (-1);
-	t_env		e = {w, Camera(), Shader("./shader/object/v.glsl", "./shader/object/f.glsl"), Human("ravard"), NULL, NULL};
+	t_env		e = {w, Camera(), Shader("./shader/v.glsl", "./shader/f.glsl"), Human("ravard"), NULL, NULL};
 	glfwSetWindowUserPointer(e.w, &e);
 	set_callback(&e);
 
@@ -82,7 +82,8 @@ int	main()
 	set_env_square(&e);
 	set_env_cube(&e);
 
-	//e.h.printTree();
+	e.h.printTree();
+
 	while(!glfwWindowShouldClose(e.w)) {
 		draw_all(&e);
 		glfwPollEvents();
