@@ -29,7 +29,7 @@ static void		init_vao_vbo(GLuint *vao, GLuint *vbo) {
 static void		set_env_square(t_env *e) {
 	e->s = new Square[ENV_SQUARE_NB];
 
-	e->s[0].setAttr("ground", Vec3("darkgreen"), Vec3(0.0, -0.72, 0.0), 0.0, Vec3(0), Vec3(0), Vec3(50), 0.0, Vec3(0));
+	e->s[0].setAttr("ground", Vec3("darkgreen"), Vec3(0.0), 0.0, Vec3(0), Vec3(0), Vec3(50), 0.0, Vec3(0));
 
 	std::cout << e->s[0] << std::endl;
 }
@@ -42,7 +42,9 @@ static void		set_env_cube(t_env *e) {
 	e->c[1].setAttr("Cube2", Vec3(1.0),	Vec3(0.0, 7.0, -40.0), M_PI / 2, Vec3("z"), Vec3(0), Vec3(0.4, 1.0, 0.1), M_PI / 4, Vec3("z"));
 	e->c[2].setAttr("Cube3", Vec3(1.0), Vec3(0.0, 7.0, -40.0), M_PI / 4, Vec3("z"), Vec3(0), Vec3(0.4, 1.0, 0.099), M_PI / 4, Vec3("z"));
 	e->c[3].setAttr("Cube4", Vec3(1.0), Vec3(0.0, 7.0, -40.0), -M_PI / 4, Vec3("z"), Vec3(0), Vec3(0.4, 1.0, 0.099), M_PI / 4, Vec3("z"));
-	e->c[4].setAttr("ref", Vec3(0.3), Vec3(0.0, -0.21, -1), 0.0, Vec3("z"), Vec3(0), Vec3(1, 1, 1), 0, Vec3("z"));
+	//e->c[4].setAttr("ref", Vec3(0.3), Vec3(0.0, -0.21, -1), 0.0, Vec3("z"), Vec3(0), Vec3(1, 1, 1), 0, Vec3("z"));
+	e->c[4].setAttr("ref", Vec3(0.3), Vec3(0.0, 0.5, -1), 0.0, Vec3("z"), Vec3(0), Vec3(1), 0, Vec3("z"));
+	e->c[5].setAttr("ref2", Vec3(0.3), Vec3(0.0, 0.5, -1), 0.0, Vec3("z"), Vec3(0), Vec3(1), 0, Vec3("z"));
 
 }
 
@@ -84,9 +86,13 @@ int	main()
 
 	e.h.printTree();
 
+	float		t[2] = {0.0};
 	while(!glfwWindowShouldClose(e.w)) {
+		if ((t[1] = glfwGetTime() - t[0]) > 1 / 60.0) {
 		draw_all(&e);
 		glfwPollEvents();
+		t[0] = glfwGetTime();
+		}
 	}
 	delete [] e.s;
 	delete [] e.c;

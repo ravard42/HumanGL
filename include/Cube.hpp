@@ -5,6 +5,7 @@
 # include <math.h>
 # include "Vec3.hpp"
 # include "Shader.hpp"
+# include "glfw3.h"
 
 class Cube {
 

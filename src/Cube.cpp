@@ -100,12 +100,34 @@ Mat4				Cube::draw( Mat4 stack ) const {
 //					* Mat4("Scale", _sc)
 //					* Mat4("Rotation", _initRad, _initRot);
 		Cube::shad->setMat4("model", stack);*/
-		stack	*= Mat4("Translation", _tr)
-					* Mat4("Rotation", _rad, _rot)\
-					* Mat4("Translation", _initTr);
-		tmp = stack * Mat4("Scale", _sc)\
-						* Mat4("Rotation", _initRad, _initRot);
-		Cube::shad->setMat4("model", tmp);
+		if (!_name.compare("ref")) {
+			col = Vec3("red");
+			Cube::shad->setVec3("col", col);
+			stack *= Mat4()
+					* Mat4("Translation", Vec3(0.0, 2.5, 0.0))
+					* Mat4("Rotation", glfwGetTime(), Vec3("y"))
+					* Mat4("Scale", 2)
+					* Mat4();
+			Cube::shad->setMat4("model", stack);
+		}
+		else if (!_name.compare("ref2")) {
+			col = Vec3("blue");
+			Cube::shad->setVec3("col", col);
+			stack *= Mat4()
+					* Mat4("Rotation", glfwGetTime(), Vec3("y"))
+					* Mat4("Scale", 2)
+					* Mat4("Translation", Vec3(1.0, 2.5, 0.0))
+					* Mat4();
+			Cube::shad->setMat4("model", stack);
+		}
+		else {
+			stack	*= Mat4("Translation", _tr)
+						* Mat4("Rotation", _rad, _rot)\
+						* Mat4("Translation", _initTr);
+			tmp = stack * Mat4("Scale", _sc)\
+							* Mat4("Rotation", _initRad, _initRot);
+			Cube::shad->setMat4("model", tmp);
+		}
 	
 		glBindVertexArray(Cube::vao_id);
 		glDrawArrays(GL_TRIANGLES, 0, 3 * 12);

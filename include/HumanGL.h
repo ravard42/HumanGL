@@ -15,7 +15,7 @@
 # define SQUARE_DATA_NB 18
 # define	ENV_SQUARE_NB 1
 # define CUBE_DATA_NB 108
-# define	ENV_CUBE_NB 5
+# define	ENV_CUBE_NB 6
 
 # include "Vec3.hpp"
 # include "Vec4.hpp"

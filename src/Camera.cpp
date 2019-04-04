@@ -2,7 +2,7 @@
 
 Camera::Camera( void ) : _keyEvent(0), _speed(SPEED), _firstMouse(true), _fov(45.0f) {
 	std::cout << "Camera default constructor called" << std::endl;
-	this->_pos = Vec3(0.0f, 0.0f, 5.0f);	
+	this->_pos = Vec3(0.0f, 0.72f, 5.0f);	
 }
 
 Camera::~Camera( void ) {

@@ -43,15 +43,15 @@ Human::Human( void ) : _p_keyEvent(0), _pr_keyEvent(0), _name("default"), _pos(0
 	{
 }
 
-Human::Human( std::string name ) : _p_keyEvent(0), _pr_keyEvent(0), _name(name), _pos(0, 0, 0), _rad(0), _state{}, _fbf(0), _tree(NULL), _tab{},_chest("chest", Vec3("yellow"), Vec3(0.0), 0.0, Vec3(0), Vec3(0), Vec3(0.2, 0.4, 0.1), 0.0, Vec3(0)),
+Human::Human( std::string name ) : _p_keyEvent(0), _pr_keyEvent(0), _name(name), _pos(0, 0.72, 0), _rad(0), _state{}, _fbf(0), _tree(NULL), _tab{},_chest("chest", Vec3("yellow"), Vec3(0.0), 0.0, Vec3(0), Vec3(0), Vec3(0.2, 0.4, 0.1), 0.0, Vec3(0)),
 	_bandeSup("bandeSup", Vec3(0.5), Vec3(0.0, 0.02, 0), 0.0, Vec3(0), Vec3(0), Vec3(0.21, 0.04, 0.11), 0.0, Vec3(0)),
 	_bandeInf("bandeInf", Vec3(0.5), Vec3(0.0, -0.13, 0), 0.0, Vec3(0), Vec3(0), Vec3(0.21, 0.04, 0.11), 0.0, Vec3(0)),
 	_bag("bag", Vec3("brown"), Vec3(0, 0, 0.07), 0.0, Vec3(0), Vec3(0), Vec3(0.18, 0.4, 0.04), 0.0, Vec3(0)),
 	_head("head", Vec3("skin"), Vec3(0.0, 0.25, 0.0) , 0.0, Vec3(0), Vec3(0), Vec3(0.145, 0.12, 0.085), 0.0, Vec3(0)),
 	_capInf("capInf", Vec3("darkRed"), Vec3(0.0, 0.069, -0.029) , 0.0, Vec3(0), Vec3(0), Vec3(0.145, 0.018, 0.144), 0.0, Vec3(0)),
 	_capSup("capSup", Vec3("darkRed"), Vec3(0.0, 0.027, 0.0288) , 0.0, Vec3(0), Vec3(0), Vec3(0.14, 0.036, 0.0864), 0.0, Vec3(0)),
-	_upLArm("upLArm", Vec3("darkPurple"), Vec3(-0.138, 0.18, 0.0) , 0.0, Vec3(0), Vec3(0, -0.1, 0), Vec3(0.072, 0.22, 0.072), 0.0, Vec3(0)),
-	_upRArm("upRArm", Vec3("darkPurple"), Vec3(0.138, 0.18, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.072, 0.22, 0.072), 0.0, Vec3(0)),
+	_upLArm("upLArm", Vec3("darkPurple"), Vec3(-0.138, 0.19, 0.0) , 0.0, Vec3(0), Vec3(0, -0.1, 0), Vec3(0.072, 0.22, 0.072), 0.0, Vec3(0)),
+	_upRArm("upRArm", Vec3("darkPurple"), Vec3(0.138, 0.19, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.072, 0.22, 0.072), 0.0, Vec3(0)),
 	_lowLArm("lowLArm", Vec3("skin"), Vec3(0, -0.12, 0.0) , 0.0, Vec3(0), Vec3(0, -0.1, 0), Vec3(0.071, 0.22, 0.071), 0.0, Vec3(0)),
 	_lowRArm("lowRArm", Vec3("skin"), Vec3(0, -0.12, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.071, 0.22, 0.071), 0.0, Vec3(0)),
 	_upLLeg("upLLeg", Vec3("blue jeanz"), Vec3(-0.05, -0.21, 0.0) , 0.0, Vec3(0), Vec3(0.0, -0.1, 0.0), Vec3(0.09, 0.22, 0.09), 0.0, Vec3(0)),
@@ -152,7 +152,7 @@ void					Human::_state_update( float * save_dmouv, float * save_rad ) {
 void					Human::_animate( void ) {
 	if (_state[1] == JUMP) {
 		_chest.move( _fbf / 98.0 * (4 * M_PI), Vec3(1.0, 0.0, 0.0).normalize());
-		_pos[1] = 99 * JUMP_LVL * _fbf - JUMP_LVL * pow(_fbf, 2);
+		_pos[1] = 99 * JUMP_LVL * _fbf - JUMP_LVL * pow(_fbf, 2) + 0.72;
 	}
 	else {
 		float radChest = (_state[1] == 2) ? -M_PI / 10 : 0;
@@ -181,7 +181,7 @@ void					Human::draw( void ) {
 			_newPos(save_dmouv, save_rad);
 		}
 
-		Mat4		stack = Mat4("Translation", _pos) * Mat4("Rotation", _rad, Vec3("y"));
+		Mat4		stack = Mat4("Translation", _pos) * Mat4("Rotation", _rad, Vec3("y")) * Mat4("Scale", 1);
 		_tree->draw(stack);
 }
 		
