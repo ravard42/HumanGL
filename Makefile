@@ -32,10 +32,16 @@ LIBGLFW3 =  $(LIBPATH)/glfw-3.2.1
 LIBGLAD =  $(LIBPATH)/glad
 
 DLGLFW3 = https://github.com/glfw/glfw/releases/download/3.2.1/glfw-3.2.1.zip
-DLGLAD = https://glad.dav1d.de/generated/tmpLd_CJDglad/glad.zip
+# DLGLAD link need to be refresh regularly
+# 1] go to the webservice https://glad.dav1d.de/
+# 2] set API_gl : 4.1 and Profile : Core
+# 3] click on Generate
+# 4] right click on glad.zip + copy link address
+# 5] refresh DLGLAD with it
+DLGLAD = https://glad.dav1d.de/generated/tmpOf7MIAglad/glad.zip
 
 
-FLAGS = -Wall -Wextra -Werror -ggdb -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 #FLAGS = -Wall -Wextra -Werror
 INCL = -I $(LIBGLFW3)/include/GLFW -I $(LIBGLAD)/include -I $(INCLPATH) -I $(INCLMATHPATH)
 LIB = -L $(LIBGLFW3)/src -lglfw3 -lX11 -lpthread -lXrandr -ldl -lXxf86vm -lXinerama -lXcursor
